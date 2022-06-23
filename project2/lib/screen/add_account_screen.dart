@@ -90,7 +90,7 @@ class AddAccountScreen extends StatelessWidget {
                 style: raisedButtonStyle,
                 onPressed: () {
                   Provider.of<AccountData>(context, listen: false)
-                      .addAccount(Account(name: inputName, money: inputMoney));
+                      .addAccount(inputName, inputMoney);
 
                   Navigator.pop(context);
                 },

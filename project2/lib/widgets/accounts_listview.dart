@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:provider/provider.dart';
 
@@ -10,16 +11,15 @@ class AccountsListView extends StatelessWidget {
     return Consumer<AccountData>(builder: ((context, accountData, child) {
       return ListView.builder(
         itemBuilder: (context, index) {
-          final accounts = accountData.accounts[index];
-          for (var accountsMoney in accounts.money as dynamic) {
-            print(accountsMoney);
-          }
+          final accountsName = accountData.accountsName[index];
+          final accountsMoney = accountData.accountsMoney[index];
+
           return AccountsListTile(
-            amount: accounts.money,
-            nameTitle: accounts.name,
+            amount: accountsMoney,
+            nameTitle: accountsName,
           );
         },
-        itemCount: accountData.accounts.length,
+        itemCount: accountData.accountsName.length,
       );
     }));
   }
