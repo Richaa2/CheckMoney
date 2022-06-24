@@ -5,6 +5,7 @@ import 'package:project2/models/account_data.dart';
 import 'package:project2/widgets/accounts_listview.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/showModalBottomSheetMetod.dart';
 import 'add_account_screen.dart';
 
 class MainPage extends StatefulWidget {
@@ -15,8 +16,24 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
+    var sum = Provider.of<AccountData>(context).sumOfAccounts();
     return Scaffold(
       appBar: AppBar(
+          title: Column(
+            children: [
+              Text(
+                'All account',
+                style: TextStyle(fontSize: 15),
+              ),
+              Text(
+                '\$$sum',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              )
+            ],
+          ),
+          centerTitle: true,
           backgroundColor: Colors.blueGrey,
           leading: IconButton(
             icon: Icon(Icons.menu),
@@ -26,17 +43,7 @@ class _MainPageState extends State<MainPage> {
             IconButton(
               icon: Icon(Icons.add),
               onPressed: () {
-                showModalBottomSheet(
-                    isScrollControlled: true,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(20),
-                            topLeft: Radius.circular(20))),
-                    context: context,
-                    builder: (context) => SingleChildScrollView(
-                        padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom),
-                        child: AddAccountScreen()));
+                showModalBottomSheetMetod(context, AddAccountScreen());
               },
             ),
           ]),
@@ -55,7 +62,7 @@ class _MainPageState extends State<MainPage> {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '10000 \$',
+                  '${sum} ',
                   style: TextStyle(
                       color: Colors.green,
                       fontSize: 20,

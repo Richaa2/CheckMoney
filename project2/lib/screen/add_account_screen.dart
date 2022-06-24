@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
@@ -12,7 +13,7 @@ class AddAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String inputName = 'without name';
-    String inputMoney = '0';
+    int inputMoney = 0;
 
     return Container(
       child: Padding(
@@ -33,18 +34,6 @@ class AddAccountScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.only(left: 20),
-                //       child: Text(
-                //         'Name',
-                //       ),
-                //     ),
-                //     Text('Amount')
-                //   ],
-                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -54,7 +43,6 @@ class AddAccountScreen extends StatelessWidget {
                         children: [
                           Text('Name'),
                           TextField(
-                            style: TextStyle(),
                             onChanged: (nameText) {
                               inputName = nameText;
                             },
@@ -69,10 +57,12 @@ class AddAccountScreen extends StatelessWidget {
                         children: [
                           Text('Amount'),
                           TextField(
-                            // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                            // keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            keyboardType: TextInputType.number,
                             onChanged: (moneyAm) {
-                              inputMoney = moneyAm;
+                              inputMoney = int.parse(moneyAm);
                             },
                             textAlign: TextAlign.center,
                           ),
