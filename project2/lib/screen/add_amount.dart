@@ -28,8 +28,8 @@ class AddAmount extends StatelessWidget {
           ElevatedButton(
               style: raisedButtonStyle,
               onPressed: () {
-                Provider.of<AccountData>(context, listen: false)
-                    .addAmount(inputAmount, index);
+                // Provider.of<AccountData>(context, listen: false)
+                //     .addAmount(, index);
                 print(Provider.of<AccountData>(context, listen: false)
                     .accountsMoney[index]);
 

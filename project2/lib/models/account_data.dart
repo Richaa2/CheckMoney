@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:project2/models/account.dart';
 
@@ -10,23 +12,37 @@ class AccountData extends ChangeNotifier {
     // Account(name: 'Cash', money: '50'),
   ];
 
-  List<int> accountsMoney = [100, 2500];
+  List<AccountMoney> accountsMoney = [
+    AccountMoney(money: 100),
+    AccountMoney(money: 2000),
+  ];
 
   int? sumOfAccounts() {
     int sum = 0;
     for (int i = 0; i < accountsMoney.length.toInt(); i++) {
-      sum += accountsMoney[i];
+      sum += accountsMoney[i].money;
     }
     return sum;
   }
 
-  void addAmount(int amount, int index) {
-    accountsMoney[index] + amount;
-    print(accountsMoney[index]);
+  // int addAmount(int amount, int index) {
+  //   int el = accountsMoney.elementAt(index);
+  //   int sum = el += amount;
+  //   return sum;
+  // }
+
+  // int? addAmount(int amount, int main, int index) {
+  //   int sum = amount + main;
+  //   notifyListeners();
+  //   return sum;
+  // }
+
+  void addAmountonscreen(int amount, AccountMoney accountMoney) {
+    accountMoney.addAmount(amount);
     notifyListeners();
   }
 
-  void addAccount(String accountName, int accountsMoneyy) {
+  void addAccount(String accountName, AccountMoney accountsMoneyy) {
     accountsName.add(accountName);
     accountsMoney.add(accountsMoneyy);
     notifyListeners();

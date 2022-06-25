@@ -18,6 +18,9 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     var sum = Provider.of<AccountData>(context).sumOfAccounts();
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+      ),
       appBar: AppBar(
           title: Column(
             children: [

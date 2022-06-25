@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project2/models/account.dart';
 import 'package:provider/provider.dart';
 
 class AccountsListTile extends StatelessWidget {
@@ -18,7 +19,7 @@ class AccountsListTile extends StatelessWidget {
           onTap: onTap,
           leading: Icon(Icons.money),
           title: Text('$nameTitle'),
-          subtitle: Text('$amount\$'),
+          subtitle: Text('${amount}\$'),
         );
       },
     );

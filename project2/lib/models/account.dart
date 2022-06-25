@@ -16,7 +16,11 @@ class AccountName {
 }
 
 class AccountMoney {
-  String money;
+  int money;
 
   AccountMoney({required this.money});
+
+  void addAmount(int amount) {
+    money = money + amount;
+  }
 }

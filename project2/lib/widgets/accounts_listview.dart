@@ -14,17 +14,30 @@ class AccountsListView extends StatelessWidget {
       return ListView.separated(
         itemBuilder: (context, index) {
           final accountsName = accountData.accountsName[index];
-          final accountsMoney = accountData.accountsMoney[index];
+          final accountssMoney = accountData.accountsMoney[index];
 
           return AccountsListTile(
-            amount: accountsMoney,
+            amount: accountssMoney.money,
             nameTitle: accountsName,
             onTap: () {
-              showModalBottomSheetMetod(
-                  context,
-                  ControlAccountScreen(
-                    index: index,
-                  ));
+              // Provider.of<AccountData>(context, listen: false).addAmount(
+              //     Provider.of<AccountData>(context, listen: false)
+              //         .accountsMoney
+              //         .elementAt(index),
+              //     100,
+              //     index);
+              // Provider.of<AccountData>(context, listen: false)
+              //     .addAmount(inputAmount, index);
+
+              accountData.addAmountonscreen(100, accountssMoney);
+
+              print(accountssMoney.money);
+
+              // showModalBottomSheetMetod(
+              //     context,
+              //     ControlAccountScreen(
+              //       index: index,
+              //     ));
             },
           );
         },
