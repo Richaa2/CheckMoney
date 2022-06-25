@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:provider/provider.dart';
 
-import 'add_account_screen.dart';
+import '../screen/add_account_screen.dart';
 
 class AddAmount extends StatelessWidget {
   int inputAmount = 0;

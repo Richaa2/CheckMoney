@@ -2,11 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:project2/widgets/showModalBottomSheetMetod.dart';
+import 'package:project2/control_amount/min_account.dart';
 import 'package:provider/provider.dart';
 
+import 'package:project2/screen/add_account_screen.dart';
+import 'package:project2/widgets/showModalBottomSheetMetod.dart';
+
+import '../control_amount/add_amount.dart';
+import '../control_amount/control_amount.dart';
 import '../models/account_data.dart';
-import 'add_amount.dart';
+import '../widgets/ink_controll_button.dart';
 
 class ControlAccountScreen extends StatelessWidget {
   ControlAccountScreen({Key? key, required this.index}) : super(key: key);
@@ -19,38 +24,36 @@ class ControlAccountScreen extends StatelessWidget {
         child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Ink(
-                  decoration: ShapeDecoration(
-                    color: Color.fromARGB(97, 76, 175, 79),
-                    shape: CircleBorder(),
+                InkControllButton(
+                  index: index,
+                  color: Colors.green,
+                  icon: Icons.add,
+                  screen: AddAmount(
+                    index: index,
                   ),
-                  child: IconButton(
-                      color: Colors.green,
-                      hoverColor: Colors.green,
-                      onPressed: () {
-                        showModalBottomSheetMetod(
-                            context,
-                            AddAmount(
-                              index: index,
-                            ));
-                      },
-                      icon: Icon(
-                        Icons.add,
-                        color: Colors.green,
-                      )),
-                )
+                ),
+                InkControllButton(
+                  index: index,
+                  color: Colors.red,
+                  icon: Icons.remove,
+                  screen: MinAmount(
+                    index: index,
+                  ),
+                ),
+                InkControllButton(
+                  index: index,
+                  color: Colors.yellow,
+                  icon: Icons.edit,
+                  screen: AddAmount(
+                    index: index,
+                  ),
+                ),
               ],
             ),
             Row(
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      print(Provider.of<AccountData>(context, listen: false)
-                          .accountsMoney[index]);
-                    },
-                    child: Text('Check'))
-              ],
+              children: [],
             )
           ],
         ),

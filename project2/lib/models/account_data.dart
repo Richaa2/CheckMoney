@@ -42,6 +42,11 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
+  void minAmountonscreen(int amount, AccountMoney accountMoney) {
+    accountMoney.minAmount(amount);
+    notifyListeners();
+  }
+
   void addAccount(String accountName, AccountMoney accountsMoneyy) {
     accountsName.add(accountName);
     accountsMoney.add(accountsMoneyy);
