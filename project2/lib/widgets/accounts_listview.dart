@@ -29,15 +29,15 @@ class AccountsListView extends StatelessWidget {
               // Provider.of<AccountData>(context, listen: false)
               //     .addAmount(inputAmount, index);
 
-              accountData.addAmountonscreen(100, accountssMoney);
+              // accountData.addAmountonscreen(100, accountssMoney);
 
               print(accountssMoney.money);
 
-              // showModalBottomSheetMetod(
-              //     context,
-              //     ControlAccountScreen(
-              //       index: index,
-              //     ));
+              showModalBottomSheetMetod(
+                  context,
+                  ControlAccountScreen(
+                    index: index,
+                  ));
             },
           );
         },

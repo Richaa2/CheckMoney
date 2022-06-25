@@ -7,8 +7,9 @@ import 'add_account_screen.dart';
 
 class AddAmount extends StatelessWidget {
   int inputAmount = 0;
-  AddAmount({Key? key, required this.index}) : super(key: key);
   int index;
+  AddAmount({Key? key, required this.index}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,10 +29,14 @@ class AddAmount extends StatelessWidget {
           ElevatedButton(
               style: raisedButtonStyle,
               onPressed: () {
-                // Provider.of<AccountData>(context, listen: false)
-                //     .addAmount(, index);
+                Provider.of<AccountData>(context, listen: false)
+                    .addAmountonscreen(
+                        inputAmount,
+                        Provider.of<AccountData>(context, listen: false)
+                            .accountsMoney[index]);
                 print(Provider.of<AccountData>(context, listen: false)
-                    .accountsMoney[index]);
+                    .accountsMoney[index]
+                    .money);
 
                 Navigator.pop(context);
               },
