@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project2/control_amount/edit_amount.dart';
 import 'package:project2/control_amount/min_account.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +47,7 @@ class ControlAccountScreen extends StatelessWidget {
                   index: index,
                   color: Colors.yellow,
                   icon: Icons.edit,
-                  screen: AddAmount(
+                  screen: EditAmount(
                     index: index,
                   ),
                 ),

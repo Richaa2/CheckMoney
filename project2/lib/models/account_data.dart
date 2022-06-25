@@ -37,13 +37,18 @@ class AccountData extends ChangeNotifier {
   //   return sum;
   // }
 
-  void addAmountonscreen(int amount, AccountMoney accountMoney) {
+  void addAmountOnScreen(int amount, AccountMoney accountMoney) {
     accountMoney.addAmount(amount);
     notifyListeners();
   }
 
-  void minAmountonscreen(int amount, AccountMoney accountMoney) {
+  void minAmountOnScreen(int amount, AccountMoney accountMoney) {
     accountMoney.minAmount(amount);
+    notifyListeners();
+  }
+
+  void editAmountOntScreen(int newAmount, AccountMoney accountMoney) {
+    accountMoney.editAmount(newAmount);
     notifyListeners();
   }
 

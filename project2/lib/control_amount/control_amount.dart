@@ -39,7 +39,7 @@ class ControlAmount extends StatelessWidget {
               style: raisedButtonStyle,
               onPressed: () {
                 Provider.of<AccountData>(context, listen: false)
-                    .addAmountonscreen(
+                    .addAmountOnScreen(
                         inputAmount,
                         Provider.of<AccountData>(context, listen: false)
                             .accountsMoney[index]);

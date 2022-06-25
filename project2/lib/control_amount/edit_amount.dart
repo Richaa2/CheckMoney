@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:project2/models/account_data.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
+import '../models/account_data.dart';
 import '../screen/add_account_screen.dart';
 
-class AddAmount extends StatelessWidget {
+class EditAmount extends StatelessWidget {
   int inputAmount = 0;
   int index;
-  AddAmount({Key? key, required this.index}) : super(key: key);
-
+  EditAmount({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,8 +21,12 @@ class AddAmount extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 30),
       child: Column(
         children: [
-          Text('Add amount'),
-          TextField(
+          Text('Edit amount'),
+          TextFormField(
+            initialValue: Provider.of<AccountData>(context, listen: false)
+                .accountsMoney[index]
+                .money
+                .toString(),
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
@@ -30,7 +38,7 @@ class AddAmount extends StatelessWidget {
               style: raisedButtonStyle,
               onPressed: () {
                 Provider.of<AccountData>(context, listen: false)
-                    .addAmountOnScreen(
+                    .editAmountOntScreen(
                         inputAmount,
                         Provider.of<AccountData>(context, listen: false)
                             .accountsMoney[index]);
@@ -40,7 +48,7 @@ class AddAmount extends StatelessWidget {
 
                 Navigator.pop(context);
               },
-              child: Text('Add'))
+              child: Text('Edit'))
         ],
       ),
     ));

@@ -34,7 +34,7 @@ class MinAmount extends StatelessWidget {
               style: raisedButtonStyle,
               onPressed: () {
                 Provider.of<AccountData>(context, listen: false)
-                    .minAmountonscreen(
+                    .minAmountOnScreen(
                         inputAmount,
                         Provider.of<AccountData>(context, listen: false)
                             .accountsMoney[index]);

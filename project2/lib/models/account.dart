@@ -27,4 +27,8 @@ class AccountMoney {
   void minAmount(int amount) {
     money = money - amount;
   }
+
+  void editAmount(int newAmount) {
+    money = newAmount;
+  }
 }
