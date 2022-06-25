@@ -31,4 +31,10 @@ class AccountMoney {
   void editAmount(int newAmount) {
     money = newAmount;
   }
+
+  void transferAmount(
+      AccountMoney accountMoney1, AccountMoney accountMoney2, int amount) {
+    accountMoney1.money = accountMoney1.money - amount;
+    accountMoney2.money = accountMoney2.money + amount;
+  }
 }

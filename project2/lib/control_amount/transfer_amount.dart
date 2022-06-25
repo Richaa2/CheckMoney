@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 import '../models/account_data.dart';
 import '../screen/add_account_screen.dart';
 
-class EditAmount extends StatelessWidget {
+class TransferAmount extends StatelessWidget {
   int inputAmount = 0;
   int index;
-  EditAmount({
+  TransferAmount({
     Key? key,
     required this.index,
   }) : super(key: key);
@@ -21,12 +21,8 @@ class EditAmount extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 30),
       child: Column(
         children: [
-          Text('Edit amount'),
-          TextFormField(
-            initialValue: Provider.of<AccountData>(context, listen: false)
-                .accountsMoney[index]
-                .money
-                .toString(),
+          Text('Transfer amount'),
+          TextField(
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
@@ -38,17 +34,19 @@ class EditAmount extends StatelessWidget {
               style: raisedButtonStyle,
               onPressed: () {
                 Provider.of<AccountData>(context, listen: false)
-                    .editAmountOnScreen(
+                    .transferAmountOnScreen(
                         inputAmount,
                         Provider.of<AccountData>(context, listen: false)
-                            .accountsMoney[index]);
+                            .accountsMoney[1],
+                        Provider.of<AccountData>(context, listen: false)
+                            .accountsMoney[0]);
                 print(Provider.of<AccountData>(context, listen: false)
                     .accountsMoney[index]
                     .money);
 
                 Navigator.pop(context);
               },
-              child: Text('Edit'))
+              child: Text('Trensfer'))
         ],
       ),
     ));
