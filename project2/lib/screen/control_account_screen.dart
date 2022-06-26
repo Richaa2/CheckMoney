@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:project2/control_amount/edit_amount.dart';
 import 'package:project2/control_amount/min_account.dart';
 import 'package:project2/control_amount/transfer_amount.dart';
+import 'package:project2/screen/select_account_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:project2/screen/add_account_screen.dart';
@@ -56,9 +57,7 @@ class ControlAccountScreen extends StatelessWidget {
                   index: index,
                   color: Colors.grey,
                   icon: Icons.arrow_forward,
-                  screen: TransferAmount(
-                    index: index,
-                  ),
+                  screen: SelectAccount(),
                 ),
               ],
             ),

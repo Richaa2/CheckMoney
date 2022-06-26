@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project2/control_amount/transfer_amount.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/screen/control_account_screen.dart';
@@ -7,7 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'accounts_list_tile.dart';
 
-class AccountsListView extends StatelessWidget {
+class AccountsListView2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AccountData>(builder: ((context, accountData, child) {
@@ -20,11 +21,22 @@ class AccountsListView extends StatelessWidget {
             amount: accountssMoney.money,
             nameTitle: accountsName,
             onTap: () {
+              // Provider.of<AccountData>(context, listen: false).addAmount(
+              //     Provider.of<AccountData>(context, listen: false)
+              //         .accountsMoney
+              //         .elementAt(index),
+              //     100,
+              //     index);
+              // Provider.of<AccountData>(context, listen: false)
+              //     .addAmount(inputAmount, index);
+
+              // accountData.addAmountonscreen(100, accountssMoney);
+
               print(accountssMoney.money);
 
               showModalBottomSheetMetod(
                   context,
-                  ControlAccountScreen(
+                  TransferAmount(
                     index: index,
                   ));
             },
