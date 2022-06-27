@@ -57,7 +57,9 @@ class ControlAccountScreen extends StatelessWidget {
                   index: index,
                   color: Colors.grey,
                   icon: Icons.arrow_forward,
-                  screen: SelectAccount(),
+                  screen: SelectAccount(
+                    index1: index,
+                  ),
                 ),
               ],
             ),

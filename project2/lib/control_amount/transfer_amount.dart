@@ -9,10 +9,12 @@ import '../screen/add_account_screen.dart';
 
 class TransferAmount extends StatelessWidget {
   int inputAmount = 0;
-  int index;
+  int index1;
+  int index2;
   TransferAmount({
     Key? key,
-    required this.index,
+    required this.index1,
+    required this.index2,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -37,11 +39,11 @@ class TransferAmount extends StatelessWidget {
                     .transferAmountOnScreen(
                         inputAmount,
                         Provider.of<AccountData>(context, listen: false)
-                            .accountsMoney[1],
+                            .accountsMoney[index1],
                         Provider.of<AccountData>(context, listen: false)
-                            .accountsMoney[0]);
+                            .accountsMoney[index2]);
                 print(Provider.of<AccountData>(context, listen: false)
-                    .accountsMoney[index]
+                    .accountsMoney[index1]
                     .money);
 
                 Navigator.pop(context);

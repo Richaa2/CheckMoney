@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/widgets/account_list_view2.dart';
-
 import 'package:project2/widgets/accounts_listview.dart';
-import 'package:provider/provider.dart';
 
 import '../widgets/showModalBottomSheetMetod.dart';
 import 'add_account_screen.dart';
 
-class SelectAccount extends StatefulWidget {
-  @override
-  State<SelectAccount> createState() => _SelectAccountState();
-}
-
-class _SelectAccountState extends State<SelectAccount> {
+class SelectAccount extends StatelessWidget {
+  int index1;
+  SelectAccount({
+    Key? key,
+    required this.index1,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var sum = Provider.of<AccountData>(context).sumOfAccounts();
@@ -47,7 +47,9 @@ class _SelectAccountState extends State<SelectAccount> {
               height: 5,
             ),
             Expanded(
-              child: AccountsListView2(),
+              child: AccountsListView2(
+                index1: index1,
+              ),
             ),
           ],
         ),

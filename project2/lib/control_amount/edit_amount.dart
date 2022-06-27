@@ -30,8 +30,8 @@ class EditAmount extends StatelessWidget {
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
-            onChanged: (value) {
-              inputAmount = int.parse(value);
+            onChanged: (String value) {
+              int inputAmount = int.parse(value);
             },
           ),
           ElevatedButton(
