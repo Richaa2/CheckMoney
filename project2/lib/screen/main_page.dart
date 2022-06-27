@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
+import 'package:project2/screen/account_screen.dart';
+import 'package:project2/screen/history_screen.dart';
 
 import 'package:project2/widgets/accounts_listview.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,19 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int _selectedIndex = 0;
+
+  List<Widget> _screens = [
+    AccountScreen(),
+    HistoryScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var sum = Provider.of<AccountData>(context).sumOfAccounts();
@@ -47,37 +62,20 @@ class _MainPageState extends State<MainPage> {
               },
             ),
           ]),
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Accounts',
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700),
-                ),
-                Text(
-                  '${sum} ',
-                  style: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Expanded(
-              child: AccountsListView(),
-            ),
-          ],
-        ),
+      body: _screens.elementAt(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.credit_card),
+            label: 'Accounts',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt),
+            label: 'History',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }

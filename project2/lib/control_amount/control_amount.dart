@@ -46,7 +46,9 @@ class ControlAmount extends StatelessWidget {
                     .addAmountOnScreen(
                         inputAmount,
                         Provider.of<AccountData>(context, listen: false)
-                            .accountsMoney[index]);
+                            .accountsMoney[index],
+                        Provider.of<AccountData>(context, listen: false)
+                            .records[index]);
 
                 Navigator.popUntil(context, ModalRoute.withName('/'));
               },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project2/models/account_data.dart';
+import 'package:project2/models/history.dart';
 import 'package:provider/provider.dart';
 
 import '../screen/add_account_screen.dart';
@@ -37,7 +38,12 @@ class AddAmount extends StatelessWidget {
                     .addAmountOnScreen(
                         inputAmount,
                         Provider.of<AccountData>(context, listen: false)
-                            .accountsMoney[index]);
+                            .accountsMoney[index],
+                        Record(
+                            name:
+                                Provider.of<AccountData>(context, listen: false)
+                                    .accountsName[index],
+                            amount: inputAmount));
                 print(Provider.of<AccountData>(context, listen: false)
                     .accountsMoney[index]
                     .money);

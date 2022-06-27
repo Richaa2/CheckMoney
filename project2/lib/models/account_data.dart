@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:project2/models/account.dart';
 
+import 'history.dart';
+
 class AccountData extends ChangeNotifier {
   List<String> accountsName = [
     'Mono',
@@ -17,6 +19,11 @@ class AccountData extends ChangeNotifier {
     AccountMoney(money: 2000),
   ];
 
+  List<Record> records = [
+    Record(name: 'Mono', amount: 100),
+    Record(name: 'Privat', amount: 500),
+  ];
+
   int? sumOfAccounts() {
     int sum = 0;
     for (int i = 0; i < accountsMoney.length.toInt(); i++) {
@@ -25,25 +32,18 @@ class AccountData extends ChangeNotifier {
     return sum;
   }
 
-  // int addAmount(int amount, int index) {
-  //   int el = accountsMoney.elementAt(index);
-  //   int sum = el += amount;
-  //   return sum;
-  // }
-
-  // int? addAmount(int amount, int main, int index) {
-  //   int sum = amount + main;
-  //   notifyListeners();
-  //   return sum;
-  // }
-
-  void addAmountOnScreen(int amount, AccountMoney accountMoney) {
+  void addAmountOnScreen(int amount, AccountMoney accountMoney, Record record) {
     accountMoney.addAmount(amount);
+    records.insert(0, record);
+
     notifyListeners();
   }
 
-  void minAmountOnScreen(int amount, AccountMoney accountMoney) {
+  void minAmountOnScreen(int amount, AccountMoney accountMoney, Record record) {
     accountMoney.minAmount(amount);
+    records.insert(0, record);
+    record.action = true;
+
     notifyListeners();
   }
 

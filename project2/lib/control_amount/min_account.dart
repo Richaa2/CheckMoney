@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 import '../models/account_data.dart';
+import '../models/history.dart';
 import '../screen/add_account_screen.dart';
 
 class MinAmount extends StatelessWidget {
@@ -39,9 +40,14 @@ class MinAmount extends StatelessWidget {
               onPressed: () {
                 Provider.of<AccountData>(context, listen: false)
                     .minAmountOnScreen(
-                        inputAmount,
-                        Provider.of<AccountData>(context, listen: false)
-                            .accountsMoney[index]);
+                  inputAmount,
+                  Provider.of<AccountData>(context, listen: false)
+                      .accountsMoney[index],
+                  Record(
+                      name: Provider.of<AccountData>(context, listen: false)
+                          .accountsName[index],
+                      amount: inputAmount),
+                );
                 print(Provider.of<AccountData>(context, listen: false)
                     .accountsMoney[index]
                     .money);

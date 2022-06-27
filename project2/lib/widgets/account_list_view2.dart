@@ -27,17 +27,6 @@ class AccountsListView2 extends StatelessWidget {
             amount: accountssMoney.money,
             nameTitle: accountsName,
             onTap: () {
-              // Provider.of<AccountData>(context, listen: false).addAmount(
-              //     Provider.of<AccountData>(context, listen: false)
-              //         .accountsMoney
-              //         .elementAt(index),
-              //     100,
-              //     index);
-              // Provider.of<AccountData>(context, listen: false)
-              //     .addAmount(inputAmount, index);
-
-              // accountData.addAmountonscreen(100, accountssMoney);
-
               print(accountssMoney.money);
 
               showModalBottomSheetMetod(
