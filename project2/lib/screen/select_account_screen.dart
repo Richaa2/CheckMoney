@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/widgets/account_list_view2.dart';
-import 'package:project2/widgets/accounts_listview.dart';
+import 'package:project2/widgets/accounts_list.dart';
 
 import '../widgets/showModalBottomSheetMetod.dart';
 import 'add_account_screen.dart';

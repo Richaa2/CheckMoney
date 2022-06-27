@@ -17,13 +17,23 @@ class RecordsListTile extends StatelessWidget {
       trailing: min
           ? Text(
               '-\$$amount',
-              style: TextStyle(color: Colors.red),
+              style: TextStyle(
+                  color: Colors.red, fontSize: 20, fontWeight: FontWeight.w700),
             )
           : Text(
               '+\$$amount',
-              style: TextStyle(color: Colors.green),
+              style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700),
             ),
-      leading: Icon(Icons.money),
+      leading: CircleAvatar(
+        child: Icon(
+          Icons.shopping_basket,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.blue,
+      ),
       title: Text(
         '$nameTitle',
       ),

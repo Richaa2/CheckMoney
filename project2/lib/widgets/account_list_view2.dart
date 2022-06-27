@@ -7,7 +7,7 @@ import 'package:project2/models/account_data.dart';
 import 'package:project2/screen/control_account_screen.dart';
 import 'package:project2/widgets/showModalBottomSheetMetod.dart';
 
-import 'accounts_list_tile.dart';
+import 'accounts_tile.dart';
 
 class AccountsListView2 extends StatelessWidget {
   int index1;
@@ -40,7 +40,7 @@ class AccountsListView2 extends StatelessWidget {
         },
         separatorBuilder: (BuildContext context, int index) => Divider(
           color: Colors.white,
-          height: 15,
+          height: 3,
         ),
         itemCount: accountData.accountsName.length,
       );

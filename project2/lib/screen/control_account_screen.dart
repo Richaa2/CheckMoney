@@ -1,19 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:project2/control_amount/edit_amount.dart';
 import 'package:project2/control_amount/min_account.dart';
-import 'package:project2/control_amount/transfer_amount.dart';
 import 'package:project2/screen/select_account_screen.dart';
-import 'package:provider/provider.dart';
-
-import 'package:project2/screen/add_account_screen.dart';
-import 'package:project2/widgets/showModalBottomSheetMetod.dart';
-
 import '../control_amount/add_amount.dart';
-import '../control_amount/control_amount.dart';
-import '../models/account_data.dart';
 import '../widgets/ink_controll_button.dart';
 
 class ControlAccountScreen extends StatelessWidget {
@@ -29,46 +19,93 @@ class ControlAccountScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                InkControllButton(
+                IconButton(
                   index: index,
                   color: Colors.green,
                   icon: Icons.add,
                   screen: AddAmount(
                     index: index,
                   ),
+                  title: 'Recharge',
                 ),
-                InkControllButton(
+                SizedBox(
+                  width: 10,
+                ),
+                IconButton(
                   index: index,
                   color: Colors.red,
                   icon: Icons.remove,
                   screen: MinAmount(
                     index: index,
                   ),
+                  title: 'Withdraw',
                 ),
-                InkControllButton(
+                SizedBox(
+                  width: 10,
+                ),
+                IconButton(
                   index: index,
                   color: Colors.yellow,
                   icon: Icons.edit,
                   screen: EditAmount(
                     index: index,
                   ),
+                  title: 'Edit',
                 ),
-                InkControllButton(
+                SizedBox(
+                  width: 10,
+                ),
+                IconButton(
                   index: index,
                   color: Colors.grey,
                   icon: Icons.arrow_forward,
                   screen: SelectAccount(
                     index1: index,
                   ),
+                  title: 'Transfer',
                 ),
               ],
             ),
-            Row(
-              children: [],
-            )
           ],
         ),
       ),
+    );
+  }
+}
+
+class IconButton extends StatelessWidget {
+  final Color color;
+  final int index;
+  final IconData icon;
+  final Widget screen;
+  final String title;
+  const IconButton({
+    Key? key,
+    required this.color,
+    required this.index,
+    required this.icon,
+    required this.screen,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        InkControllButton(
+          index: index,
+          color: color,
+          icon: icon,
+          screen: screen,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          title,
+          style: TextStyle(color: Colors.grey),
+        ),
+      ],
     );
   }
 }

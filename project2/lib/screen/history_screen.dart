@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
 
-import 'package:project2/widgets/accounts_listview.dart';
+import 'package:project2/widgets/accounts_list.dart';
 import 'package:project2/widgets/records_listview.dart';
 import 'package:provider/provider.dart';
 
@@ -18,11 +18,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Row(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -34,14 +34,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 5,
-            ),
-            Expanded(
-              child: RecordsListView(),
-            ),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Expanded(
+            child: RecordsListView(),
+          ),
+        ],
       ),
     );
   }

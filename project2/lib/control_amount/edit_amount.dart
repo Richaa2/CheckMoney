@@ -3,9 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../models/account_data.dart';
+import '../models/history.dart';
 import '../screen/add_account_screen.dart';
+import '../widgets/num_pad.dart';
 
 class EditAmount extends StatelessWidget {
+  final TextEditingController _myController = TextEditingController();
   int inputAmount = 0;
   int index;
   EditAmount({
@@ -16,17 +19,20 @@ class EditAmount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: Column(
         children: [
           Text('Edit amount'),
           TextFormField(
-            initialValue: Provider.of<AccountData>(context, listen: false)
-                .accountsMoney[index]
-                .money
-                .toString(),
+            controller: _myController
+              ..text = Provider.of<AccountData>(context, listen: false)
+                  .accountsMoney[index]
+                  .money
+                  .toString(),
+            showCursor: false,
+            autofocus: true,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.none,
             textAlign: TextAlign.center,
             onChanged: (value) {
               if (value.isEmpty) {
@@ -41,24 +47,36 @@ class EditAmount extends StatelessWidget {
               }
             },
           ),
-          ElevatedButton(
-              style: raisedButtonStyle,
-              onPressed: () {
-                if (inputAmount != 0) {
+          NumPad(
+              delete: () {
+                if (_myController.text.isEmpty) {
+                } else {
+                  _myController.text = _myController.text
+                      .substring(0, _myController.text.length - 1);
+                }
+              },
+              onSubmit: () {
+                if (_myController.text.isEmpty) {
+                  Navigator.popUntil(context, ModalRoute.withName('/'));
+                } else {
                   Provider.of<AccountData>(context, listen: false)
                       .editAmountOnScreen(
-                          inputAmount,
-                          Provider.of<AccountData>(context, listen: false)
-                              .accountsMoney[index]);
+                    int.parse(_myController.text),
+                    Provider.of<AccountData>(context, listen: false)
+                        .accountsMoney[index],
+                    // Record(
+                    //     name: Provider.of<AccountData>(context,
+                    //             listen: false)
+                    //         .accountsName[index],
+                    //     amount: inputAmount));
+                  );
+                  print(Provider.of<AccountData>(context, listen: false)
+                      .accountsMoney[index]
+                      .money);
+                  Navigator.popUntil(context, ModalRoute.withName('/'));
                 }
-
-                print(Provider.of<AccountData>(context, listen: false)
-                    .accountsMoney[index]
-                    .money);
-
-                Navigator.popUntil(context, ModalRoute.withName('/'));
               },
-              child: Text('Edit'))
+              controller: _myController),
         ],
       ),
     ));

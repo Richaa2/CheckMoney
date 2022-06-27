@@ -14,15 +14,18 @@ class RecordsListView extends StatelessWidget {
           final recordsMoney = accountData.records[index].amount;
           final recordMin = accountData.records[index].action;
 
-          return RecordsListTile(
-            amount: recordsMoney,
-            nameTitle: recordsName,
-            min: recordMin,
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: RecordsListTile(
+              amount: recordsMoney,
+              nameTitle: recordsName,
+              min: recordMin,
+            ),
           );
         },
         separatorBuilder: (BuildContext context, int index) => Divider(
           color: Colors.white,
-          height: 15,
+          height: 3,
         ),
         itemCount: accountData.records.length,
       );

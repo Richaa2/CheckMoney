@@ -7,8 +7,10 @@ import 'package:provider/provider.dart';
 import '../models/account_data.dart';
 import '../models/history.dart';
 import '../screen/add_account_screen.dart';
+import '../widgets/num_pad.dart';
 
 class MinAmount extends StatelessWidget {
+  final TextEditingController _myController = TextEditingController();
   int inputAmount = 0;
   int index;
   MinAmount({
@@ -19,44 +21,54 @@ class MinAmount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 30),
-      child: Column(
-        children: [
-          Text('Minus amount'),
-          TextField(
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            keyboardType: TextInputType.number,
-            textAlign: TextAlign.center,
-            onChanged: (value) {
-              if (value.isEmpty) {
-                value = '';
+      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
+      child: Column(children: [
+        Text('Minus amount'),
+        TextField(
+          controller: _myController,
+          showCursor: false,
+          autofocus: true,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          keyboardType: TextInputType.none,
+          textAlign: TextAlign.center,
+          onChanged: (value) {
+            if (value.isEmpty) {
+              value = '';
+            } else {
+              inputAmount = int.parse(value);
+            }
+          },
+        ),
+        NumPad(
+            delete: () {
+              if (_myController.text.isEmpty) {
               } else {
-                inputAmount = int.parse(value);
+                _myController.text = _myController.text
+                    .substring(0, _myController.text.length - 1);
               }
             },
-          ),
-          ElevatedButton(
-              style: raisedButtonStyle,
-              onPressed: () {
+            onSubmit: () {
+              if (_myController.text.isEmpty) {
+                Navigator.popUntil(context, ModalRoute.withName('/'));
+              } else {
                 Provider.of<AccountData>(context, listen: false)
                     .minAmountOnScreen(
-                  inputAmount,
-                  Provider.of<AccountData>(context, listen: false)
-                      .accountsMoney[index],
-                  Record(
-                      name: Provider.of<AccountData>(context, listen: false)
-                          .accountsName[index],
-                      amount: inputAmount),
-                );
+                        int.parse(_myController.text),
+                        Provider.of<AccountData>(context, listen: false)
+                            .accountsMoney[index],
+                        Record(
+                            name:
+                                Provider.of<AccountData>(context, listen: false)
+                                    .accountsName[index],
+                            amount: inputAmount));
                 print(Provider.of<AccountData>(context, listen: false)
                     .accountsMoney[index]
                     .money);
-
                 Navigator.popUntil(context, ModalRoute.withName('/'));
-              },
-              child: Text('Minus'))
-        ],
-      ),
+              }
+            },
+            controller: _myController),
+      ]),
     ));
   }
 }

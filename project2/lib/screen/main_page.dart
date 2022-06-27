@@ -4,7 +4,7 @@ import 'package:project2/models/account_data.dart';
 import 'package:project2/screen/account_screen.dart';
 import 'package:project2/screen/history_screen.dart';
 
-import 'package:project2/widgets/accounts_listview.dart';
+import 'package:project2/widgets/accounts_list.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/showModalBottomSheetMetod.dart';
@@ -66,13 +66,13 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.credit_card),
-            label: 'Accounts',
-          ),
+              icon: Icon(Icons.credit_card),
+              label: 'Accounts',
+              backgroundColor: Colors.white),
           BottomNavigationBarItem(
-            icon: Icon(Icons.receipt),
-            label: 'History',
-          ),
+              icon: Icon(Icons.receipt),
+              label: 'History',
+              backgroundColor: Colors.white),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
