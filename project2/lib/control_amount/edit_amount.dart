@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:provider/provider.dart';
 
 import '../models/account_data.dart';
@@ -30,8 +29,12 @@ class EditAmount extends StatelessWidget {
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
-            onChanged: (String value) {
-              int inputAmount = int.parse(value);
+            onChanged: (value) {
+              if (value.isEmpty) {
+                value = '';
+              } else {
+                inputAmount = int.parse(value);
+              }
             },
           ),
           ElevatedButton(

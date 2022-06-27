@@ -29,7 +29,11 @@ class TransferAmount extends StatelessWidget {
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
             onChanged: (value) {
-              inputAmount = int.parse(value);
+              if (value.isEmpty) {
+                value = '';
+              } else {
+                inputAmount = int.parse(value);
+              }
             },
           ),
           ElevatedButton(
