@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:provider/provider.dart';
 
 import '../models/account_data.dart';
@@ -32,6 +31,11 @@ class EditAmount extends StatelessWidget {
             onChanged: (value) {
               if (value.isEmpty) {
                 value = '';
+              } else if (value == 0) {
+                // inputAmount = Provider.of<AccountData>(context, listen: false)
+                //     .accountsMoney[index]
+                //     .money;
+
               } else {
                 inputAmount = int.parse(value);
               }
@@ -40,16 +44,19 @@ class EditAmount extends StatelessWidget {
           ElevatedButton(
               style: raisedButtonStyle,
               onPressed: () {
-                Provider.of<AccountData>(context, listen: false)
-                    .editAmountOnScreen(
-                        inputAmount,
-                        Provider.of<AccountData>(context, listen: false)
-                            .accountsMoney[index]);
+                if (inputAmount != 0) {
+                  Provider.of<AccountData>(context, listen: false)
+                      .editAmountOnScreen(
+                          inputAmount,
+                          Provider.of<AccountData>(context, listen: false)
+                              .accountsMoney[index]);
+                }
+
                 print(Provider.of<AccountData>(context, listen: false)
                     .accountsMoney[index]
                     .money);
 
-                Navigator.pop(context);
+                Navigator.popUntil(context, ModalRoute.withName('/'));
               },
               child: Text('Edit'))
         ],

@@ -41,8 +41,7 @@ class AddAmount extends StatelessWidget {
                 print(Provider.of<AccountData>(context, listen: false)
                     .accountsMoney[index]
                     .money);
-
-                Navigator.pop(context);
+                Navigator.popUntil(context, ModalRoute.withName('/'));
               },
               child: Text('Add'))
         ],

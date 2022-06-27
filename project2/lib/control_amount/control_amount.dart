@@ -48,7 +48,7 @@ class ControlAmount extends StatelessWidget {
                         Provider.of<AccountData>(context, listen: false)
                             .accountsMoney[index]);
 
-                Navigator.pop(context);
+                Navigator.popUntil(context, ModalRoute.withName('/'));
               },
               child: Text('$action'))
         ],

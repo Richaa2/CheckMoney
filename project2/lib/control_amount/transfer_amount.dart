@@ -50,7 +50,7 @@ class TransferAmount extends StatelessWidget {
                     .accountsMoney[index1]
                     .money);
 
-                Navigator.pop(context);
+                Navigator.popUntil(context, ModalRoute.withName('/'));
               },
               child: Text('Trensfer'))
         ],

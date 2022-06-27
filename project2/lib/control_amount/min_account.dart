@@ -46,7 +46,7 @@ class MinAmount extends StatelessWidget {
                     .accountsMoney[index]
                     .money);
 
-                Navigator.pop(context);
+                Navigator.popUntil(context, ModalRoute.withName('/'));
               },
               child: Text('Minus'))
         ],
