@@ -9,7 +9,7 @@ import '../screen/add_account_screen.dart';
 
 class AddAmount extends StatelessWidget {
   final TextEditingController _myController = TextEditingController();
-  int inputAmount = 0;
+
   int index;
   AddAmount({Key? key, required this.index}) : super(key: key);
 
@@ -57,7 +57,8 @@ class AddAmount extends StatelessWidget {
                               name: Provider.of<AccountData>(context,
                                       listen: false)
                                   .accountsName[index],
-                              amount: inputAmount));
+                              amount: int.parse(_myController.text),
+                              dateTime: DateTime.now().millisecondsSinceEpoch));
                   print(Provider.of<AccountData>(context, listen: false)
                       .accountsMoney[index]
                       .money);

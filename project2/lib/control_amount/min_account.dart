@@ -11,7 +11,7 @@ import '../widgets/num_pad.dart';
 
 class MinAmount extends StatelessWidget {
   final TextEditingController _myController = TextEditingController();
-  int inputAmount = 0;
+
   int index;
   MinAmount({
     Key? key,
@@ -31,13 +31,13 @@ class MinAmount extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           keyboardType: TextInputType.none,
           textAlign: TextAlign.center,
-          onChanged: (value) {
-            if (value.isEmpty) {
-              value = '';
-            } else {
-              inputAmount = int.parse(value);
-            }
-          },
+          // onChanged: (value) {
+          //   if (value.isEmpty) {
+          //     value = '';
+          //   } else {
+          //     inputAmount = int.parse(value);
+          //   }
+          // },
         ),
         NumPad(
             delete: () {
@@ -57,10 +57,12 @@ class MinAmount extends StatelessWidget {
                         Provider.of<AccountData>(context, listen: false)
                             .accountsMoney[index],
                         Record(
+                            action: true,
                             name:
                                 Provider.of<AccountData>(context, listen: false)
                                     .accountsName[index],
-                            amount: inputAmount));
+                            amount: int.parse(_myController.text),
+                            dateTime: DateTime.now().millisecondsSinceEpoch));
                 print(Provider.of<AccountData>(context, listen: false)
                     .accountsMoney[index]
                     .money);

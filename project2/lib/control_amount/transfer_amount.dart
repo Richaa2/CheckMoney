@@ -10,7 +10,7 @@ import '../screen/add_account_screen.dart';
 
 class TransferAmount extends StatelessWidget {
   final TextEditingController _myController = TextEditingController();
-  int inputAmount = 0;
+
   int index1;
   int index2;
   TransferAmount({
@@ -33,13 +33,13 @@ class TransferAmount extends StatelessWidget {
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.none,
             textAlign: TextAlign.center,
-            onChanged: (value) {
-              if (value.isEmpty) {
-                value = '';
-              } else {
-                inputAmount = int.parse(value);
-              }
-            },
+            // onChanged: (value) {
+            //   if (value.isEmpty) {
+            //     value = '';
+            //   } else {
+            //     inputAmount = int.parse(value);
+            //   }
+            // },
           ),
           NumPad(
               delete: () {

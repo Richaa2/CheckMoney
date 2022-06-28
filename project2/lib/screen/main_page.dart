@@ -7,6 +7,7 @@ import 'package:project2/screen/history_screen.dart';
 import 'package:project2/widgets/accounts_list.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/build_item.dart';
 import '../widgets/showModalBottomSheetMetod.dart';
 import 'add_account_screen.dart';
 

@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:project2/models/account.dart';
 
@@ -20,9 +20,28 @@ class AccountData extends ChangeNotifier {
   ];
 
   List<Record> records = [
-    Record(name: 'Mono', amount: 100),
-    Record(name: 'Privat', amount: 500),
-  ];
+    Record(
+        name: 'Privat',
+        amount: 1500,
+        dateTime: DateTime.now().millisecondsSinceEpoch),
+    Record(
+        action: true,
+        name: 'Mono',
+        amount: 1000,
+        dateTime: DateTime.now()
+            .add(Duration(
+              days: -19,
+            ))
+            .millisecondsSinceEpoch),
+    Record(
+        name: 'Mono',
+        amount: 1400,
+        dateTime: DateTime.now()
+            .add(Duration(
+              days: -1,
+            ))
+            .millisecondsSinceEpoch)
+  ]..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
 
   int? sumOfAccounts() {
     int sum = 0;

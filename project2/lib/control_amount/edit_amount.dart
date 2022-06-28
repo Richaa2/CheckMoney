@@ -9,7 +9,7 @@ import '../widgets/num_pad.dart';
 
 class EditAmount extends StatelessWidget {
   final TextEditingController _myController = TextEditingController();
-  int inputAmount = 0;
+
   int index;
   EditAmount({
     Key? key,
@@ -34,18 +34,18 @@ class EditAmount extends StatelessWidget {
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.none,
             textAlign: TextAlign.center,
-            onChanged: (value) {
-              if (value.isEmpty) {
-                value = '';
-              } else if (value == 0) {
-                // inputAmount = Provider.of<AccountData>(context, listen: false)
-                //     .accountsMoney[index]
-                //     .money;
+            // onChanged: (value) {
+            //   if (value.isEmpty) {
+            //     value = '';
+            //   } else if (value == 0) {
+            //     // inputAmount = Provider.of<AccountData>(context, listen: false)
+            //     //     .accountsMoney[index]
+            //     //     .money;
 
-              } else {
-                inputAmount = int.parse(value);
-              }
-            },
+            //   } else {
+            //     inputAmount = int.parse(value);
+            //   }
+            // },
           ),
           NumPad(
               delete: () {
