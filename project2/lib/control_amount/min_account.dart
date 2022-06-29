@@ -57,7 +57,7 @@ class MinAmount extends StatelessWidget {
                         Provider.of<AccountData>(context, listen: false)
                             .accountsMoney[index],
                         Record(
-                            action: true,
+                            action: 2,
                             name:
                                 Provider.of<AccountData>(context, listen: false)
                                     .accountsName[index],

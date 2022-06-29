@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
 
@@ -15,34 +16,34 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  PageController _controller = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'History',
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700),
-                ),
-              ],
-            ),
+        body: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'june 2022',
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700),
+              ),
+            ],
           ),
-          SizedBox(
-            height: 5,
-          ),
-          Expanded(
-            child: RecordsListView(),
-          ),
-        ],
-      ),
-    );
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Expanded(
+          child: RecordsListView(),
+        ),
+      ],
+    ));
   }
 }

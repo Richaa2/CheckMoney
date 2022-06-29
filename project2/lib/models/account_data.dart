@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:project2/models/account.dart';
+import 'page_date.dart' as p;
 
 import 'history.dart';
 
@@ -21,11 +22,12 @@ class AccountData extends ChangeNotifier {
 
   List<Record> records = [
     Record(
+        action: 2,
         name: 'Privat',
         amount: 1500,
         dateTime: DateTime.now().millisecondsSinceEpoch),
     Record(
-        action: true,
+        action: 2,
         name: 'Mono',
         amount: 1000,
         dateTime: DateTime.now()
@@ -34,6 +36,16 @@ class AccountData extends ChangeNotifier {
             ))
             .millisecondsSinceEpoch),
     Record(
+        action: 3,
+        name: 'Mono',
+        amount: 1000,
+        dateTime: DateTime.now()
+            .add(Duration(
+              days: -19,
+            ))
+            .millisecondsSinceEpoch),
+    Record(
+        action: 1,
         name: 'Mono',
         amount: 1400,
         dateTime: DateTime.now()
@@ -42,6 +54,16 @@ class AccountData extends ChangeNotifier {
             ))
             .millisecondsSinceEpoch)
   ]..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
+
+  // List<p.Page> pages = List.generate(10, (index) {
+  //   return p.Page(
+  //       dateTime: DateTime.now()
+  //           .add(Duration(
+  //             days: Random().nextInt(1) + 10,
+  //           ))
+  //           .millisecondsSinceEpoch);
+  // })
+  //   ..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
 
   int? sumOfAccounts() {
     int sum = 0;
@@ -54,6 +76,7 @@ class AccountData extends ChangeNotifier {
   void addAmountOnScreen(int amount, AccountMoney accountMoney, Record record) {
     accountMoney.addAmount(amount);
     records.insert(0, record);
+    record.action = 2;
 
     notifyListeners();
   }
@@ -61,7 +84,7 @@ class AccountData extends ChangeNotifier {
   void minAmountOnScreen(int amount, AccountMoney accountMoney, Record record) {
     accountMoney.minAmount(amount);
     records.insert(0, record);
-    record.action = true;
+    record.action = 1;
 
     notifyListeners();
   }
@@ -71,9 +94,11 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void transferAmountOnScreen(
-      int amount, AccountMoney accountMoney1, AccountMoney accountMoney2) {
+  void transferAmountOnScreen(int amount, AccountMoney accountMoney1,
+      AccountMoney accountMoney2, Record record) {
     accountMoney1.transferAmount(accountMoney1, accountMoney2, amount);
+    records.insert(0, record);
+    record.action = 3;
 
     notifyListeners();
   }

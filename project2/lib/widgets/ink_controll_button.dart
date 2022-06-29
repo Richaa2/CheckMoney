@@ -5,8 +5,10 @@ class InkControllButton extends StatelessWidget {
   final Widget screen;
   final Color color;
   final IconData icon;
+  final void Function()? removeAcc;
 
   InkControllButton({
+    this.removeAcc,
     required this.screen,
     required this.color,
     required this.icon,
@@ -26,6 +28,7 @@ class InkControllButton extends StatelessWidget {
           color: color,
           hoverColor: color,
           onPressed: () {
+            removeAcc;
             showModalBottomSheetMetod(context, screen);
           },
           icon: Icon(

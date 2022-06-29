@@ -6,6 +6,7 @@ import 'package:project2/widgets/num_pad.dart';
 import 'package:provider/provider.dart';
 
 import '../models/account_data.dart';
+import '../models/history.dart';
 import '../screen/add_account_screen.dart';
 
 class TransferAmount extends StatelessWidget {
@@ -59,7 +60,14 @@ class TransferAmount extends StatelessWidget {
                           Provider.of<AccountData>(context, listen: false)
                               .accountsMoney[index1],
                           Provider.of<AccountData>(context, listen: false)
-                              .accountsMoney[index2]);
+                              .accountsMoney[index2],
+                          Record(
+                              action: 3,
+                              name: Provider.of<AccountData>(context,
+                                      listen: false)
+                                  .accountsName[index2],
+                              amount: int.parse(_myController.text),
+                              dateTime: DateTime.now().millisecondsSinceEpoch));
                   print(Provider.of<AccountData>(context, listen: false)
                       .accountsMoney[index1]
                       .money);

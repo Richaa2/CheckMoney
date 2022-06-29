@@ -1,12 +1,12 @@
 class Record {
   String name;
   num amount;
-  bool action;
+  int action;
   int dateTime;
   Record({
     required this.name,
     required this.amount,
-    this.action = false,
+    this.action = 1,
     required this.dateTime,
   });
 

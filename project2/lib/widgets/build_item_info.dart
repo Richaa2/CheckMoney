@@ -7,11 +7,12 @@ Card buildItemInfo(Record record, BuildContext context) {
     clipBehavior: Clip.antiAliasWithSaveLayer,
     child: Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-            colors: record.action
-                ? [Colors.deepOrange, Colors.red]
-                : [Colors.green, Colors.teal]),
-      ),
+          gradient: LinearGradient(
+              colors: (record.action == 1)
+                  ? ([Colors.deepOrange, Colors.red])
+                  : (record.action == 2)
+                      ? ([Colors.green, Colors.teal])
+                      : ([Colors.grey, Color.fromARGB(66, 255, 255, 255)]))),
       child: Row(
         children: <Widget>[
           Expanded(
@@ -29,7 +30,7 @@ Card buildItemInfo(Record record, BuildContext context) {
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: record.action
+            child: (record.action == 1)
                 ? Text(
                     NumberFormat("-###,###,#### \$").format(record.amount),
                     style: Theme.of(context).textTheme.subtitle2?.copyWith(
