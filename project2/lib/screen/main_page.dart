@@ -8,6 +8,7 @@ import 'package:project2/widgets/accounts_list.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/build_item.dart';
+import '../widgets/drawer.dart';
 import '../widgets/showModalBottomSheetMetod.dart';
 import 'add_account_screen.dart';
 
@@ -34,6 +35,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     var sum = Provider.of<AccountData>(context).sumOfAccounts();
     return Scaffold(
+      drawer: DrawerWidget(),
       appBar: AppBar(
           title: Column(
             children: [
@@ -51,10 +53,11 @@ class _MainPageState extends State<MainPage> {
           ),
           centerTitle: true,
           backgroundColor: Colors.blueGrey,
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {},
-          ),
+
+          // leading: IconButton(
+          //   icon: Icon(Icons.menu),
+          //   onPressed: () {},
+          // ),
           actions: [
             IconButton(
               icon: Icon(Icons.add),
