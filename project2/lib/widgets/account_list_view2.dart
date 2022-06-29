@@ -20,6 +20,7 @@ class AccountsListView2 extends StatelessWidget {
     return Consumer<AccountData>(builder: ((context, accountData, child) {
       return ListView.separated(
         itemBuilder: (context, index2) {
+          // accountData.accounts.removeAt(index1);
           final accountsName = accountData.accounts[index2].name;
           final accountssMoney = accountData.accounts[index2].money;
 

@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:project2/models/account.dart';
+import 'package:project2/models/expense.dart';
 import 'page_date.dart' as p;
 
 import 'history.dart';
@@ -12,11 +13,14 @@ class AccountData extends ChangeNotifier {
     Account(name: 'Privat', money: 2000),
     Account(name: 'Cash', money: 50),
   ];
-
-  // List<AccountMoney> accountsMoney = [
-  //   AccountMoney(money: 100),
-  //   AccountMoney(money: 2000),
-  // ];
+  List<Expense> expenses = [
+    Expense(name: 'Market', amount: 100),
+    Expense(name: 'Sport', amount: 1000),
+    Expense(name: 'Hobby', amount: 2500),
+    Expense(name: 'Dance', amount: 6666),
+    Expense(name: 'Clouthes', amount: 500),
+    Expense(name: 'Car', amount: 0),
+  ];
 
   List<Record> records = [
     Record(

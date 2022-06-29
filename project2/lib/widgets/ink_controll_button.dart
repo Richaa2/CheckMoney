@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:project2/models/account.dart';
 import 'package:project2/widgets/showModalBottomSheetMetod.dart';
 
 class InkControllButton extends StatelessWidget {
   final Widget screen;
   final Color color;
   final IconData icon;
-  final void Function()? removeAcc;
+  final Account Function()? removeAcc;
 
   InkControllButton({
     this.removeAcc,

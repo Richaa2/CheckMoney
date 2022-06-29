@@ -11,6 +11,7 @@ import '../widgets/build_item.dart';
 import '../widgets/drawer.dart';
 import '../widgets/showModalBottomSheetMetod.dart';
 import 'add_account_screen.dart';
+import 'expenses_screen.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   List<Widget> _screens = [
-    AccountScreen(),
+    ExpensesScreen(),
     HistoryScreen(),
   ];
 

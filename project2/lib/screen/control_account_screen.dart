@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:project2/control_amount/edit_amount.dart';
 import 'package:project2/control_amount/min_account.dart';
+import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/screen/select_account_screen.dart';
 import 'package:provider/provider.dart';
@@ -58,12 +59,6 @@ class ControlAccountScreen extends StatelessWidget {
                   width: 10,
                 ),
                 IconButton(
-                  removeAcc: () {
-                    return Provider.of<AccountData>(context, listen: false)
-                        .accounts
-                        .removeAt(index)
-                        .money;
-                  },
                   index: index,
                   color: Colors.grey,
                   icon: Icons.arrow_forward,
@@ -82,7 +77,7 @@ class ControlAccountScreen extends StatelessWidget {
 }
 
 class IconButton extends StatelessWidget {
-  final int Function()? removeAcc;
+  final Account Function()? removeAcc;
   final Color color;
   final int index;
   final IconData icon;
