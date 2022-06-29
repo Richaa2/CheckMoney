@@ -8,13 +8,13 @@ import '../screen/add_account_screen.dart';
 
 //Потім Доробити !!!
 class ControlAmount extends StatelessWidget {
-  void Function(int, AccountMoney) actionDo;
+  // void Function(int, AccountMoney) actionDo;
   String action;
   int inputAmount = 0;
   int index;
   ControlAmount({
     Key? key,
-    required this.actionDo,
+    // required this.actionDo,
     required this.action,
     required this.index,
   }) : super(key: key);
@@ -46,7 +46,7 @@ class ControlAmount extends StatelessWidget {
                     .addAmountOnScreen(
                         inputAmount,
                         Provider.of<AccountData>(context, listen: false)
-                            .accountsMoney[index],
+                            .accounts[index],
                         Provider.of<AccountData>(context, listen: false)
                             .records[index]);
 

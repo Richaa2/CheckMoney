@@ -55,16 +55,17 @@ class MinAmount extends StatelessWidget {
                     .minAmountOnScreen(
                         int.parse(_myController.text),
                         Provider.of<AccountData>(context, listen: false)
-                            .accountsMoney[index],
+                            .accounts[index],
                         Record(
                             action: 2,
                             name:
                                 Provider.of<AccountData>(context, listen: false)
-                                    .accountsName[index],
+                                    .accounts[index]
+                                    .name,
                             amount: int.parse(_myController.text),
                             dateTime: DateTime.now().millisecondsSinceEpoch));
                 print(Provider.of<AccountData>(context, listen: false)
-                    .accountsMoney[index]
+                    .accounts[index]
                     .money);
                 Navigator.popUntil(context, ModalRoute.withName('/'));
               }

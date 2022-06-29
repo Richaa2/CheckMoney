@@ -60,7 +60,7 @@ class ControlAccountScreen extends StatelessWidget {
                 IconButton(
                   removeAcc: () {
                     return Provider.of<AccountData>(context, listen: false)
-                        .accountsMoney
+                        .accounts
                         .removeAt(index)
                         .money;
                   },

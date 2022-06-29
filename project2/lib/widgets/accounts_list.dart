@@ -14,8 +14,8 @@ class AccountsListView extends StatelessWidget {
     return Consumer<AccountData>(builder: ((context, accountData, child) {
       return ListView.separated(
         itemBuilder: (context, index) {
-          final accountsName = accountData.accountsName[index];
-          final accountssMoney = accountData.accountsMoney[index];
+          final accountsName = accountData.accounts[index].name;
+          final accountssMoney = accountData.accounts[index].money;
 
           if (index == 0) {
             return Padding(
@@ -45,10 +45,10 @@ class AccountsListView extends StatelessWidget {
                     height: 5,
                   ),
                   AccountsListTile(
-                    amount: accountssMoney.money,
+                    amount: accountssMoney,
                     nameTitle: accountsName,
                     onTap: () {
-                      print(accountssMoney.money);
+                      print(accountssMoney);
 
                       showModalBottomSheetMetod(
                           context,
@@ -65,10 +65,10 @@ class AccountsListView extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
             child: AccountsListTile(
-              amount: accountssMoney.money,
+              amount: accountssMoney,
               nameTitle: accountsName,
               onTap: () {
-                print(accountssMoney.money);
+                print(accountssMoney);
 
                 showModalBottomSheetMetod(
                     context,
@@ -83,7 +83,7 @@ class AccountsListView extends StatelessWidget {
           color: Colors.white,
           height: 3,
         ),
-        itemCount: accountData.accountsName.length,
+        itemCount: accountData.accounts.length,
       );
     }));
   }

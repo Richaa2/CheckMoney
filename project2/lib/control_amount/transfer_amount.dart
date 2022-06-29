@@ -58,18 +58,19 @@ class TransferAmount extends StatelessWidget {
                       .transferAmountOnScreen(
                           int.parse(_myController.text),
                           Provider.of<AccountData>(context, listen: false)
-                              .accountsMoney[index1],
+                              .accounts[index1],
                           Provider.of<AccountData>(context, listen: false)
-                              .accountsMoney[index2],
+                              .accounts[index2],
                           Record(
                               action: 3,
                               name: Provider.of<AccountData>(context,
                                       listen: false)
-                                  .accountsName[index2],
+                                  .accounts[index2]
+                                  .name,
                               amount: int.parse(_myController.text),
                               dateTime: DateTime.now().millisecondsSinceEpoch));
                   print(Provider.of<AccountData>(context, listen: false)
-                      .accountsMoney[index1]
+                      .accounts[index1]
                       .money);
 
                   Navigator.popUntil(context, ModalRoute.withName('/'));

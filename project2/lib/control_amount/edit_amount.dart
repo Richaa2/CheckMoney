@@ -26,7 +26,7 @@ class EditAmount extends StatelessWidget {
           TextFormField(
             controller: _myController
               ..text = Provider.of<AccountData>(context, listen: false)
-                  .accountsMoney[index]
+                  .accounts[index]
                   .money
                   .toString(),
             showCursor: false,
@@ -63,7 +63,7 @@ class EditAmount extends StatelessWidget {
                       .editAmountOnScreen(
                     int.parse(_myController.text),
                     Provider.of<AccountData>(context, listen: false)
-                        .accountsMoney[index],
+                        .accounts[index],
                     // Record(
                     //     name: Provider.of<AccountData>(context,
                     //             listen: false)
@@ -71,7 +71,7 @@ class EditAmount extends StatelessWidget {
                     //     amount: inputAmount));
                   );
                   print(Provider.of<AccountData>(context, listen: false)
-                      .accountsMoney[index]
+                      .accounts[index]
                       .money);
                   Navigator.popUntil(context, ModalRoute.withName('/'));
                 }
