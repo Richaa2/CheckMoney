@@ -28,6 +28,7 @@ class ExpensesScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ExpensesIconButton(
@@ -99,12 +100,9 @@ class ExpensesScreen extends StatelessWidget {
                                     chartValuesOptions: ChartValuesOptions(
                                         showChartValues: false),
                                     centerText: '$sum',
+                                    centerTextStyle:
+                                        TextStyle(color: Colors.black),
                                   ),
-
-                                  // child: CircleAvatar(
-                                  //   maxRadius: 120,
-                                  //   minRadius: 70,
-                                  // ),
                                 ),
                               ),
                               Row(

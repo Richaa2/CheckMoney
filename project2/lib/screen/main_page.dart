@@ -64,7 +64,7 @@ class _MainPageState extends State<MainPage> {
             IconButton(
               icon: Icon(Icons.add),
               onPressed: () {
-                showModalBottomSheetMetod(context, AddAccountScreen());
+                Navigator.pushNamed(context, '/addAcc');
               },
             ),
           ]),
