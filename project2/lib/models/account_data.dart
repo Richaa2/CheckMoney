@@ -20,8 +20,21 @@ class AccountData extends ChangeNotifier {
     Expense(name: 'Dance', amount: 6666),
     Expense(name: 'Clouthes', amount: 500),
     Expense(name: 'Car', amount: 0),
+    Expense(name: 'Market', amount: 100),
+    Expense(name: 'Sport', amount: 1000),
+    Expense(name: 'Hobby', amount: 2500),
+    Expense(name: 'Dance', amount: 6666),
+    Expense(name: 'Clouthes', amount: 500),
+    Expense(name: 'Clouthes', amount: 500),
   ];
-
+  Map<String, double> dataMap = {
+    'Market': 100,
+    'Sport': 1000,
+    'Hobby': 2500,
+    'Dance': 6666,
+    'Clouthes': 500,
+    'Car': 0,
+  };
   List<Record> records = [
     Record(
         action: 2,
@@ -71,6 +84,14 @@ class AccountData extends ChangeNotifier {
     int sum = 0;
     for (int i = 0; i < accounts.length.toInt(); i++) {
       sum += accounts[i].money;
+    }
+    return sum;
+  }
+
+  double? sumOfExpenses() {
+    double sum = 0;
+    for (int i = 0; i < expenses.length.toInt(); i++) {
+      sum += expenses[i].amount;
     }
     return sum;
   }

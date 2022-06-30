@@ -22,6 +22,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   List<Widget> _screens = [
+    AccountScreen(),
     ExpensesScreen(),
     HistoryScreen(),
   ];
@@ -73,6 +74,10 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.credit_card),
               label: 'Accounts',
+              backgroundColor: Colors.white),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.circle_outlined),
+              label: 'Categories',
               backgroundColor: Colors.white),
           BottomNavigationBarItem(
               icon: Icon(Icons.receipt),
