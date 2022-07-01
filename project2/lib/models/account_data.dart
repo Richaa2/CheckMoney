@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
 import 'package:project2/models/income.dart';
@@ -9,9 +10,9 @@ import 'history.dart';
 
 class AccountData extends ChangeNotifier {
   List<Account> accounts = [
-    Account(name: 'Mono', money: 100),
-    Account(name: 'Privat', money: 2000),
-    Account(name: 'Cash', money: 50),
+    Account(name: 'Mono', money: 100, color: Colors.amber),
+    Account(name: 'Privat', money: 2000, color: Colors.blueAccent),
+    Account(name: 'Cash', money: 50, color: Colors.greenAccent),
   ];
   List<Expense> expenses = [
     Expense(name: 'Market', amount: 0),
@@ -120,6 +121,14 @@ class AccountData extends ChangeNotifier {
     return sum;
   }
 
+  double? sumOfIncomes() {
+    double sum = 0;
+    for (int i = 0; i < incomes.length.toInt(); i++) {
+      sum += incomes[i].amount;
+    }
+    return sum;
+  }
+
   void addAmountOnScreen(
       int amount, Account accountMoney, Record record, Income income) {
     accountMoney.addAmount(amount);
@@ -154,8 +163,10 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addAccount(Account account) {
+  void addAccount(Account account, Color? color) {
     accounts.add(account);
+    account.pickColor(color);
+
     notifyListeners();
   }
 }

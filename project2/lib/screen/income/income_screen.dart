@@ -15,7 +15,7 @@ class IncomesScreen extends StatelessWidget {
     return Consumer<AccountData>(
       builder: (BuildContext context, accountData, child) {
         final incomes = accountData.incomes;
-        var sum = Provider.of<AccountData>(context).sumOfExpenses();
+        var sum = Provider.of<AccountData>(context).sumOfIncomes();
 
         return Scaffold(
           body: Padding(

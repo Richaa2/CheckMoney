@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class ListTileAccountAdd extends StatelessWidget {
   final String title;
   final String subtitle;
+  final DropdownButton? trailing;
 
   const ListTileAccountAdd({
     Key? key,
     required this.title,
     required this.subtitle,
+    this.trailing,
   }) : super(key: key);
 
   @override
@@ -18,6 +20,7 @@ class ListTileAccountAdd extends StatelessWidget {
         subtitle,
         style: const TextStyle(color: Colors.blueGrey),
       ),
+      trailing: trailing,
     );
   }
 }

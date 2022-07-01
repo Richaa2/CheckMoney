@@ -1,8 +1,12 @@
+import 'package:flutter/material.dart';
+
 class Account {
   String name;
   int money;
+  Color? color = Colors.green;
 
   Account({
+    this.color,
     required this.name,
     required this.money,
   });
@@ -16,6 +20,10 @@ class Account {
 //   int money;
 
 //   AccountMoney({required this.money});
+
+  void pickColor(Color? colorr) {
+    color = colorr;
+  }
 
   void addAmount(int amount) {
     money = money + amount;

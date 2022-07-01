@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AccountsListTile extends StatelessWidget {
+  final Color? color;
   final String nameTitle;
   final int amount;
   final void Function() onTap;
@@ -10,6 +11,7 @@ class AccountsListTile extends StatelessWidget {
     required this.nameTitle,
     required this.amount,
     required this.onTap,
+    required this.color,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class AccountsListTile extends StatelessWidget {
             height: 40,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: Colors.amber,
+              color: color,
             ),
             child: const Icon(Icons.credit_card),
           ),

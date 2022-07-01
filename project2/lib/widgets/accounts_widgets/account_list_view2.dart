@@ -21,7 +21,7 @@ class AccountsListView2 extends StatelessWidget {
           // accountData.accounts.removeAt(index1);
           final accountsName = accountData.accounts[index2].name;
           final accountssMoney = accountData.accounts[index2].money;
-
+          final accountsColor = accountData.accounts[index2].color;
           return AccountsListTile(
             amount: accountssMoney,
             nameTitle: accountsName,
@@ -36,6 +36,7 @@ class AccountsListView2 extends StatelessWidget {
                     index2: index2,
                   ));
             },
+            color: accountsColor,
           );
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(
