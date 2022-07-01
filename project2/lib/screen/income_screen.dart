@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:pie_chart/pie_chart.dart';
 import 'package:project2/models/account_data.dart';
+import 'package:project2/screen/expenses_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/buttons/expenses_icon_button.dart';
-import 'income_screen.dart';
 
-class ExpensesScreen extends StatelessWidget {
-  const ExpensesScreen({Key? key}) : super(key: key);
+class IncomesScreen extends StatelessWidget {
+  const IncomesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -91,11 +91,7 @@ class ExpensesScreen extends StatelessWidget {
                                 child: Center(
                                   child: InkWell(
                                     onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: ((context) =>
-                                                  const IncomesScreen())));
+                                      Navigator.pop(context);
                                     },
                                     child: PieChart(
                                       dataMap: Provider.of<AccountData>(context,

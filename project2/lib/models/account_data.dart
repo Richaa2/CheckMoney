@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
+import 'package:project2/models/income.dart';
 // ignore: unused_import
 import 'page_date.dart' as p;
 
@@ -26,7 +27,31 @@ class AccountData extends ChangeNotifier {
     Expense(name: 'Clouthes', amount: 500),
     Expense(name: 'Clouthes', amount: 500),
   ];
-  Map<String, double> dataMap = {
+
+  List<Income> incomes = [
+    Income(name: 'Market', amount: 100),
+    Income(name: 'Sport', amount: 1000),
+    Income(name: 'Hobby', amount: 2500),
+    Income(name: 'Dance', amount: 6666),
+    Income(name: 'Clouthes', amount: 500),
+    Income(name: 'Car', amount: 0),
+    Income(name: 'Market', amount: 100),
+    Income(name: 'Sport', amount: 1000),
+    Income(name: 'Hobby', amount: 2500),
+    Income(name: 'Dance', amount: 6666),
+    Income(name: 'Clouthes', amount: 500),
+    Income(name: 'Clouthes', amount: 500),
+  ];
+  Map<String, double> dataMapExpenses = {
+    'Market': 100,
+    'Sport': 1000,
+    'Hobby': 2500,
+    'Dance': 6666,
+    'Clouthes': 500,
+    'Car': 0,
+  };
+
+  Map<String, double> dataMapIncomes = {
     'Market': 100,
     'Sport': 1000,
     'Hobby': 2500,
