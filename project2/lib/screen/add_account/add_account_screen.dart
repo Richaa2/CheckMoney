@@ -28,9 +28,21 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
   String name = 'without name';
 
   int money = 0;
+  IconData? iconValue = Icons.credit_card;
+  final List<IconData> icons = [
+    Icons.paid,
+    Icons.credit_card,
+    Icons.attach_money,
+    Icons.account_balance_wallet,
+    Icons.savings,
+    Icons.euro,
+    Icons.money,
+    Icons.currency_bitcoin,
+  ];
 
-  Color? valuee = Colors.red;
+  Color? valuee = Colors.blueGrey;
   final List<Color> colors = [
+    Colors.blueGrey,
     Colors.red,
     Colors.blue,
     Colors.green,
@@ -38,6 +50,8 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
     Colors.pink,
     Colors.purple,
     Colors.brown,
+    Colors.teal,
+    Colors.indigo,
   ];
   @override
   Widget build(BuildContext context) {
@@ -45,11 +59,11 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(120.0),
         child: Container(
-          decoration: const BoxDecoration(color: Colors.blueGrey),
+          decoration: BoxDecoration(color: valuee),
           child: AppBarContent(
             done: () {
-              Provider.of<AccountData>(context, listen: false)
-                  .addAccount(Account(name: name, money: money), valuee);
+              Provider.of<AccountData>(context, listen: false).addAccount(
+                  Account(name: name, money: money), valuee, iconValue);
               Navigator.pop(context);
             },
             textField: TextField(
@@ -120,9 +134,28 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                 const Divider(
                   height: 2,
                 ),
-                const ListTileAccountAdd(
-                    title: 'Account currency',
-                    subtitle: 'Ukranian hryvnian - \$'),
+                ListTileAccountAdd(
+                  title: 'Account currency',
+                  subtitle: 'Ukranian hryvnian - \$',
+                  trailing: DropdownButton<IconData>(
+                      value: iconValue,
+                      onChanged: (IconData? newIcon) {
+                        setState(() {
+                          iconValue = newIcon;
+                        });
+                      },
+                      items: icons
+                          .map<DropdownMenuItem<IconData>>((IconData value) {
+                        return DropdownMenuItem<IconData>(
+                          value: value,
+                          child: Container(
+                            width: 25,
+                            height: 25,
+                            child: Icon(value),
+                          ),
+                        );
+                      }).toList()),
+                ),
                 const Divider(
                   height: 3,
                 ),

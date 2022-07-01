@@ -10,9 +10,23 @@ import 'history.dart';
 
 class AccountData extends ChangeNotifier {
   List<Account> accounts = [
-    Account(name: 'Mono', money: 100, color: Colors.amber),
-    Account(name: 'Privat', money: 2000, color: Colors.blueAccent),
-    Account(name: 'Cash', money: 50, color: Colors.greenAccent),
+    Account(
+      name: 'Mono',
+      money: 100,
+      color: Colors.amber,
+      icon: Icons.credit_card,
+    ),
+    Account(
+        name: 'Privat',
+        money: 2000,
+        color: Colors.blueAccent,
+        icon: Icons.credit_card),
+    Account(
+      name: 'Cash',
+      money: 50,
+      color: Colors.teal,
+      icon: Icons.credit_card,
+    )
   ];
   List<Expense> expenses = [
     Expense(name: 'Market', amount: 0),
@@ -163,9 +177,10 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addAccount(Account account, Color? color) {
+  void addAccount(Account account, Color? color, IconData? icon) {
     accounts.add(account);
     account.pickColor(color);
+    account.pickIcon(icon);
 
     notifyListeners();
   }

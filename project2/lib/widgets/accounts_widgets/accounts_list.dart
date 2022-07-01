@@ -21,6 +21,7 @@ class AccountsListView extends StatelessWidget {
           final accountsName = accountData.accounts[index].name;
           final accountssMoney = accountData.accounts[index].money;
           final accountColor = accountData.accounts[index].color;
+          final accountsIcon = accountData.accounts[index].icon;
 
           if (index == 0) {
             return Padding(
@@ -62,6 +63,7 @@ class AccountsListView extends StatelessWidget {
                           ));
                     },
                     color: accountColor,
+                    icon: accountsIcon,
                   ),
                 ],
               ),
@@ -83,6 +85,7 @@ class AccountsListView extends StatelessWidget {
                     ));
               },
               color: accountColor,
+              icon: accountsIcon,
             ),
           );
         },

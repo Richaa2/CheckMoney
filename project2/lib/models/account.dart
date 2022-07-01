@@ -4,12 +4,9 @@ class Account {
   String name;
   int money;
   Color? color = Colors.green;
+  IconData? icon;
 
-  Account({
-    this.color,
-    required this.name,
-    required this.money,
-  });
+  Account({this.color, required this.name, required this.money, this.icon});
 
 // class AccountName {
 //   String name;
@@ -20,6 +17,10 @@ class Account {
 //   int money;
 
 //   AccountMoney({required this.money});
+
+  void pickIcon(IconData? iconn) {
+    icon = iconn;
+  }
 
   void pickColor(Color? colorr) {
     color = colorr;

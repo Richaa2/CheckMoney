@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AccountsListTile extends StatelessWidget {
+  final IconData? icon;
   final Color? color;
   final String nameTitle;
   final int amount;
@@ -12,6 +13,7 @@ class AccountsListTile extends StatelessWidget {
     required this.amount,
     required this.onTap,
     required this.color,
+    this.icon,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class AccountsListTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
               color: color,
             ),
-            child: const Icon(Icons.credit_card),
+            child: Icon(icon),
           ),
           title: Text(
             nameTitle,

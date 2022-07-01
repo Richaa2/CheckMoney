@@ -22,6 +22,7 @@ class AccountsListView2 extends StatelessWidget {
           final accountsName = accountData.accounts[index2].name;
           final accountssMoney = accountData.accounts[index2].money;
           final accountsColor = accountData.accounts[index2].color;
+          final accountsIcon = accountData.accounts[index2].icon;
           return AccountsListTile(
             amount: accountssMoney,
             nameTitle: accountsName,
@@ -37,6 +38,7 @@ class AccountsListView2 extends StatelessWidget {
                   ));
             },
             color: accountsColor,
+            icon: accountsIcon,
           );
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(
