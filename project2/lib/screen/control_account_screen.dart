@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:project2/control_amount/edit_amount.dart';
-import 'package:project2/control_amount/min_account.dart';
+
 import 'package:project2/models/account.dart';
+import 'package:project2/screen/expense/select_expense_screen.dart';
 
 import 'package:project2/screen/select_account_screen.dart';
-import 'package:project2/screen/select_income_screen.dart';
+import 'package:project2/screen/income/select_income_screen.dart';
 
-import '../control_amount/add_amount.dart';
 import '../widgets/buttons/ink_controll_button.dart';
 
 class ControlAccountScreen extends StatelessWidget {
@@ -38,8 +38,8 @@ class ControlAccountScreen extends StatelessWidget {
                 index: index,
                 color: Colors.red,
                 icon: Icons.remove,
-                screen: MinAmount(
-                  index: index,
+                screen: SelectExpense(
+                  index1: index,
                 ),
                 title: 'Withdraw',
               ),

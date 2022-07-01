@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../widgets/drawer.dart';
 
-import 'expenses_screen.dart';
+import 'expense/expenses_screen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);

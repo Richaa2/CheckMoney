@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:project2/widgets/accounts_widgets/account_list_view2.dart';
 import 'package:project2/widgets/income_grid_view.dart';
 
 class SelectIncome extends StatelessWidget {

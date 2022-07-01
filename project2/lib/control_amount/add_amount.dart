@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/models/history.dart';
-import 'package:project2/models/income.dart';
+
 import 'package:project2/widgets/num_pad.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +25,7 @@ class AddAmount extends StatelessWidget {
             children: [
               Text(
                   'from  ${Provider.of<AccountData>(context).incomes[index2].name}'),
-              Text('Add amount'),
+              const Text('Add amount'),
               Text(
                   'to account  ${Provider.of<AccountData>(context).accounts[index1].name}'),
             ],

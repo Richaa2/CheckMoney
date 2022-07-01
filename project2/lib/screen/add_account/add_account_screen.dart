@@ -6,9 +6,9 @@ import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 
-import '../widgets/accounts_widgets/app_bar_content.dart';
-import '../widgets/accounts_widgets/list_tile_account_add.dart';
-import '../widgets/num_pad.dart';
+import '../../widgets/accounts_widgets/app_bar_content.dart';
+import '../../widgets/accounts_widgets/list_tile_account_add.dart';
+import '../../widgets/num_pad.dart';
 import 'add_account_balance.dart';
 
 ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(

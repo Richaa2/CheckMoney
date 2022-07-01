@@ -11,17 +11,27 @@ import '../widgets/num_pad.dart';
 class MinAmount extends StatelessWidget {
   final TextEditingController _myController = TextEditingController();
 
-  final int index;
+  final int index1;
+  final int index2;
   MinAmount({
     Key? key,
-    required this.index,
+    required this.index1,
+    required this.index2,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: Column(children: [
-        const Text('Minus amount'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text('  ${Provider.of<AccountData>(context).incomes[index2].name}'),
+            const Text('Withdraw money'),
+            Text(
+                '  ${Provider.of<AccountData>(context).accounts[index1].name}'),
+          ],
+        ),
         TextField(
           controller: _myController,
           showCursor: false,
@@ -29,13 +39,6 @@ class MinAmount extends StatelessWidget {
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           keyboardType: TextInputType.none,
           textAlign: TextAlign.center,
-          // onChanged: (value) {
-          //   if (value.isEmpty) {
-          //     value = '';
-          //   } else {
-          //     inputAmount = int.parse(value);
-          //   }
-          // },
         ),
         NumPad(
             delete: () {
@@ -51,20 +54,22 @@ class MinAmount extends StatelessWidget {
               } else {
                 Provider.of<AccountData>(context, listen: false)
                     .minAmountOnScreen(
-                        int.parse(_myController.text),
-                        Provider.of<AccountData>(context, listen: false)
-                            .accounts[index],
-                        Record(
-                            action: 2,
-                            name:
-                                Provider.of<AccountData>(context, listen: false)
-                                    .accounts[index]
-                                    .name,
-                            amount: int.parse(_myController.text),
-                            dateTime: DateTime.now().millisecondsSinceEpoch));
+                  int.parse(_myController.text),
+                  Provider.of<AccountData>(context, listen: false)
+                      .accounts[index1],
+                  Record(
+                      action: 2,
+                      name: Provider.of<AccountData>(context, listen: false)
+                          .accounts[index1]
+                          .name,
+                      amount: int.parse(_myController.text),
+                      dateTime: DateTime.now().millisecondsSinceEpoch),
+                  Provider.of<AccountData>(context, listen: false)
+                      .expenses[index2],
+                );
                 // ignore: avoid_print
                 print(Provider.of<AccountData>(context, listen: false)
-                    .accounts[index]
+                    .accounts[index1]
                     .money);
                 Navigator.popUntil(context, ModalRoute.withName('/'));
               }

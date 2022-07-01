@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:project2/control_amount/add_amount.dart';
+
+import 'package:project2/control_amount/min_account.dart';
 import 'package:project2/widgets/buttons/incomes_icon_button.dart';
 import 'package:provider/provider.dart';
 
 import 'package:project2/models/account_data.dart';
 import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 
-class IncomeGridView extends StatelessWidget {
+class ExpenseGridView extends StatelessWidget {
   final int index1;
-  const IncomeGridView({
+  const ExpenseGridView({
     Key? key,
     required this.index1,
   }) : super(key: key);
@@ -19,27 +20,27 @@ class IncomeGridView extends StatelessWidget {
         itemBuilder: (context, index2) {
           // accountData.accounts.removeAt(index1);
 
-          final incomesName = accountData.incomes[index2].name;
-          final incomesColor = accountData.incomes[index2].color;
-          final incomesIcon = accountData.incomes[index2].icon;
-          final incomesAmount = accountData.incomes[index2].amount.toInt();
+          final expensesName = accountData.expenses[index2].name;
+          final expensesColor = accountData.expenses[index2].color;
+          final expensesIcon = accountData.expenses[index2].icon;
+          final expensesAmount = accountData.expenses[index2].amount.toInt();
 
           return IncomesIconButton(
-            amount: incomesAmount,
+            amount: expensesAmount,
             onTap: () {
               // ignore: avoid_print
-              print(incomesAmount);
+              print(expensesAmount);
 
               showModalBottomSheetMetod(
                   context,
-                  AddAmount(
+                  MinAmount(
                     index2: index2,
                     index1: index1,
                   ));
             },
-            color: incomesColor,
-            icon: incomesIcon,
-            title: incomesName,
+            color: expensesColor,
+            icon: expensesIcon,
+            title: expensesName,
           );
         },
         itemCount: accountData.incomes.length,
