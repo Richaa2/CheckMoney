@@ -1,13 +1,17 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
-import 'package:project2/models/account.dart';
+
 import 'package:project2/models/account_data.dart';
 import 'package:project2/screen/control_account_screen.dart';
-import 'package:project2/widgets/showModalBottomSheetMetod.dart';
+import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 import 'package:provider/provider.dart';
 
 import 'accounts_tile.dart';
 
 class AccountsListView extends StatelessWidget {
+  const AccountsListView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var sum = Provider.of<AccountData>(context).sumOfAccounts();
@@ -25,7 +29,7 @@ class AccountsListView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Accounts',
                         style: TextStyle(
                             color: Colors.grey,
@@ -34,14 +38,14 @@ class AccountsListView extends StatelessWidget {
                       ),
                       Text(
                         '\$$sum ',
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.green,
                             fontSize: 20,
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   AccountsListTile(
@@ -79,7 +83,7 @@ class AccountsListView extends StatelessWidget {
             ),
           );
         },
-        separatorBuilder: (BuildContext context, int index) => Divider(
+        separatorBuilder: (BuildContext context, int index) => const Divider(
           color: Colors.white,
           height: 3,
         ),

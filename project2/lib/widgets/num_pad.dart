@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 // KeyPad widget
 // This widget is reusable and its buttons are customizable (color, size)

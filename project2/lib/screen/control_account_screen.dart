@@ -3,74 +3,72 @@ import 'package:flutter/material.dart';
 import 'package:project2/control_amount/edit_amount.dart';
 import 'package:project2/control_amount/min_account.dart';
 import 'package:project2/models/account.dart';
-import 'package:project2/models/account_data.dart';
+
 import 'package:project2/screen/select_account_screen.dart';
-import 'package:provider/provider.dart';
+
 import '../control_amount/add_amount.dart';
-import '../widgets/ink_controll_button.dart';
+import '../widgets/buttons/ink_controll_button.dart';
 
 class ControlAccountScreen extends StatelessWidget {
-  ControlAccountScreen({Key? key, required this.index}) : super(key: key);
-  int index;
+  const ControlAccountScreen({Key? key, required this.index}) : super(key: key);
+  final int index;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 80, vertical: 30),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 30),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                index: index,
+                color: Colors.green,
+                icon: Icons.add,
+                screen: AddAmount(
                   index: index,
-                  color: Colors.green,
-                  icon: Icons.add,
-                  screen: AddAmount(
-                    index: index,
-                  ),
-                  title: 'Recharge',
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                IconButton(
+                title: 'Recharge',
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              IconButton(
+                index: index,
+                color: Colors.red,
+                icon: Icons.remove,
+                screen: MinAmount(
                   index: index,
-                  color: Colors.red,
-                  icon: Icons.remove,
-                  screen: MinAmount(
-                    index: index,
-                  ),
-                  title: 'Withdraw',
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                IconButton(
+                title: 'Withdraw',
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              IconButton(
+                index: index,
+                color: Colors.yellow,
+                icon: Icons.edit,
+                screen: EditAmount(
                   index: index,
-                  color: Colors.yellow,
-                  icon: Icons.edit,
-                  screen: EditAmount(
-                    index: index,
-                  ),
-                  title: 'Edit',
                 ),
-                SizedBox(
-                  width: 10,
+                title: 'Edit',
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              IconButton(
+                index: index,
+                color: Colors.grey,
+                icon: Icons.arrow_forward,
+                screen: SelectAccount(
+                  index1: index,
                 ),
-                IconButton(
-                  index: index,
-                  color: Colors.grey,
-                  icon: Icons.arrow_forward,
-                  screen: SelectAccount(
-                    index1: index,
-                  ),
-                  title: 'Transfer',
-                ),
-              ],
-            ),
-          ],
-        ),
+                title: 'Transfer',
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -104,12 +102,12 @@ class IconButton extends StatelessWidget {
           icon: icon,
           screen: screen,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Text(
           title,
-          style: TextStyle(color: Colors.grey),
+          style: const TextStyle(color: Colors.grey),
         ),
       ],
     );

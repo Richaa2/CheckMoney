@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
-import 'package:project2/widgets/account_list_view2.dart';
-import 'package:project2/widgets/accounts_list.dart';
-
-import '../widgets/showModalBottomSheetMetod.dart';
-import 'add_account_screen.dart';
+import 'package:project2/widgets/accounts_widgets/account_list_view2.dart';
 
 class SelectAccount extends StatelessWidget {
-  int index1;
-  SelectAccount({
+  final int index1;
+  const SelectAccount({
     Key? key,
     required this.index1,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var sum = Provider.of<AccountData>(context).sumOfAccounts();
-    return Container(
+    return SizedBox(
       height: 500,
       child: Padding(
         padding: const EdgeInsets.all(15),
@@ -27,7 +21,7 @@ class SelectAccount extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'Accounts',
                   style: TextStyle(
                       color: Colors.grey,
@@ -35,15 +29,15 @@ class SelectAccount extends StatelessWidget {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '${sum} ',
-                  style: TextStyle(
+                  '$sum ',
+                  style: const TextStyle(
                       color: Colors.green,
                       fontSize: 20,
                       fontWeight: FontWeight.w500),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Expanded(

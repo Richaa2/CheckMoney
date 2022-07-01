@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:project2/control_amount/transfer_amount.dart';
-import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
-import 'package:project2/screen/control_account_screen.dart';
-import 'package:project2/widgets/showModalBottomSheetMetod.dart';
+import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 
 import 'accounts_tile.dart';
 
 class AccountsListView2 extends StatelessWidget {
-  int index1;
-  AccountsListView2({
+  final int index1;
+  const AccountsListView2({
     Key? key,
     required this.index1,
   }) : super(key: key);
@@ -28,6 +26,7 @@ class AccountsListView2 extends StatelessWidget {
             amount: accountssMoney,
             nameTitle: accountsName,
             onTap: () {
+              // ignore: avoid_print
               print(accountssMoney);
 
               showModalBottomSheetMetod(
@@ -39,7 +38,7 @@ class AccountsListView2 extends StatelessWidget {
             },
           );
         },
-        separatorBuilder: (BuildContext context, int index) => Divider(
+        separatorBuilder: (BuildContext context, int index) => const Divider(
           color: Colors.white,
           height: 3,
         ),

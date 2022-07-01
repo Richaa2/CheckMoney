@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:project2/models/account.dart';
-import 'package:project2/models/account_data.dart';
 
-import 'package:project2/widgets/accounts_list.dart';
-import 'package:project2/widgets/records_listview.dart';
-import 'package:provider/provider.dart';
+import '../widgets/records_widgets/records_listview.dart';
 
-import '../widgets/showModalBottomSheetMetod.dart';
-import 'add_account_screen.dart';
+class HistoryScreen extends StatelessWidget {
+  // PageController _controller = PageController();
 
-class HistoryScreen extends StatefulWidget {
-  @override
-  State<HistoryScreen> createState() => _HistoryScreenState();
-}
-
-class _HistoryScreenState extends State<HistoryScreen> {
-  PageController _controller = PageController();
+  const HistoryScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +15,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           padding: const EdgeInsets.all(15.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: const [
               Text(
                 'june 2022',
                 style: TextStyle(
@@ -37,10 +26,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
-        Expanded(
+        const Expanded(
           child: RecordsListView(),
         ),
       ],

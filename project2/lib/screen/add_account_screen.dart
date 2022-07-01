@@ -4,22 +4,26 @@ import 'package:provider/provider.dart';
 
 import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
-import 'package:project2/widgets/showModalBottomSheetMetod.dart';
+import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 
+import '../widgets/accounts_widgets/app_bar_content.dart';
+import '../widgets/accounts_widgets/list_tile_account_add.dart';
 import '../widgets/num_pad.dart';
 import 'add_account_balance.dart';
 
 ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-  fixedSize: Size.fromHeight(50),
+  fixedSize: const Size.fromHeight(50),
 );
 
 class AddAccountScreen extends StatefulWidget {
+  const AddAccountScreen({Key? key}) : super(key: key);
+
   @override
   State<AddAccountScreen> createState() => _AddAccountScreenState();
 }
 
 class _AddAccountScreenState extends State<AddAccountScreen> {
-  TextEditingController _myController = TextEditingController();
+  final TextEditingController _myController = TextEditingController();
   String name = 'without name';
 
   int money = 0;
@@ -43,7 +47,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                     onChanged: (value) {
                       name = value;
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         hintText: 'Name', focusColor: Colors.white),
                   ),
                 ),
@@ -53,13 +57,14 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(120, 71, 71, 71),
+                    color: const Color.fromARGB(120, 71, 71, 71),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.01),
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
                       ),
                     ],
                   ),
@@ -87,38 +92,39 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                           ),
                         ),
                       ),
-                      ListTileAccountAdd(
+                      const ListTileAccountAdd(
                         title: 'Type',
                         subtitle: 'Regular',
                       ),
-                      Divider(
+                      const Divider(
                         height: 2,
                       ),
-                      ListTileAccountAdd(
+                      const ListTileAccountAdd(
                           title: 'Account currency',
                           subtitle: 'Ukranian hryvnian - \$'),
-                      Divider(
+                      const Divider(
                         height: 3,
                       ),
-                      ListTileAccountAdd(
+                      const ListTileAccountAdd(
                         title: 'Description',
                         subtitle: 'none',
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(120, 71, 71, 71),
+                    color: const Color.fromARGB(120, 71, 71, 71),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.01),
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: Offset(0, 3), // changes position of shadow
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
                       ),
                     ],
                   ),
@@ -151,8 +157,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                           showModalBottomSheetMetod(
                               context,
                               AddAccountBalance(
-                                inputMoney: money,
-                                NumPad: NumPad(
+                                numPad: NumPad(
                                     delete: () {
                                       if (_myController.text.isEmpty) {
                                       } else {
@@ -172,7 +177,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                                       });
                                     },
                                     controller: _myController),
-                                TextField: TextField(
+                                textField: TextField(
                                   controller: _myController,
                                   showCursor: false,
                                   autofocus: true,
@@ -184,20 +189,20 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                                 ),
                               ));
                         },
-                        leading: Text(
+                        leading: const Text(
                           'Account balance',
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w400),
                         ),
                         trailing: Text(
                           '$money\$',
-                          style: TextStyle(color: Colors.grey),
+                          style: const TextStyle(color: Colors.grey),
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         height: 1,
                       ),
-                      ListTile(
+                      const ListTile(
                         leading: Text(
                           'Credit limit',
                           style: TextStyle(
@@ -208,11 +213,11 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                           style: TextStyle(color: Colors.grey),
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         height: 1,
                       ),
                       ListTile(
-                          leading: Text(
+                          leading: const Text(
                             'Include in total balance',
                             style: TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.w400),
@@ -232,171 +237,3 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
     );
   }
 }
-
-class ListTileAccountAdd extends StatelessWidget {
-  final String title;
-  final String subtitle;
-
-  const ListTileAccountAdd({
-    Key? key,
-    required this.title,
-    required this.subtitle,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(title),
-      subtitle: Text(
-        subtitle,
-        style: TextStyle(color: Colors.blueGrey),
-      ),
-    );
-  }
-}
-
-class AppBarContent extends StatelessWidget {
-  final void Function() done;
-  // String inputName = 'without name';
-  // int inputMoney = 0;
-  Widget textField;
-
-  AppBarContent({
-    Key? key,
-    required this.done,
-    required this.textField,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            children: <Widget>[
-              IconButton(
-                icon: const Icon(
-                  Icons.close,
-                  size: 20,
-                ),
-                color: Colors.white,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              const Text(
-                'New account',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18),
-              ),
-              const Spacer(),
-              IconButton(
-                  icon: const Icon(
-                    Icons.check,
-                    size: 20,
-                  ),
-                  color: Colors.white,
-                  onPressed: done),
-            ],
-          ),
-        ),
-        Row(
-          children: [
-            Spacer(
-              flex: 2,
-            ),
-            Expanded(
-              flex: 15,
-              child: SizedBox(child: textField),
-            ),
-            Spacer(
-              flex: 1,
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 25,
-        )
-      ],
-    );
-  }
-}
-
-// body: Container(
-//         child: Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 30),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.stretch,
-//             children: [
-//               Text(
-//                 'Add Account',
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(
-//                     color: Colors.lightBlueAccent,
-//                     fontSize: 30,
-//                     fontWeight: FontWeight.w500),
-//               ),
-//               SizedBox(
-//                 height: 20,
-//               ),
-//               Column(
-//                 children: [
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       SizedBox(
-//                         width: 100,
-//                         child: Column(
-//                           children: [
-//                             Text('Name'),
-//                             TextField(
-//                               onChanged: (nameText) {
-//                                 inputName = nameText;
-//                               },
-//                               textAlign: TextAlign.center,
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                       SizedBox(
-//                         width: 100,
-//                         child: Column(
-//                           children: [
-//                             Text('Amount'),
-//                             TextField(
-                              // inputFormatters: [
-                              //   FilteringTextInputFormatter.digitsOnly
-                              // ],
-                              // keyboardType: TextInputType.number,
-                              // onChanged: (moneyAm) {
-                              //   inputMoney = int.parse(moneyAm);
-                              // },
-//                               textAlign: TextAlign.center,
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//               SizedBox(
-//                 height: 10,
-//               ),
-//               ElevatedButton(
-//                   style: raisedButtonStyle,
-//                   onPressed: () {
-//                     Provider.of<AccountData>(context, listen: false).addAccount(
-//                         Account(name: inputName, money: inputMoney));
-
-//                     Navigator.pop(context);
-//                   },
-//                   child: Text('Add'))
-//             ],
-//           ),
-//         ),
-//       ),

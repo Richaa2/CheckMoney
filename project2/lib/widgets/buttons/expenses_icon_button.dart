@@ -5,7 +5,7 @@ class ExpensesIconButton extends StatelessWidget {
   final Color color;
   final String title;
   final int amount;
-  ExpensesIconButton(
+  const ExpensesIconButton(
       {super.key,
       required this.icon,
       required this.color,
@@ -17,18 +17,18 @@ class ExpensesIconButton extends StatelessWidget {
     return Column(
       children: [
         Text(title),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         CircleAvatar(
+          backgroundColor: color,
           child: IconButton(
             onPressed: () {},
             icon: Icon(icon),
             color: Colors.white,
           ),
-          backgroundColor: color,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Text('$amount'),

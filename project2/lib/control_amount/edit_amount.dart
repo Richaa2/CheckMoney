@@ -3,26 +3,24 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../models/account_data.dart';
-import '../models/history.dart';
-import '../screen/add_account_screen.dart';
+
 import '../widgets/num_pad.dart';
 
 class EditAmount extends StatelessWidget {
   final TextEditingController _myController = TextEditingController();
 
-  int index;
+  final int index;
   EditAmount({
     Key? key,
     required this.index,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: Column(
         children: [
-          Text('Edit amount'),
+          const Text('Edit amount'),
           TextFormField(
             controller: _myController
               ..text = Provider.of<AccountData>(context, listen: false)
@@ -70,6 +68,7 @@ class EditAmount extends StatelessWidget {
                     //         .accountsName[index],
                     //     amount: inputAmount));
                   );
+                  // ignore: avoid_print
                   print(Provider.of<AccountData>(context, listen: false)
                       .accounts[index]
                       .money);
@@ -79,6 +78,6 @@ class EditAmount extends StatelessWidget {
               controller: _myController),
         ],
       ),
-    ));
+    );
   }
 }

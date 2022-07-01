@@ -5,22 +5,19 @@ import 'package:project2/models/history.dart';
 import 'package:project2/widgets/num_pad.dart';
 import 'package:provider/provider.dart';
 
-import '../screen/add_account_screen.dart';
-
 class AddAmount extends StatelessWidget {
   final TextEditingController _myController = TextEditingController();
 
-  int index;
+  final int index;
   AddAmount({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: Column(
         children: [
-          Text('Add amount'),
+          const Text('Add amount'),
           TextField(
             controller: _myController,
             showCursor: false,
@@ -60,6 +57,7 @@ class AddAmount extends StatelessWidget {
                                   .name,
                               amount: int.parse(_myController.text),
                               dateTime: DateTime.now().millisecondsSinceEpoch));
+                  // ignore: avoid_print
                   print(Provider.of<AccountData>(context, listen: false)
                       .accounts[index]
                       .money);
@@ -69,6 +67,6 @@ class AddAmount extends StatelessWidget {
               controller: _myController),
         ],
       ),
-    ));
+    );
   }
 }

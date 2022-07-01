@@ -1,8 +1,7 @@
-import 'dart:math';
-import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
+// ignore: unused_import
 import 'page_date.dart' as p;
 
 import 'history.dart';
@@ -46,7 +45,7 @@ class AccountData extends ChangeNotifier {
         name: 'Mono',
         amount: 1000,
         dateTime: DateTime.now()
-            .add(Duration(
+            .add(const Duration(
               days: -19,
             ))
             .millisecondsSinceEpoch),
@@ -55,7 +54,7 @@ class AccountData extends ChangeNotifier {
         name: 'Mono',
         amount: 1000,
         dateTime: DateTime.now()
-            .add(Duration(
+            .add(const Duration(
               days: -19,
             ))
             .millisecondsSinceEpoch),
@@ -64,7 +63,7 @@ class AccountData extends ChangeNotifier {
         name: 'Mono',
         amount: 1400,
         dateTime: DateTime.now()
-            .add(Duration(
+            .add(const Duration(
               days: -1,
             ))
             .millisecondsSinceEpoch)

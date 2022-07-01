@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:project2/models/account.dart';
-import 'package:project2/models/account_data.dart';
 
-import 'package:project2/widgets/accounts_list.dart';
-import 'package:provider/provider.dart';
-
-import '../widgets/showModalBottomSheetMetod.dart';
-import 'add_account_screen.dart';
+import 'package:project2/widgets/accounts_widgets/accounts_list.dart';
 
 class AccountScreen extends StatefulWidget {
+  const AccountScreen({Key? key}) : super(key: key);
+
   @override
   State<AccountScreen> createState() => _AccountScreenState();
 }
@@ -16,10 +12,9 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
-    var sum = Provider.of<AccountData>(context).sumOfAccounts();
     return Scaffold(
       body: Column(
-        children: [
+        children: const [
           Expanded(
             child: AccountsListView(),
           ),

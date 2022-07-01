@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:project2/models/account.dart';
-import 'package:project2/widgets/showModalBottomSheetMetod.dart';
+import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 
 class InkControllButton extends StatelessWidget {
   final Widget screen;
@@ -8,13 +9,14 @@ class InkControllButton extends StatelessWidget {
   final IconData icon;
   final Account Function()? removeAcc;
 
-  InkControllButton({
-    this.removeAcc,
+  const InkControllButton({
+    Key? key,
     required this.screen,
     required this.color,
     required this.icon,
+    this.removeAcc,
     required this.index,
-  });
+  }) : super(key: key);
 
   final int index;
 
@@ -23,7 +25,7 @@ class InkControllButton extends StatelessWidget {
     return Ink(
       decoration: ShapeDecoration(
         color: color.withOpacity(0.4),
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
       ),
       child: IconButton(
           color: color,

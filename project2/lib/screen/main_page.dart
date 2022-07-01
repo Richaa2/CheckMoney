@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:project2/models/account.dart';
+
 import 'package:project2/models/account_data.dart';
 import 'package:project2/screen/account_screen.dart';
 import 'package:project2/screen/history_screen.dart';
 
-import 'package:project2/widgets/accounts_list.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/build_item.dart';
 import '../widgets/drawer.dart';
-import '../widgets/showModalBottomSheetMetod.dart';
-import 'add_account_screen.dart';
+
 import 'expenses_screen.dart';
 
 class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
+
   @override
   State<MainPage> createState() => _MainPageState();
 }
@@ -21,10 +20,10 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
-  List<Widget> _screens = [
-    AccountScreen(),
-    ExpensesScreen(),
-    HistoryScreen(),
+  final List<Widget> _screens = [
+    const AccountScreen(),
+    const ExpensesScreen(),
+    const HistoryScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -37,17 +36,17 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     var sum = Provider.of<AccountData>(context).sumOfAccounts();
     return Scaffold(
-      drawer: DrawerWidget(),
+      drawer: const DrawerWidget(),
       appBar: AppBar(
           title: Column(
             children: [
-              Text(
+              const Text(
                 'All account',
                 style: TextStyle(fontSize: 15),
               ),
               Text(
                 '\$$sum',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                 ),
               )
@@ -62,7 +61,7 @@ class _MainPageState extends State<MainPage> {
           // ),
           actions: [
             IconButton(
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
               onPressed: () {
                 Navigator.pushNamed(context, '/addAcc');
               },
@@ -70,7 +69,7 @@ class _MainPageState extends State<MainPage> {
           ]),
       body: _screens.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.credit_card),
               label: 'Accounts',

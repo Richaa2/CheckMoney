@@ -1,33 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:provider/provider.dart';
-
-import '../models/account_data.dart';
-import '../widgets/num_pad.dart';
 
 class AddAccountBalance extends StatelessWidget {
-  int inputMoney = 0;
-
-  Widget TextField;
-  Widget NumPad;
-  AddAccountBalance({
+  final Widget textField;
+  final Widget numPad;
+  const AddAccountBalance({
     Key? key,
-    required this.TextField,
-    required this.inputMoney,
-    required this.NumPad,
+    required this.textField,
+    required this.numPad,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: Column(
         children: [
-          Text('Account balance'),
-          TextField,
+          const Text('Account balance'),
+          textField,
           // TextField(
           //   controller: _myController,
           //   showCursor: false,
@@ -36,7 +25,7 @@ class AddAccountBalance extends StatelessWidget {
           //   keyboardType: TextInputType.none,
           //   textAlign: TextAlign.center,
           // ),
-          NumPad,
+          numPad,
           // NumPad(
           //     delete: () {
           //       if (_myController.text.isEmpty) {
@@ -56,6 +45,6 @@ class AddAccountBalance extends StatelessWidget {
           //     controller: _myController),
         ],
       ),
-    ));
+    );
   }
 }

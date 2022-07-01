@@ -1,31 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:project2/widgets/records_list_tile.dart';
 import 'package:provider/provider.dart';
 
-import '../models/account_data.dart';
-import 'build_item.dart';
+import '../../models/account_data.dart';
+import 'build_record.dart';
 
 class RecordsListView extends StatelessWidget {
+  const RecordsListView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AccountData>(
       builder: ((context, accountData, child) {
-        return ListViewMetod(accountData);
+        return listViewMetod(accountData);
       }),
     );
   }
 
-  ListView ListViewMetod(AccountData accountData) {
+  ListView listViewMetod(AccountData accountData) {
     String? prevDay;
     String today = DateFormat("EEE, MMM d, y").format(DateTime.now());
     String yesterday = DateFormat("EEE, MMM d, y")
-        .format(DateTime.now().add(Duration(days: -1)));
+        .format(DateTime.now().add(const Duration(days: -1)));
     return ListView.builder(
       itemBuilder: (context, index) {
-        final recordsName = accountData.records[index].name;
-        final recordsMoney = accountData.records[index].amount;
-        final recordMin = accountData.records[index].action;
         final recordDate = accountData.records[index].dateTime;
         DateTime date = DateTime.fromMillisecondsSinceEpoch(recordDate);
         String dateString = DateFormat("EEE, MMM d, y").format(date);
@@ -45,7 +43,7 @@ class RecordsListView extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             showHeader
@@ -110,8 +108,8 @@ class RecordsListView extends StatelessWidget {
                           )
                         ]),
                   )
-                : Offstage(),
-            buildItem(index, context, date, accountData.records[index]),
+                : const Offstage(),
+            buildRecord(index, context, date, accountData.records[index]),
           ],
         );
       },

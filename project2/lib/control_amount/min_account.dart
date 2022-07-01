@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:provider/provider.dart';
 
 import '../models/account_data.dart';
 import '../models/history.dart';
-import '../screen/add_account_screen.dart';
+
 import '../widgets/num_pad.dart';
 
 class MinAmount extends StatelessWidget {
   final TextEditingController _myController = TextEditingController();
 
-  int index;
+  final int index;
   MinAmount({
     Key? key,
     required this.index,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: Column(children: [
-        Text('Minus amount'),
+        const Text('Minus amount'),
         TextField(
           controller: _myController,
           showCursor: false,
@@ -64,6 +62,7 @@ class MinAmount extends StatelessWidget {
                                     .name,
                             amount: int.parse(_myController.text),
                             dateTime: DateTime.now().millisecondsSinceEpoch));
+                // ignore: avoid_print
                 print(Provider.of<AccountData>(context, listen: false)
                     .accounts[index]
                     .money);
@@ -72,6 +71,6 @@ class MinAmount extends StatelessWidget {
             },
             controller: _myController),
       ]),
-    ));
+    );
   }
 }

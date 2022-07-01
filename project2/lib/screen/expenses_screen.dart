@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:pie_chart/pie_chart.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/expenses_icon_button.dart';
+import '../widgets/buttons/expenses_icon_button.dart';
 
 class ExpensesScreen extends StatelessWidget {
   const ExpensesScreen({Key? key}) : super(key: key);
@@ -14,7 +13,6 @@ class ExpensesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AccountData>(
       builder: (BuildContext context, accountData, child) {
-        final int index;
         final expenses = accountData.expenses;
         var sum = Provider.of<AccountData>(context).sumOfExpenses();
 
@@ -37,7 +35,7 @@ class ExpensesScreen extends StatelessWidget {
                               icon: expenses[0].icon,
                               title: expenses[0].name,
                             ),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             ExpensesIconButton(
@@ -46,7 +44,7 @@ class ExpensesScreen extends StatelessWidget {
                               icon: expenses[4].icon,
                               title: expenses[4].name,
                             ),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             ExpensesIconButton(
@@ -55,7 +53,7 @@ class ExpensesScreen extends StatelessWidget {
                               icon: expenses[6].icon,
                               title: expenses[6].name,
                             ),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             ExpensesIconButton(
@@ -96,12 +94,13 @@ class ExpensesScreen extends StatelessWidget {
                                         .dataMap,
                                     chartType: ChartType.ring,
                                     legendOptions:
-                                        LegendOptions(showLegends: false),
-                                    chartValuesOptions: ChartValuesOptions(
-                                        showChartValues: false),
+                                        const LegendOptions(showLegends: false),
+                                    chartValuesOptions:
+                                        const ChartValuesOptions(
+                                            showChartValues: false),
                                     centerText: '$sum',
                                     centerTextStyle:
-                                        TextStyle(color: Colors.black),
+                                        const TextStyle(color: Colors.black),
                                   ),
                                 ),
                               ),
@@ -134,7 +133,7 @@ class ExpensesScreen extends StatelessWidget {
                               icon: expenses[3].icon,
                               title: expenses[3].name,
                             ),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             ExpensesIconButton(
@@ -143,7 +142,7 @@ class ExpensesScreen extends StatelessWidget {
                               icon: expenses[5].icon,
                               title: expenses[5].name,
                             ),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             ExpensesIconButton(
@@ -152,7 +151,7 @@ class ExpensesScreen extends StatelessWidget {
                               icon: expenses[7].icon,
                               title: expenses[7].name,
                             ),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             ExpensesIconButton(
