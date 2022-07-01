@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:pie_chart/pie_chart.dart';
 import 'package:project2/models/account_data.dart';
-import 'package:project2/screen/expenses_screen.dart';
+
 import 'package:provider/provider.dart';
 
-import '../widgets/buttons/expenses_icon_button.dart';
+import '../widgets/buttons/incomes_icon_button.dart';
 
 class IncomesScreen extends StatelessWidget {
   const IncomesScreen({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class IncomesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AccountData>(
       builder: (BuildContext context, accountData, child) {
-        final expenses = accountData.expenses;
+        final incomes = accountData.incomes;
         var sum = Provider.of<AccountData>(context).sumOfExpenses();
 
         return Scaffold(
@@ -30,38 +30,38 @@ class IncomesScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ExpensesIconButton(
-                              amount: expenses[0].amount.toInt(),
-                              color: expenses[0].color,
-                              icon: expenses[0].icon,
-                              title: expenses[0].name,
+                            IncomesIconButton(
+                              amount: incomes[0].amount.toInt(),
+                              color: incomes[0].color,
+                              icon: incomes[0].icon,
+                              title: incomes[0].name,
                             ),
                             const Spacer(
                               flex: 1,
                             ),
-                            ExpensesIconButton(
-                              amount: expenses[4].amount.toInt(),
-                              color: expenses[4].color,
-                              icon: expenses[4].icon,
-                              title: expenses[4].name,
+                            IncomesIconButton(
+                              amount: incomes[4].amount.toInt(),
+                              color: incomes[4].color,
+                              icon: incomes[4].icon,
+                              title: incomes[4].name,
                             ),
                             const Spacer(
                               flex: 1,
                             ),
-                            ExpensesIconButton(
-                              amount: expenses[6].amount.toInt(),
-                              color: expenses[6].color,
-                              icon: expenses[6].icon,
-                              title: expenses[6].name,
+                            IncomesIconButton(
+                              amount: incomes[6].amount.toInt(),
+                              color: incomes[6].color,
+                              icon: incomes[6].icon,
+                              title: incomes[6].name,
                             ),
                             const Spacer(
                               flex: 1,
                             ),
-                            ExpensesIconButton(
-                              amount: expenses[8].amount.toInt(),
-                              color: expenses[8].color,
-                              icon: expenses[8].icon,
-                              title: expenses[8].name,
+                            IncomesIconButton(
+                              amount: incomes[8].amount.toInt(),
+                              color: incomes[8].color,
+                              icon: incomes[8].icon,
+                              title: incomes[8].name,
                             ),
                           ],
                         ),
@@ -73,17 +73,17 @@ class IncomesScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  ExpensesIconButton(
-                                    amount: expenses[1].amount.toInt(),
-                                    color: expenses[1].color,
-                                    icon: expenses[1].icon,
-                                    title: expenses[1].name,
+                                  IncomesIconButton(
+                                    amount: incomes[1].amount.toInt(),
+                                    color: incomes[1].color,
+                                    icon: incomes[1].icon,
+                                    title: incomes[1].name,
                                   ),
-                                  ExpensesIconButton(
-                                    amount: expenses[2].amount.toInt(),
-                                    color: expenses[2].color,
-                                    icon: expenses[2].icon,
-                                    title: expenses[2].name,
+                                  IncomesIconButton(
+                                    amount: incomes[2].amount.toInt(),
+                                    color: incomes[2].color,
+                                    icon: incomes[2].icon,
+                                    title: incomes[2].name,
                                   ),
                                 ],
                               ),
@@ -114,17 +114,17 @@ class IncomesScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  ExpensesIconButton(
-                                    amount: expenses[9].amount.toInt(),
-                                    color: expenses[9].color,
-                                    icon: expenses[9].icon,
-                                    title: expenses[9].name,
+                                  IncomesIconButton(
+                                    amount: incomes[9].amount.toInt(),
+                                    color: incomes[9].color,
+                                    icon: incomes[9].icon,
+                                    title: incomes[9].name,
                                   ),
-                                  ExpensesIconButton(
-                                    amount: expenses[10].amount.toInt(),
-                                    color: expenses[10].color,
-                                    icon: expenses[10].icon,
-                                    title: expenses[10].name,
+                                  IncomesIconButton(
+                                    amount: incomes[10].amount.toInt(),
+                                    color: incomes[10].color,
+                                    icon: incomes[10].icon,
+                                    title: incomes[10].name,
                                   ),
                                 ],
                               )
@@ -133,38 +133,38 @@ class IncomesScreen extends StatelessWidget {
                         ),
                         Column(
                           children: [
-                            ExpensesIconButton(
-                              amount: expenses[3].amount.toInt(),
-                              color: expenses[3].color,
-                              icon: expenses[3].icon,
-                              title: expenses[3].name,
+                            IncomesIconButton(
+                              amount: incomes[3].amount.toInt(),
+                              color: incomes[3].color,
+                              icon: incomes[3].icon,
+                              title: incomes[3].name,
                             ),
                             const Spacer(
                               flex: 1,
                             ),
-                            ExpensesIconButton(
-                              amount: expenses[5].amount.toInt(),
-                              color: expenses[5].color,
-                              icon: expenses[5].icon,
-                              title: expenses[5].name,
+                            IncomesIconButton(
+                              amount: incomes[5].amount.toInt(),
+                              color: incomes[5].color,
+                              icon: incomes[5].icon,
+                              title: incomes[5].name,
                             ),
                             const Spacer(
                               flex: 1,
                             ),
-                            ExpensesIconButton(
-                              amount: expenses[7].amount.toInt(),
-                              color: expenses[7].color,
-                              icon: expenses[7].icon,
-                              title: expenses[7].name,
+                            IncomesIconButton(
+                              amount: incomes[7].amount.toInt(),
+                              color: incomes[7].color,
+                              icon: incomes[7].icon,
+                              title: incomes[7].name,
                             ),
                             const Spacer(
                               flex: 1,
                             ),
-                            ExpensesIconButton(
-                              amount: expenses[11].amount.toInt(),
-                              color: expenses[11].color,
-                              icon: expenses[11].icon,
-                              title: expenses[11].name,
+                            IncomesIconButton(
+                              amount: incomes[11].amount.toInt(),
+                              color: incomes[11].color,
+                              icon: incomes[11].icon,
+                              title: incomes[11].name,
                             ),
                           ],
                         )

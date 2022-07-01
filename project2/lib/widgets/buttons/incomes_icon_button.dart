@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
-class ExpensesIconButton extends StatelessWidget {
+class IncomesIconButton extends StatelessWidget {
   final IconData icon;
   final Color color;
   final String title;
   final int amount;
-  const ExpensesIconButton(
-      {super.key,
-      required this.icon,
-      required this.color,
-      required this.title,
-      required this.amount});
+  final void Function()? onTap;
+  const IncomesIconButton({
+    super.key,
+    required this.icon,
+    required this.color,
+    required this.title,
+    required this.amount,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // if (title = ''){
-    //   return SizedBox(height: 10,)
-    // }
     if (title == '') {
       return const SizedBox(
         width: 60,
@@ -35,7 +35,7 @@ class ExpensesIconButton extends StatelessWidget {
           CircleAvatar(
             backgroundColor: color,
             child: IconButton(
-              onPressed: () {},
+              onPressed: onTap,
               icon: Icon(icon),
               color: Colors.white,
             ),

@@ -20,27 +20,27 @@ class AccountData extends ChangeNotifier {
     Expense(name: 'Dance', amount: 6666),
     Expense(name: 'Clouthes', amount: 500),
     Expense(name: 'Car', amount: 0),
-    Expense(name: 'Market', amount: 100),
-    Expense(name: 'Sport', amount: 1000),
-    Expense(name: 'Hobby', amount: 2500),
-    Expense(name: 'Dance', amount: 6666),
-    Expense(name: 'Clouthes', amount: 500),
-    Expense(name: 'Clouthes', amount: 500),
+    Expense(name: '', amount: 100),
+    Expense(name: '', amount: 1000),
+    Expense(name: '', amount: 2500),
+    Expense(name: '', amount: 6666),
+    Expense(name: '', amount: 500),
+    Expense(name: '', amount: 500),
   ];
 
   List<Income> incomes = [
-    Income(name: 'Market', amount: 100),
-    Income(name: 'Sport', amount: 1000),
-    Income(name: 'Hobby', amount: 2500),
-    Income(name: 'Dance', amount: 6666),
-    Income(name: 'Clouthes', amount: 500),
-    Income(name: 'Car', amount: 0),
-    Income(name: 'Market', amount: 100),
-    Income(name: 'Sport', amount: 1000),
-    Income(name: 'Hobby', amount: 2500),
-    Income(name: 'Dance', amount: 6666),
-    Income(name: 'Clouthes', amount: 500),
-    Income(name: 'Clouthes', amount: 500),
+    Income(name: 'Job', amount: 100),
+    Income(name: 'Dance', amount: 1000),
+    Income(name: 'Gift', amount: 2500),
+    Income(name: 'Binance', amount: 6666),
+    Income(name: 'Crypto', amount: 500),
+    Income(name: 'Futures', amount: 0),
+    Income(name: '', amount: 100),
+    Income(name: '', amount: 1000),
+    Income(name: '', amount: 2500),
+    Income(name: '', amount: 6666),
+    Income(name: '', amount: 500),
+    Income(name: '', amount: 500),
   ];
   Map<String, double> dataMapExpenses = {
     'Market': 100,
@@ -120,10 +120,12 @@ class AccountData extends ChangeNotifier {
     return sum;
   }
 
-  void addAmountOnScreen(int amount, Account accountMoney, Record record) {
+  void addAmountOnScreen(
+      int amount, Account accountMoney, Record record, Income income) {
     accountMoney.addAmount(amount);
     records.insert(0, record);
     record.action = 2;
+    income.addIncome(amount);
 
     notifyListeners();
   }

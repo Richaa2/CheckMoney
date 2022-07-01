@@ -69,6 +69,7 @@ class _MainPageState extends State<MainPage> {
           ]),
       body: _screens.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.credit_card),

@@ -5,6 +5,7 @@ import 'package:project2/control_amount/min_account.dart';
 import 'package:project2/models/account.dart';
 
 import 'package:project2/screen/select_account_screen.dart';
+import 'package:project2/screen/select_income_screen.dart';
 
 import '../control_amount/add_amount.dart';
 import '../widgets/buttons/ink_controll_button.dart';
@@ -25,8 +26,8 @@ class ControlAccountScreen extends StatelessWidget {
                 index: index,
                 color: Colors.green,
                 icon: Icons.add,
-                screen: AddAmount(
-                  index: index,
+                screen: SelectIncome(
+                  index1: index,
                 ),
                 title: 'Recharge',
               ),
