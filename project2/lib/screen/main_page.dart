@@ -6,6 +6,7 @@ import 'package:project2/screen/history_screen.dart';
 
 import 'package:provider/provider.dart';
 
+import '../widgets/dialog_widget.dart';
 import '../widgets/drawer.dart';
 
 import 'expense/expenses_screen.dart';
@@ -63,7 +64,9 @@ class _MainPageState extends State<MainPage> {
             IconButton(
               icon: const Icon(Icons.add),
               onPressed: () {
-                Navigator.pushNamed(context, '/addAcc');
+                // Navigator.pushNamed(context, '/addAcc');
+                showDialog(
+                    context: context, builder: (context) => DialogWidget());
               },
             ),
           ]),

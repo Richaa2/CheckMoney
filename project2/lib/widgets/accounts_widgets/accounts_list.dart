@@ -90,8 +90,7 @@ class AccountsListView extends StatelessWidget {
           );
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(
-          color: Colors.white,
-          height: 3,
+          height: 5,
         ),
         itemCount: accountData.accounts.length,
       );

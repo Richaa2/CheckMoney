@@ -64,7 +64,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
             done: () {
               Provider.of<AccountData>(context, listen: false).addAccount(
                   Account(name: name, money: money), valuee, iconValue);
-              Navigator.pop(context);
+              Navigator.popAndPushNamed(context, '/');
             },
             textField: TextField(
               onChanged: (value) {
