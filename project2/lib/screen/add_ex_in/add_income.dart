@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project2/models/expense.dart';
+import 'package:project2/models/income.dart';
 
 import 'package:provider/provider.dart';
 
@@ -8,18 +9,14 @@ import 'package:project2/models/account_data.dart';
 import '../../widgets/accounts_widgets/app_bar_content.dart';
 import '../../widgets/accounts_widgets/list_tile_account_add.dart';
 
-ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-  fixedSize: const Size.fromHeight(50),
-);
-
-class AddExpenseScreen extends StatefulWidget {
-  const AddExpenseScreen({Key? key}) : super(key: key);
+class AddIncomeScreen extends StatefulWidget {
+  const AddIncomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<AddExpenseScreen> createState() => _AddExpenseScreenState();
+  State<AddIncomeScreen> createState() => _AddIncomeScreenState();
 }
 
-class _AddExpenseScreenState extends State<AddExpenseScreen> {
+class _AddIncomeScreenState extends State<AddIncomeScreen> {
   String name = 'without name';
 
   int money = 0;
@@ -57,8 +54,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           decoration: BoxDecoration(color: valuee),
           child: AppBarContent(
             done: () {
-              Provider.of<AccountData>(context, listen: false).addExpense(
-                Expense(
+              Provider.of<AccountData>(context, listen: false).addIncome(
+                Income(
                     name: name, amount: money, color: valuee, icon: iconValue),
               );
               Navigator.popAndPushNamed(context, '/');

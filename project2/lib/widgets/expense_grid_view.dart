@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 
+import 'buttons/expenses_icon_button.dart';
+
 class ExpenseGridView extends StatelessWidget {
   final int index1;
   const ExpenseGridView({
@@ -25,8 +27,7 @@ class ExpenseGridView extends StatelessWidget {
           final expensesIcon = accountData.expenses[index2].icon;
           final expensesAmount = accountData.expenses[index2].amount.toInt();
 
-          return IncomesIconButton(
-            amount: expensesAmount,
+          return ExpensesIconButton(
             onTap: () {
               // ignore: avoid_print
               print(expensesAmount);
@@ -38,9 +39,7 @@ class ExpenseGridView extends StatelessWidget {
                     index1: index1,
                   ));
             },
-            color: expensesColor,
-            icon: expensesIcon,
-            title: expensesName,
+            index: index2,
           );
         },
         itemCount: accountData.expenses.length,

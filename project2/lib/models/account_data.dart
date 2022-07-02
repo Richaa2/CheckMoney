@@ -67,18 +67,42 @@ class AccountData extends ChangeNotifier {
   ];
 
   List<Income> incomes = [
-    Income(name: 'Job', amount: 0),
-    Income(name: 'Dance', amount: 0),
-    Income(name: 'Gift', amount: 0),
-    Income(name: 'Binance', amount: 0),
-    Income(name: 'Crypto', amount: 0),
-    Income(name: 'Futures', amount: 0),
-    Income(name: '', amount: 0),
-    Income(name: '', amount: 0),
-    Income(name: '', amount: 0),
-    Income(name: '', amount: 0),
-    Income(name: '', amount: 0),
-    Income(name: '', amount: 0),
+    Income(
+      name: 'Job',
+      amount: 0,
+      color: Colors.pink,
+      icon: Icons.add_to_photos,
+    ),
+    Income(
+      name: 'Dance',
+      amount: 0,
+      color: Colors.blue,
+      icon: Icons.add_to_photos,
+    ),
+    Income(
+      name: 'Gift',
+      amount: 0,
+      color: Colors.yellowAccent,
+      icon: Icons.add_to_photos,
+    ),
+    Income(
+      name: 'Binance',
+      amount: 0,
+      color: Colors.blue,
+      icon: Icons.add_to_photos,
+    ),
+    Income(
+      name: 'Crypto',
+      amount: 0,
+      color: Colors.deepPurple,
+      icon: Icons.add_alarm_sharp,
+    ),
+    Income(
+      name: 'Futures',
+      amount: 0,
+      color: Colors.teal,
+      icon: Icons.store,
+    ),
   ];
   Map<String, double> dataMapExpenses = {
     'Market': 100,
@@ -216,7 +240,9 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addIncome(Income income, Color? color, IconData? iconData) {
+  void addIncome(
+    Income income,
+  ) {
     incomes.add(income);
 
     notifyListeners();

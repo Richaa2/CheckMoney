@@ -25,7 +25,6 @@ class IncomeGridView extends StatelessWidget {
           final incomesAmount = accountData.incomes[index2].amount.toInt();
 
           return IncomesIconButton(
-            amount: incomesAmount,
             onTap: () {
               // ignore: avoid_print
               print(incomesAmount);
@@ -37,9 +36,7 @@ class IncomeGridView extends StatelessWidget {
                     index1: index1,
                   ));
             },
-            color: incomesColor,
-            icon: incomesIcon,
-            title: incomesName,
+            index: index2,
           );
         },
         itemCount: accountData.incomes.length,

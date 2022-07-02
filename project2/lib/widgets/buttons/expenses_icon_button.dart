@@ -4,8 +4,9 @@ import 'package:provider/provider.dart';
 
 class ExpensesIconButton extends StatelessWidget {
   final int index;
+  final void Function()? onTap;
 
-  const ExpensesIconButton({super.key, required this.index});
+  const ExpensesIconButton({super.key, this.onTap, required this.index});
 
   @override
   Widget build(BuildContext context) {

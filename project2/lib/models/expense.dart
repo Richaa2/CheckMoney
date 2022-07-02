@@ -15,12 +15,4 @@ class Expense {
   void addExpense(int amount2) {
     amount = amount + amount2;
   }
-
-  void pickIcon(IconData? iconn) {
-    icon = iconn;
-  }
-
-  void pickColor(Color? colorr) {
-    color = colorr;
-  }
 }

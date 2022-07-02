@@ -3,6 +3,7 @@ import 'package:project2/models/account_data.dart';
 
 import 'package:project2/screen/add_account/add_account_screen.dart';
 import 'package:project2/screen/add_ex_in/add_expense.dart';
+import 'package:project2/screen/add_ex_in/add_income.dart';
 
 import 'package:provider/provider.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => const MainPage(),
           '/addAcc': (context) => const AddAccountScreen(),
           '/addExp': ((context) => const AddExpenseScreen()),
-          // '/addInc': ((context) => const AddExpenseScreen()),
+          '/addInc': ((context) => const AddIncomeScreen()),
         },
         title: 'Project',
         theme: ThemeData(

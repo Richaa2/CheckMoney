@@ -60,10 +60,10 @@ class _DialogWidgetState extends State<DialogWidget> {
               onChanged: (SingingAccount? value) {
                 setState(() {
                   if (value == _account) {
-                    Navigator.pushNamed(context, '/addAcc');
+                    Navigator.pushNamed(context, '/addInc');
                   } else {
                     _account = value;
-                    Navigator.pushNamed(context, '/addAcc');
+                    Navigator.pushNamed(context, '/addInc');
                   }
                 });
               },
