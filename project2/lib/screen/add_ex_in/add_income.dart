@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project2/models/expense.dart';
+
 import 'package:project2/models/income.dart';
 
 import 'package:provider/provider.dart';

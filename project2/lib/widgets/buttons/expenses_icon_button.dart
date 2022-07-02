@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:project2/models/account_data.dart';
 import 'package:provider/provider.dart';
+
+import 'package:project2/models/account_data.dart';
 
 class ExpensesIconButton extends StatelessWidget {
   final int index;
   final void Function()? onTap;
 
-  const ExpensesIconButton({super.key, this.onTap, required this.index});
+  const ExpensesIconButton({
+    Key? key,
+    required this.index,
+    this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,7 @@ class ExpensesIconButton extends StatelessWidget {
             CircleAvatar(
               backgroundColor: Color,
               child: IconButton(
-                onPressed: () {},
+                onPressed: onTap,
                 icon: Icon(iconn),
                 color: Colors.white,
               ),

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:pie_chart/pie_chart.dart';
 import 'package:project2/models/account_data.dart';
+import 'package:project2/screen/expense/select_account_for_expense.dart';
 import 'package:provider/provider.dart';
 
 import '../../widgets/buttons/expenses_icon_button.dart';
+import '../../widgets/show_modal_buttom_sheet_metod.dart';
 import '../income/income_screen.dart';
 
 class ExpensesScreen extends StatelessWidget {
@@ -14,6 +16,11 @@ class ExpensesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AccountData>(
       builder: (BuildContext context, accountData, child) {
+        void page(int index) {
+          showModalBottomSheetMetod(
+              context, SelectAccountForExpense(index1: index));
+        }
+
         var sum = Provider.of<AccountData>(context).sumOfExpenses();
 
         return Scaffold(
@@ -27,28 +34,36 @@ class ExpensesScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           ExpensesIconButton(
-                            index: 0,
-                          ),
+                              index: 0,
+                              onTap: () {
+                                page(0);
+                              }),
                           Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
-                            index: 4,
-                          ),
+                              index: 4,
+                              onTap: () {
+                                page(4);
+                              }),
                           Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
-                            index: 6,
-                          ),
+                              index: 6,
+                              onTap: () {
+                                page(6);
+                              }),
                           Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
-                            index: 8,
-                          ),
+                              index: 8,
+                              onTap: () {
+                                page(8);
+                              }),
                         ],
                       ),
                       Expanded(
@@ -57,13 +72,17 @@ class ExpensesScreen extends StatelessWidget {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
+                              children: [
                                 ExpensesIconButton(
-                                  index: 1,
-                                ),
+                                    index: 1,
+                                    onTap: () {
+                                      page(1);
+                                    }),
                                 ExpensesIconButton(
-                                  index: 2,
-                                ),
+                                    index: 2,
+                                    onTap: () {
+                                      page(2);
+                                    }),
                               ],
                             ),
                             Flexible(
@@ -95,41 +114,53 @@ class ExpensesScreen extends StatelessWidget {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
+                              children: [
                                 ExpensesIconButton(
-                                  index: 9,
-                                ),
+                                    index: 9,
+                                    onTap: () {
+                                      page(9);
+                                    }),
                                 ExpensesIconButton(
-                                  index: 10,
-                                ),
+                                    index: 10,
+                                    onTap: () {
+                                      page(10);
+                                    }),
                               ],
                             )
                           ],
                         ),
                       ),
                       Column(
-                        children: const [
+                        children: [
                           ExpensesIconButton(
-                            index: 3,
-                          ),
+                              index: 3,
+                              onTap: () {
+                                page(3);
+                              }),
                           Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
-                            index: 5,
-                          ),
+                              index: 5,
+                              onTap: () {
+                                page(5);
+                              }),
                           Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
-                            index: 7,
-                          ),
+                              index: 7,
+                              onTap: () {
+                                page(7);
+                              }),
                           Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
-                            index: 11,
-                          ),
+                              index: 11,
+                              onTap: () {
+                                page(11);
+                              }),
                         ],
                       )
                     ]),

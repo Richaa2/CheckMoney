@@ -26,7 +26,8 @@ class MinAmount extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('  ${Provider.of<AccountData>(context).incomes[index2].name}'),
+            Text(
+                '  ${Provider.of<AccountData>(context).expenses[index2].name}'),
             const Text('Withdraw money'),
             Text(
                 '  ${Provider.of<AccountData>(context).accounts[index1].name}'),

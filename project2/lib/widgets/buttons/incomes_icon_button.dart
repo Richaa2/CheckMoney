@@ -44,7 +44,7 @@ class IncomesIconButton extends StatelessWidget {
             CircleAvatar(
               backgroundColor: Color,
               child: IconButton(
-                onPressed: () {},
+                onPressed: onTap,
                 icon: Icon(iconn),
                 color: Colors.white,
               ),
