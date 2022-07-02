@@ -40,7 +40,7 @@ class ExpensesScreen extends StatelessWidget {
                               onTap: () {
                                 page(0);
                               }),
-                          Spacer(
+                          const Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
@@ -48,7 +48,7 @@ class ExpensesScreen extends StatelessWidget {
                               onTap: () {
                                 page(4);
                               }),
-                          Spacer(
+                          const Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
@@ -56,7 +56,7 @@ class ExpensesScreen extends StatelessWidget {
                               onTap: () {
                                 page(6);
                               }),
-                          Spacer(
+                          const Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
@@ -137,7 +137,7 @@ class ExpensesScreen extends StatelessWidget {
                               onTap: () {
                                 page(3);
                               }),
-                          Spacer(
+                          const Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
@@ -145,7 +145,7 @@ class ExpensesScreen extends StatelessWidget {
                               onTap: () {
                                 page(5);
                               }),
-                          Spacer(
+                          const Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
@@ -153,7 +153,7 @@ class ExpensesScreen extends StatelessWidget {
                               onTap: () {
                                 page(7);
                               }),
-                          Spacer(
+                          const Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(

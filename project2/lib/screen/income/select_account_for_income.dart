@@ -3,9 +3,11 @@ import 'package:project2/screen/expense/account_list_for_expense.dart';
 import 'package:provider/provider.dart';
 import 'package:project2/models/account_data.dart';
 
-class SelectAccountForExpense extends StatelessWidget {
+import 'account_list_for_expense.dart';
+
+class SelectAccountForIncome extends StatelessWidget {
   final int index1;
-  const SelectAccountForExpense({
+  const SelectAccountForIncome({
     Key? key,
     required this.index1,
   }) : super(key: key);
@@ -41,7 +43,7 @@ class SelectAccountForExpense extends StatelessWidget {
               height: 5,
             ),
             Expanded(
-              child: AccountsListViewExpense(
+              child: AccountsListViewIncome(
                 index1: index1,
               ),
             ),
