@@ -66,7 +66,8 @@ class _MainPageState extends State<MainPage> {
               onPressed: () {
                 // Navigator.pushNamed(context, '/addAcc');
                 showDialog(
-                    context: context, builder: (context) => DialogWidget());
+                    context: context,
+                    builder: (context) => const DialogWidget());
               },
             ),
           ]),

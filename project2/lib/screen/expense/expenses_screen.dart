@@ -14,7 +14,6 @@ class ExpensesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AccountData>(
       builder: (BuildContext context, accountData, child) {
-        final expenses = accountData.expenses;
         var sum = Provider.of<AccountData>(context).sumOfExpenses();
 
         return Scaffold(
@@ -28,39 +27,27 @@ class ExpensesScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           ExpensesIconButton(
-                            amount: expenses[0].amount.toInt(),
-                            color: expenses[0].color,
-                            icon: expenses[0].icon,
-                            title: expenses[0].name,
+                            index: 0,
                           ),
-                          const Spacer(
+                          Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
-                            amount: expenses[4].amount.toInt(),
-                            color: expenses[4].color,
-                            icon: expenses[4].icon,
-                            title: expenses[4].name,
+                            index: 4,
                           ),
-                          const Spacer(
+                          Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
-                            amount: expenses[6].amount.toInt(),
-                            color: expenses[6].color,
-                            icon: expenses[6].icon,
-                            title: expenses[6].name,
+                            index: 6,
                           ),
-                          const Spacer(
+                          Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
-                            amount: expenses[8].amount.toInt(),
-                            color: expenses[8].color,
-                            icon: expenses[8].icon,
-                            title: expenses[8].name,
+                            index: 8,
                           ),
                         ],
                       ),
@@ -70,18 +57,12 @@ class ExpensesScreen extends StatelessWidget {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
+                              children: const [
                                 ExpensesIconButton(
-                                  amount: expenses[1].amount.toInt(),
-                                  color: expenses[1].color,
-                                  icon: expenses[1].icon,
-                                  title: expenses[1].name,
+                                  index: 1,
                                 ),
                                 ExpensesIconButton(
-                                  amount: expenses[2].amount.toInt(),
-                                  color: expenses[2].color,
-                                  icon: expenses[2].icon,
-                                  title: expenses[2].name,
+                                  index: 2,
                                 ),
                               ],
                             ),
@@ -114,18 +95,12 @@ class ExpensesScreen extends StatelessWidget {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
+                              children: const [
                                 ExpensesIconButton(
-                                  amount: expenses[9].amount.toInt(),
-                                  color: expenses[9].color,
-                                  icon: expenses[9].icon,
-                                  title: expenses[9].name,
+                                  index: 9,
                                 ),
                                 ExpensesIconButton(
-                                  amount: expenses[10].amount.toInt(),
-                                  color: expenses[10].color,
-                                  icon: expenses[10].icon,
-                                  title: expenses[10].name,
+                                  index: 10,
                                 ),
                               ],
                             )
@@ -133,39 +108,27 @@ class ExpensesScreen extends StatelessWidget {
                         ),
                       ),
                       Column(
-                        children: [
+                        children: const [
                           ExpensesIconButton(
-                            amount: expenses[3].amount.toInt(),
-                            color: expenses[3].color,
-                            icon: expenses[3].icon,
-                            title: expenses[3].name,
+                            index: 3,
                           ),
-                          const Spacer(
+                          Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
-                            amount: expenses[5].amount.toInt(),
-                            color: expenses[5].color,
-                            icon: expenses[5].icon,
-                            title: expenses[5].name,
+                            index: 5,
                           ),
-                          const Spacer(
+                          Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
-                            amount: expenses[7].amount.toInt(),
-                            color: expenses[7].color,
-                            icon: expenses[7].icon,
-                            title: expenses[7].name,
+                            index: 7,
                           ),
-                          const Spacer(
+                          Spacer(
                             flex: 1,
                           ),
                           ExpensesIconButton(
-                            amount: expenses[11].amount.toInt(),
-                            color: expenses[11].color,
-                            icon: expenses[11].icon,
-                            title: expenses[11].name,
+                            index: 11,
                           ),
                         ],
                       )

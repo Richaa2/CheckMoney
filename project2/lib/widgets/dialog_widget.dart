@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
-import '../screen/main_page.dart';
 
 class DialogWidget extends StatefulWidget {
   const DialogWidget({Key? key}) : super(key: key);
@@ -16,8 +12,8 @@ class _DialogWidgetState extends State<DialogWidget> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: EdgeInsets.symmetric(horizontal: 70, vertical: 230),
-      title: Text('What create'),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 70, vertical: 230),
+      title: const Text('What create'),
       content: Column(
         children: [
           InkWell(
@@ -35,7 +31,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                   }
                 });
               },
-              title: Text('Account'),
+              title: const Text('Account'),
             ),
           ),
           InkWell(
@@ -46,14 +42,14 @@ class _DialogWidgetState extends State<DialogWidget> {
               onChanged: (SingingAccount? value) {
                 setState(() {
                   if (value == _account) {
-                    Navigator.pushNamed(context, '/addAcc');
+                    Navigator.pushNamed(context, '/addExp');
                   } else {
                     _account = value;
-                    Navigator.pushNamed(context, '/addAcc');
+                    Navigator.pushNamed(context, '/addExp');
                   }
                 });
               },
-              title: Text('Expense'),
+              title: const Text('Expense'),
             ),
           ),
           InkWell(
@@ -71,7 +67,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                   }
                 });
               },
-              title: Text('Income'),
+              title: const Text('Income'),
             ),
           ),
         ],

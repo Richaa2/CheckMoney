@@ -43,7 +43,7 @@ class ExpenseGridView extends StatelessWidget {
             title: expensesName,
           );
         },
-        itemCount: accountData.incomes.length,
+        itemCount: accountData.expenses.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           crossAxisSpacing: 5,

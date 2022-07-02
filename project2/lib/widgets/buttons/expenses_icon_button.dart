@@ -1,51 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:project2/models/account_data.dart';
+import 'package:provider/provider.dart';
 
 class ExpensesIconButton extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-  final String title;
-  final int amount;
-  const ExpensesIconButton(
-      {super.key,
-      required this.icon,
-      required this.color,
-      required this.title,
-      required this.amount});
+  final int index;
+
+  const ExpensesIconButton({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
-    // if (title = ''){
-    //   return SizedBox(height: 10,)
-    // }
-    if (title == '') {
+    final int lengthList =
+        Provider.of<AccountData>(context, listen: false).expenses.length;
+
+    if (index + 1 == index > lengthList) {
       return const SizedBox(
         width: 60,
         height: 120,
       );
+    } else if (index + 1 <= lengthList) {
+      final Color = Provider.of<AccountData>(context, listen: false)
+          .expenses[index]
+          .color;
+      final Title =
+          Provider.of<AccountData>(context, listen: false).expenses[index].name;
+      final iconn =
+          Provider.of<AccountData>(context, listen: false).expenses[index].icon;
+      final amountt = Provider.of<AccountData>(context, listen: false)
+          .expenses[index]
+          .amount;
+      return SizedBox(
+        width: 60,
+        height: 120,
+        child: Column(
+          children: [
+            Text(Title),
+            const SizedBox(
+              height: 10,
+            ),
+            CircleAvatar(
+              backgroundColor: Color,
+              child: IconButton(
+                onPressed: () {},
+                icon: Icon(iconn),
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text('$amountt'),
+          ],
+        ),
+      );
     }
-    return SizedBox(
+    return const SizedBox(
       width: 60,
       height: 120,
-      child: Column(
-        children: [
-          Text(title),
-          const SizedBox(
-            height: 10,
-          ),
-          CircleAvatar(
-            backgroundColor: color,
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(icon),
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text('$amount'),
-        ],
-      ),
     );
   }
 }

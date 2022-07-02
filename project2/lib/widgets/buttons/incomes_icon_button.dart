@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class IncomesIconButton extends StatelessWidget {
-  final IconData icon;
-  final Color color;
+  final IconData? icon;
+  final Color? color;
   final String title;
   final int amount;
   final void Function()? onTap;

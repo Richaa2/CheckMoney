@@ -20,7 +20,7 @@ class SelectExpense extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
                 Text(
-                  'Incomes',
+                  'Expense',
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 20,

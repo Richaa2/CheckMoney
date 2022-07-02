@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
@@ -29,18 +28,42 @@ class AccountData extends ChangeNotifier {
     )
   ];
   List<Expense> expenses = [
-    Expense(name: 'Market', amount: 0),
-    Expense(name: 'Sport', amount: 0),
-    Expense(name: 'Hobby', amount: 0),
-    Expense(name: 'Dance', amount: 0),
-    Expense(name: 'Clouthes', amount: 0),
-    Expense(name: 'Car', amount: 0),
-    Expense(name: '', amount: 0),
-    Expense(name: '', amount: 0),
-    Expense(name: '', amount: 0),
-    Expense(name: '', amount: 0),
-    Expense(name: '', amount: 0),
-    Expense(name: '', amount: 0),
+    Expense(
+      name: '1',
+      amount: 0,
+      color: Colors.teal,
+      icon: Icons.store,
+    ),
+    Expense(
+      name: '2',
+      amount: 0,
+      color: Colors.amber,
+      icon: Icons.accessibility,
+    ),
+    Expense(
+      name: '3',
+      amount: 0,
+      color: Colors.deepPurple,
+      icon: Icons.add_alarm_sharp,
+    ),
+    Expense(
+      name: '4',
+      amount: 0,
+      color: Colors.yellowAccent,
+      icon: Icons.add_to_photos,
+    ),
+    Expense(
+      name: '5',
+      amount: 0,
+      color: Colors.blue,
+      icon: Icons.add_to_photos,
+    ),
+    Expense(
+      name: '6',
+      amount: 0,
+      color: Colors.pink,
+      icon: Icons.add_to_photos,
+    ),
   ];
 
   List<Income> incomes = [
@@ -181,6 +204,20 @@ class AccountData extends ChangeNotifier {
     accounts.add(account);
     account.pickColor(color);
     account.pickIcon(icon);
+
+    notifyListeners();
+  }
+
+  void addExpense(
+    Expense expense,
+  ) {
+    expenses.add(expense);
+
+    notifyListeners();
+  }
+
+  void addIncome(Income income, Color? color, IconData? iconData) {
+    incomes.add(income);
 
     notifyListeners();
   }

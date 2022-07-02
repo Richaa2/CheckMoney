@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Expense {
-  final Color color;
-  final String name;
+  Color? color;
+  String name;
   num amount;
-  final IconData icon;
+  IconData? icon;
   Expense({
     this.color = Colors.blueAccent,
     required this.name,
@@ -14,5 +14,13 @@ class Expense {
 
   void addExpense(int amount2) {
     amount = amount + amount2;
+  }
+
+  void pickIcon(IconData? iconn) {
+    icon = iconn;
+  }
+
+  void pickColor(Color? colorr) {
+    color = colorr;
   }
 }
