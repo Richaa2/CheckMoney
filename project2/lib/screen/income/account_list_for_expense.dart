@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project2/control_amount/add_amount.dart';
-import 'package:project2/control_amount/min_account.dart';
 import 'package:provider/provider.dart';
 
 import 'package:project2/models/account_data.dart';

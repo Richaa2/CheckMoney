@@ -17,11 +17,6 @@ class IncomeGridView extends StatelessWidget {
     return Consumer<AccountData>(builder: ((context, accountData, child) {
       return GridView.builder(
         itemBuilder: (context, index2) {
-          // accountData.accounts.removeAt(index1);
-
-          final incomesName = accountData.incomes[index2].name;
-          final incomesColor = accountData.incomes[index2].color;
-          final incomesIcon = accountData.incomes[index2].icon;
           final incomesAmount = accountData.incomes[index2].amount.toInt();
 
           return IncomesIconButton(

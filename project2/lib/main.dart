@@ -7,6 +7,7 @@ import 'package:project2/screen/add_ex_in/add_income.dart';
 
 import 'package:provider/provider.dart';
 
+import 'history_page.dart';
 import 'screen/main_page.dart';
 
 void main() {
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         initialRoute: '/',
         routes: {
-          '/': (context) => const MainPage(),
+          '/': (context) => const HistoryPage(),
           '/addAcc': (context) => const AddAccountScreen(),
           '/addExp': ((context) => const AddExpenseScreen()),
           '/addInc': ((context) => const AddIncomeScreen()),

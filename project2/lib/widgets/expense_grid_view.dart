@@ -19,11 +19,6 @@ class ExpenseGridView extends StatelessWidget {
     return Consumer<AccountData>(builder: ((context, accountData, child) {
       return GridView.builder(
         itemBuilder: (context, index2) {
-          // accountData.accounts.removeAt(index1);
-
-          final expensesName = accountData.expenses[index2].name;
-          final expensesColor = accountData.expenses[index2].color;
-          final expensesIcon = accountData.expenses[index2].icon;
           final expensesAmount = accountData.expenses[index2].amount.toInt();
 
           return ExpensesIconButton(

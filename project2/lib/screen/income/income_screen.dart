@@ -39,21 +39,21 @@ class IncomesScreen extends StatelessWidget {
                               index: 0,
                               onTap: () => page(0),
                             ),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             IncomesIconButton(
                               index: 4,
                               onTap: () => page(4),
                             ),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             IncomesIconButton(
                               index: 6,
                               onTap: () => page(6),
                             ),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             IncomesIconButton(
@@ -126,21 +126,21 @@ class IncomesScreen extends StatelessWidget {
                               index: 3,
                               onTap: () => page(3),
                             ),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             IncomesIconButton(
                               index: 5,
                               onTap: () => page(5),
                             ),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             IncomesIconButton(
                               index: 7,
                               onTap: () => page(7),
                             ),
-                            Spacer(
+                            const Spacer(
                               flex: 1,
                             ),
                             IncomesIconButton(

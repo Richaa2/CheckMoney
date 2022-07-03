@@ -23,9 +23,9 @@ class IncomesIconButton extends StatelessWidget {
         height: 120,
       );
     } else if (index + 1 <= lengthList) {
-      final Color =
+      final color =
           Provider.of<AccountData>(context, listen: false).incomes[index].color;
-      final Title =
+      final title =
           Provider.of<AccountData>(context, listen: false).incomes[index].name;
       final iconn =
           Provider.of<AccountData>(context, listen: false).incomes[index].icon;
@@ -37,12 +37,12 @@ class IncomesIconButton extends StatelessWidget {
         height: 120,
         child: Column(
           children: [
-            Text(Title),
+            Text(title),
             const SizedBox(
               height: 10,
             ),
             CircleAvatar(
-              backgroundColor: Color,
+              backgroundColor: color,
               child: IconButton(
                 onPressed: onTap,
                 icon: Icon(iconn),

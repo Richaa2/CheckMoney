@@ -18,16 +18,16 @@ class ExpensesIconButton extends StatelessWidget {
     final int lengthList =
         Provider.of<AccountData>(context, listen: false).expenses.length;
 
-    if (index + 1 == index > lengthList) {
+    if (index + 1 > lengthList) {
       return const SizedBox(
         width: 60,
         height: 120,
       );
     } else if (index + 1 <= lengthList) {
-      final Color = Provider.of<AccountData>(context, listen: false)
+      final color = Provider.of<AccountData>(context, listen: false)
           .expenses[index]
           .color;
-      final Title =
+      final title =
           Provider.of<AccountData>(context, listen: false).expenses[index].name;
       final iconn =
           Provider.of<AccountData>(context, listen: false).expenses[index].icon;
@@ -39,12 +39,12 @@ class ExpensesIconButton extends StatelessWidget {
         height: 120,
         child: Column(
           children: [
-            Text(Title),
+            Text(title),
             const SizedBox(
               height: 10,
             ),
             CircleAvatar(
-              backgroundColor: Color,
+              backgroundColor: color,
               child: IconButton(
                 onPressed: onTap,
                 icon: Icon(iconn),

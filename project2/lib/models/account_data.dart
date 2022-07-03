@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project2/history_manager.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
 import 'package:project2/models/income.dart';
@@ -246,5 +247,12 @@ class AccountData extends ChangeNotifier {
     incomes.add(income);
 
     notifyListeners();
+  }
+
+  void buildListsWithEntries() {
+    for (int i = 0; i < 4; i++) {
+      List<Record> currentEntries =
+          HistoryManager.manager.currentEntries(records, i);
+    }
   }
 }
