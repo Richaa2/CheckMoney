@@ -143,7 +143,52 @@ class AccountData extends ChangeNotifier {
         amount: 1000,
         dateTime: DateTime.now()
             .add(const Duration(
-              days: -19,
+              days: -30,
+            ))
+            .millisecondsSinceEpoch),
+    Record(
+        action: 3,
+        name: 'Mono',
+        amount: 1000,
+        dateTime: DateTime.now()
+            .add(const Duration(
+              days: -50,
+            ))
+            .millisecondsSinceEpoch),
+    Record(
+        action: 3,
+        name: 'Mono',
+        amount: 1000,
+        dateTime: DateTime.now()
+            .add(const Duration(
+              days: -130,
+            ))
+            .millisecondsSinceEpoch),
+    Record(
+        action: 3,
+        name: 'Mono',
+        amount: 1000,
+        dateTime: DateTime.now()
+            .add(const Duration(
+              days: -100,
+            ))
+            .millisecondsSinceEpoch),
+    Record(
+        action: 3,
+        name: 'Mono',
+        amount: 1000,
+        dateTime: DateTime.now()
+            .add(const Duration(
+              days: -200,
+            ))
+            .millisecondsSinceEpoch),
+    Record(
+        action: 3,
+        name: 'Mono',
+        amount: 1000,
+        dateTime: DateTime.now()
+            .add(const Duration(
+              days: -250,
             ))
             .millisecondsSinceEpoch),
     Record(
@@ -249,10 +294,75 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void buildListsWithEntries() {
+  void Function()? buildListsWithEntries(List<Record> currentEntriess) {
     for (int i = 0; i < 4; i++) {
-      List<Record> currentEntries =
-          HistoryManager.manager.currentEntries(records, i);
+      currentEntriess = HistoryManager.manager.currentEntries(records, i);
     }
+  }
+
+  List<Record> currentEntries(
+    List<Record> entries,
+    int index,
+  ) {
+    bool isToday(DateTime date) {
+      var today = DateTime.now();
+
+      if (date.year == today.year &&
+          date.month == today.month &&
+          date.day == today.day) {
+        return true;
+      }
+      return false;
+    }
+
+    DateTime today = DateTime.now();
+
+    // entries = Provider.of<AccountData>(context, listen: false).records;
+    List<Record> currentEntries = [];
+    if (index == 0) {
+      currentEntries = entries
+          .where((entry) =>
+              isToday(DateTime.fromMillisecondsSinceEpoch(entry.dateTime)))
+          .toList();
+    } else if (index == 1) {
+      Duration week = Duration(days: 7);
+      currentEntries = entries
+          .where((entry) =>
+              today
+                  .difference(
+                      DateTime.fromMillisecondsSinceEpoch(entry.dateTime))
+                  .compareTo(week) <
+              1)
+          .toList();
+    } else if (index == 2) {
+      Duration month = Duration(days: 30);
+      currentEntries = entries
+          .where((entry) =>
+              today
+                  .difference(
+                      DateTime.fromMillisecondsSinceEpoch(entry.dateTime))
+                  .compareTo(month) <
+              1)
+          .toList();
+    } else if (index == 3) {
+      Duration year = Duration(days: 365);
+      currentEntries = entries
+          .where((entry) =>
+              today
+                  .difference(
+                      DateTime.fromMillisecondsSinceEpoch(entry.dateTime))
+                  .compareTo(year) <
+              1)
+          .toList();
+    } else if (currentEntries.isEmpty) {
+      currentEntries.add(Record(
+          name: 'Test',
+          amount: 1,
+          dateTime: DateTime.now().millisecondsSinceEpoch));
+    }
+
+    currentEntries.sort(((a, b) => b.dateTime.compareTo(a.dateTime)));
+
+    return currentEntries;
   }
 }
