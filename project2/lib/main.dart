@@ -8,7 +8,6 @@ import 'package:project2/screen/history_screen.dart';
 
 import 'package:provider/provider.dart';
 
-import 'history_page.dart';
 import 'screen/main_page.dart';
 
 void main() {

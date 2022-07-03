@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../current_entries.dart';
-import '../../history_list.dart';
 import '../../models/account_data.dart';
 import 'build_record.dart';
 import 'package:project2/screen/history_screen.dart';
@@ -27,6 +25,11 @@ class RecordsListView extends StatelessWidget {
         .format(DateTime.now().add(const Duration(days: -1)));
     return ListView.builder(
         itemBuilder: (context, index) {
+          var sum = Provider.of<AccountData>(context, listen: false)
+              .sumOfRecords(indexx);
+
+          // var sum = Provider.of<AccountData>(context, listen: false)
+          //     .sumOfDay(accountData.records);
           final recordDate = accountData.records[index].dateTime;
           DateTime date = DateTime.fromMillisecondsSinceEpoch(recordDate);
           String dateString = DateFormat("EEE, MMM d, y").format(date);
@@ -92,28 +95,32 @@ class RecordsListView extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 50,
-                              width: 100,
-                              child: ListTile(
-                                title: Text(
-                                  '+\$400',
-                                  textAlign: TextAlign.end,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                          color: Colors.green,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
-                                ),
-                              ),
-                            )
+                            // SizedBox(
+                            //   height: 50,
+                            //   width: 100,
+                            //   child: ListTile(
+                            //     title: Text(
+                            //       '+\$$sum',
+                            //       textAlign: TextAlign.end,
+                            //       style: Theme.of(context)
+                            //           .textTheme
+                            //           .subtitle2!
+                            //           .copyWith(
+                            //               color: Colors.green,
+                            //               fontWeight: FontWeight.bold,
+                            //               fontSize: 18),
+                            //     ),
+                            //   ),
+                            // )
                           ]),
                     )
                   : const Offstage(),
-              buildRecord(index, context, date,
-                  accountData.currentEntries(accountData.records, indexx)[0]),
+              buildRecord(
+                  index,
+                  context,
+                  date,
+                  accountData.currentEntries(
+                      accountData.records, indexx)[index]),
             ],
           );
         },

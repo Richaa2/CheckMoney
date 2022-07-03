@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project2/history_manager.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
 import 'package:project2/models/income.dart';
@@ -130,6 +129,21 @@ class AccountData extends ChangeNotifier {
         dateTime: DateTime.now().millisecondsSinceEpoch),
     Record(
         action: 2,
+        name: 'Privat',
+        amount: 1500,
+        dateTime: DateTime.now().millisecondsSinceEpoch),
+    Record(
+        action: 2,
+        name: 'Privat',
+        amount: 1500,
+        dateTime: DateTime.now().millisecondsSinceEpoch),
+    Record(
+        action: 2,
+        name: 'Privat',
+        amount: 1500,
+        dateTime: DateTime.now().millisecondsSinceEpoch),
+    Record(
+        action: 2,
         name: 'Mono',
         amount: 1000,
         dateTime: DateTime.now()
@@ -191,15 +205,6 @@ class AccountData extends ChangeNotifier {
               days: -250,
             ))
             .millisecondsSinceEpoch),
-    Record(
-        action: 1,
-        name: 'Mono',
-        amount: 1400,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -1,
-            ))
-            .millisecondsSinceEpoch)
   ]..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
 
   // List<p.Page> pages = List.generate(10, (index) {
@@ -235,6 +240,26 @@ class AccountData extends ChangeNotifier {
     }
     return sum;
   }
+
+  double? sumOfRecords(int index) {
+    double sum = 0;
+    for (int i = 0; i < currentEntries(records, index).length; i++) {
+      sum += currentEntries(records, index)[i].amount;
+    }
+    return sum;
+  }
+
+  // double? sumOfDay() {
+  //   int index = 0;
+  //   double sum = 0;
+
+  //   while (records[index].dateTime == records[index + 1].dateTime) {
+  //     sum + records[index].amount;
+  //     index++;
+  //   }
+
+  //   return sum;
+  // }
 
   void addAmountOnScreen(
       int amount, Account accountMoney, Record record, Income income) {
@@ -294,11 +319,35 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void Function()? buildListsWithEntries(List<Record> currentEntriess) {
-    for (int i = 0; i < 4; i++) {
-      currentEntriess = HistoryManager.manager.currentEntries(records, i);
-    }
-  }
+  // double? sumOfDay(List<Record> entries) {
+  //   bool isToday(DateTime date) {
+  //     var today = DateTime.now();
+
+  //     if (date.year == today.year &&
+  //         date.month == today.month &&
+  //         date.day == today.day) {
+  //       return true;
+  //     }
+  //     return false;
+  //   }
+
+  //   int index = 0;
+  //   double sum = 0;
+
+  //   if (records ==
+  //       entries
+  //           .where((entry) =>
+  //               isToday(DateTime.fromMillisecondsSinceEpoch(entry.dateTime)))
+  //           .toList()) {
+  //     while (records[index].dateTime == records[index + 1].dateTime) {
+  //       sum += records[index].amount.toDouble();
+  //       index++;
+  //     }
+  //     return sum;
+  //   }
+
+  //   return sum;
+  // }
 
   List<Record> currentEntries(
     List<Record> entries,

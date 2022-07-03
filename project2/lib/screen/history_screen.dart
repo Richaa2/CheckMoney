@@ -34,25 +34,28 @@ class _HistoryScreenState extends State<HistoryScreen>
     _tabController.dispose();
   }
 
-  void Function()? onItemTapped(int index) {
-    setState(() {
-      _tabController.animateTo(index);
-      currentIndex = index;
-    });
-    print(currentIndex);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            bottom: TabBar(controller: _tabController, tabs: [
-          Tab(icon: Icon(Icons.directions_car)),
-          Tab(icon: Icon(Icons.directions_transit)),
-          Tab(icon: Icon(Icons.directions_bike)),
-          Tab(icon: Icon(Icons.directions_bike)),
-        ])),
-        body: TabBarView(controller: _tabController, children: [
+            bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1),
+          child: TabBar(controller: _tabController, tabs: const [
+            Tab(
+              text: 'Today',
+            ),
+            Tab(
+              text: 'Week',
+            ),
+            Tab(
+              text: 'Month',
+            ),
+            Tab(
+              text: 'Year',
+            ),
+          ]),
+        )),
+        body: TabBarView(controller: _tabController, children: const [
           RecordTabs(
             index: 0,
           ),
@@ -78,6 +81,8 @@ class RecordTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var sum =
+        Provider.of<AccountData>(context, listen: false).sumOfRecords(index);
     return Column(
       children: [
         Padding(
@@ -85,13 +90,21 @@ class RecordTabs extends StatelessWidget {
           child: Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
+                // Text(
+                //   'june 2022',
+                //   style: TextStyle(
+                //       color: Colors.grey,
+                //       fontSize: 20,
+                //       fontWeight: FontWeight.w700),
+                // ),
                 Text(
-                  'june 2022',
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700),
+                  '+\$$sum',
+                  textAlign: TextAlign.end,
+                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
                 ),
               ],
             ),
@@ -106,31 +119,6 @@ class RecordTabs extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class tabBarButton extends StatelessWidget {
-  final void Function()? onPressed;
-  final String name;
-  final int index;
-
-  tabBarButton({required this.index, required this.name, this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(8),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        child: Text(
-          name,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color:
-                  currentIndex == index ? Color(0xFF6fa1ea) : _selectedColor),
-        ),
-      ),
     );
   }
 }
