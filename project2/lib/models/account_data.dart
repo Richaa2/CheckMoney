@@ -308,11 +308,12 @@ class AccountData extends ChangeNotifier {
   // }
 
   void addAmountOnScreen(int amount, Account accountMoney, Record record,
-      IncomeAmount incomeAmount) {
+      IncomeAmount incomeAmount, int index) {
     accountMoney.addAmount(amount);
     records.insert(0, record);
     record.action = 2;
     incomeAmount.addIncome(amount);
+    currentIncome(incomeAmounts, 0)[index].amount;
 
     notifyListeners();
   }
@@ -496,6 +497,12 @@ class AccountData extends ChangeNotifier {
           .where((entry) =>
               isToday(DateTime.fromMillisecondsSinceEpoch(entry.dateTime)))
           .toList();
+      if (currentEntries.length < entries.length) {
+        for (int i = currentEntries.length + 1; i < entries.length; i++) {
+          currentEntries.add(IncomeAmount(
+              amount: i, dateTime: DateTime.now().millisecondsSinceEpoch));
+        }
+      }
     } else if (index == 1) {
       Duration week = Duration(days: 7);
       currentEntries = entries
@@ -506,6 +513,12 @@ class AccountData extends ChangeNotifier {
                   .compareTo(week) <
               1)
           .toList();
+      if (currentEntries.length < entries.length) {
+        for (int i = currentEntries.length + 1; i < entries.length; i++) {
+          currentEntries.add(IncomeAmount(
+              amount: i, dateTime: DateTime.now().millisecondsSinceEpoch));
+        }
+      }
     } else if (index == 2) {
       Duration month = Duration(days: 30);
       currentEntries = entries
@@ -516,6 +529,12 @@ class AccountData extends ChangeNotifier {
                   .compareTo(month) <
               1)
           .toList();
+      if (currentEntries.length < entries.length) {
+        for (int i = currentEntries.length + 1; i < entries.length; i++) {
+          currentEntries.add(IncomeAmount(
+              amount: i, dateTime: DateTime.now().millisecondsSinceEpoch));
+        }
+      }
     } else if (index == 3) {
       Duration year = Duration(days: 365);
       currentEntries = entries
@@ -526,9 +545,19 @@ class AccountData extends ChangeNotifier {
                   .compareTo(year) <
               1)
           .toList();
+      if (currentEntries.length < entries.length) {
+        for (int i = currentEntries.length + 1; i < entries.length; i++) {
+          currentEntries.add(IncomeAmount(
+              amount: i, dateTime: DateTime.now().millisecondsSinceEpoch));
+        }
+      }
     } else if (currentEntries.isEmpty) {
-      currentEntries.add(IncomeAmount(
-          amount: 1, dateTime: DateTime.now().millisecondsSinceEpoch));
+      if (currentEntries.length < entries.length) {
+        for (int i = currentEntries.length + 1; i < entries.length; i++) {
+          currentEntries.add(IncomeAmount(
+              amount: i, dateTime: DateTime.now().millisecondsSinceEpoch));
+        }
+      }
     }
     //  else if (currentEntries.length < entries.length) {
     //   currentEntries.add(IncomeAmount(

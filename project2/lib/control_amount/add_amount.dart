@@ -59,19 +59,20 @@ class AddAmount extends StatelessWidget {
                 } else {
                   Provider.of<AccountData>(context, listen: false)
                       .addAmountOnScreen(
-                    int.parse(_myController.text),
-                    Provider.of<AccountData>(context, listen: false)
-                        .accounts[index1],
-                    Record(
-                      name: Provider.of<AccountData>(context, listen: false)
-                          .accounts[index1]
-                          .name,
-                      amount: int.parse(_myController.text),
-                      dateTime: DateTime.now().millisecondsSinceEpoch,
-                    ),
-                    Provider.of<AccountData>(context, listen: false)
-                        .incomeAmounts[index2],
-                  );
+                          int.parse(_myController.text),
+                          Provider.of<AccountData>(context, listen: false)
+                              .accounts[index1],
+                          Record(
+                            name:
+                                Provider.of<AccountData>(context, listen: false)
+                                    .accounts[index1]
+                                    .name,
+                            amount: int.parse(_myController.text),
+                            dateTime: DateTime.now().millisecondsSinceEpoch,
+                          ),
+                          Provider.of<AccountData>(context, listen: false)
+                              .incomeAmounts[index2],
+                          index2);
                   // ignore: avoid_print
                   print(Provider.of<AccountData>(context, listen: false)
                       .accounts[index1]

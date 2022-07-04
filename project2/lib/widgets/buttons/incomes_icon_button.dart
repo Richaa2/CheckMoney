@@ -17,105 +17,97 @@ class IncomesIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int lengthList =
-        Provider.of<AccountData>(context, listen: false).incomes.length;
-    // .currentIncome(
-    //     Provider.of<AccountData>(context, listen: false).incomeAmounts,
-    //     indexForTab)
-    // .length;
+    return Consumer<AccountData>(builder: ((context, accountData, child) {
+      int amountt = 0;
+      final int lengthList = accountData.incomes.length;
+      // .currentIncome(
+      //     Provider.of<AccountData>(context, listen: false).incomeAmounts,
+      //     indexForTab)
+      // .length;
 
-    if (index + 1 > lengthList) {
+      if (index + 1 > lengthList) {
+        return const SizedBox(
+          width: 60,
+          height: 120,
+        );
+      } else if (index + 1 <= lengthList &&
+          index + 1 <=
+              accountData
+                  .currentIncome(
+                      Provider.of<AccountData>(context, listen: false)
+                          .incomeAmounts,
+                      indexForTab)
+                  .length) {
+        final color = accountData.incomes[index].color;
+        final title = accountData.incomes[index].name;
+        final iconn = accountData.incomes[index].icon;
+        int amountt = accountData
+            .currentIncome(accountData.incomeAmounts, indexForTab)[index]
+            .amount
+            .toInt();
+
+        return SizedBox(
+          width: 60,
+          height: 120,
+          child: Column(
+            children: [
+              Text(title),
+              const SizedBox(
+                height: 10,
+              ),
+              CircleAvatar(
+                backgroundColor: color,
+                child: IconButton(
+                  onPressed: onTap,
+                  icon: Icon(iconn),
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text('$amountt'),
+            ],
+          ),
+        );
+      }
+      if (index + 1 >=
+          accountData
+              .currentIncome(accountData.incomeAmounts, indexForTab)
+              .length) {
+        final color = accountData.incomes[index].color;
+        final title = accountData.incomes[index].name;
+        final iconn = accountData.incomes[index].icon;
+        return SizedBox(
+          width: 60,
+          height: 120,
+          child: Column(
+            children: [
+              Text(title),
+              const SizedBox(
+                height: 10,
+              ),
+              CircleAvatar(
+                backgroundColor: color,
+                child: IconButton(
+                  onPressed: onTap,
+                  icon: Icon(iconn),
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text('$amountt'),
+            ],
+          ),
+        );
+      }
+
       return const SizedBox(
         width: 60,
         height: 120,
       );
-    } else if (index + 1 <= lengthList &&
-        index + 1 <=
-            Provider.of<AccountData>(context, listen: false)
-                .currentIncome(
-                    Provider.of<AccountData>(context, listen: false)
-                        .incomeAmounts,
-                    indexForTab)
-                .length) {
-      final color =
-          Provider.of<AccountData>(context, listen: false).incomes[index].color;
-      final title =
-          Provider.of<AccountData>(context, listen: false).incomes[index].name;
-      final iconn =
-          Provider.of<AccountData>(context, listen: false).incomes[index].icon;
-      int amountt = Provider.of<AccountData>(context, listen: false)
-          .currentIncome(
-              Provider.of<AccountData>(context, listen: false).incomeAmounts,
-              3)[index]
-          .amount
-          .toInt();
-
-      return SizedBox(
-        width: 60,
-        height: 120,
-        child: Column(
-          children: [
-            Text(title),
-            const SizedBox(
-              height: 10,
-            ),
-            CircleAvatar(
-              backgroundColor: color,
-              child: IconButton(
-                onPressed: onTap,
-                icon: Icon(iconn),
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text('$amountt'),
-          ],
-        ),
-      );
-    }
-    if (index + 1 >=
-        Provider.of<AccountData>(context, listen: false)
-            .currentIncome(
-                Provider.of<AccountData>(context, listen: false).incomeAmounts,
-                indexForTab)
-            .length) {
-      final color =
-          Provider.of<AccountData>(context, listen: false).incomes[index].color;
-      final title =
-          Provider.of<AccountData>(context, listen: false).incomes[index].name;
-      final iconn =
-          Provider.of<AccountData>(context, listen: false).incomes[index].icon;
-      return SizedBox(
-        width: 60,
-        height: 120,
-        child: Column(
-          children: [
-            Text(title),
-            const SizedBox(
-              height: 10,
-            ),
-            CircleAvatar(
-              backgroundColor: color,
-              child: IconButton(
-                onPressed: onTap,
-                icon: Icon(iconn),
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text('0'),
-          ],
-        ),
-      );
-    }
-
-    return const SizedBox(
-      width: 60,
-      height: 120,
-    );
+    }));
   }
 }
