@@ -3,15 +3,22 @@ import 'package:flutter/material.dart';
 class Income {
   Color? color;
   String name;
-  num amount;
+
   IconData? icon;
-  int dateTime = DateTime.now().millisecondsSinceEpoch;
+
   Income({
-    required this.dateTime,
     this.color = Colors.blueAccent,
     required this.name,
-    required this.amount,
     this.icon = Icons.store,
+  });
+}
+
+class IncomeAmount {
+  num amount;
+  int dateTime = DateTime.now().millisecondsSinceEpoch;
+  IncomeAmount({
+    required this.amount,
+    required this.dateTime,
   });
 
   void addIncome(int amount2) {

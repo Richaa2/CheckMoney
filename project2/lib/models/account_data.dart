@@ -69,60 +69,75 @@ class AccountData extends ChangeNotifier {
   List<Income> incomes = [
     Income(
       name: 'Job',
-      amount: 0,
       color: Colors.pink,
       icon: Icons.add_to_photos,
-      dateTime: DateTime.now().millisecondsSinceEpoch,
     ),
     Income(
       name: 'Dance',
-      amount: 1,
       color: Colors.blue,
       icon: Icons.add_to_photos,
+    ),
+    Income(
+      name: 'Gift',
+      color: Colors.yellowAccent,
+      icon: Icons.add_to_photos,
+    ),
+    Income(
+      name: 'Binance',
+      color: Colors.blue,
+      icon: Icons.add_to_photos,
+    ),
+    Income(
+      name: 'Crypto',
+      color: Colors.deepPurple,
+      icon: Icons.add_alarm_sharp,
+    ),
+    Income(
+      name: 'Futures',
+      color: Colors.teal,
+      icon: Icons.store,
+    ),
+  ];
+
+  List<IncomeAmount> incomeAmounts = [
+    IncomeAmount(
+      amount: 0,
+      dateTime: DateTime.now().millisecondsSinceEpoch,
+    ),
+    IncomeAmount(
+      amount: 1,
       dateTime: DateTime.now()
           .add(const Duration(
             days: -1,
           ))
           .millisecondsSinceEpoch,
     ),
-    Income(
-      name: 'Gift',
+    IncomeAmount(
       amount: 5,
-      color: Colors.yellowAccent,
-      icon: Icons.add_to_photos,
       dateTime: DateTime.now()
           .add(const Duration(
             days: -5,
           ))
           .millisecondsSinceEpoch,
     ),
-    Income(
-      name: 'Binance',
+    IncomeAmount(
       amount: 10,
-      color: Colors.blue,
-      icon: Icons.add_to_photos,
       dateTime: DateTime.now()
           .add(const Duration(
             days: -10,
           ))
           .millisecondsSinceEpoch,
     ),
-    Income(
-      name: 'Crypto',
+    IncomeAmount(
       amount: 35,
-      color: Colors.deepPurple,
-      icon: Icons.add_alarm_sharp,
       dateTime: DateTime.now()
           .add(const Duration(
             days: -35,
           ))
           .millisecondsSinceEpoch,
     ),
-    Income(
-      name: 'Futures',
+    IncomeAmount(
       amount: 150,
-      color: Colors.teal,
-      icon: Icons.store,
       dateTime: DateTime.now()
           .add(const Duration(
             days: -150,
@@ -261,7 +276,7 @@ class AccountData extends ChangeNotifier {
   double? sumOfIncomes() {
     double sum = 0;
     for (int i = 0; i < incomes.length.toInt(); i++) {
-      sum += incomes[i].amount;
+      sum += incomeAmounts[i].amount;
     }
     return sum;
   }
@@ -292,12 +307,12 @@ class AccountData extends ChangeNotifier {
   //   return sum;
   // }
 
-  void addAmountOnScreen(
-      int amount, Account accountMoney, Record record, Income income) {
+  void addAmountOnScreen(int amount, Account accountMoney, Record record,
+      IncomeAmount incomeAmount) {
     accountMoney.addAmount(amount);
     records.insert(0, record);
     record.action = 2;
-    income.addIncome(amount);
+    incomeAmount.addIncome(amount);
 
     notifyListeners();
   }
@@ -344,8 +359,10 @@ class AccountData extends ChangeNotifier {
 
   void addIncome(
     Income income,
+    IncomeAmount incomeAmount,
   ) {
     incomes.add(income);
+    incomeAmounts.add(incomeAmount);
 
     notifyListeners();
   }
@@ -446,8 +463,8 @@ class AccountData extends ChangeNotifier {
     return currentEntries;
   }
 
-  List<Income> currentIncome(
-    List<Income> entries,
+  List<IncomeAmount> currentIncome(
+    List<IncomeAmount> entries,
     int? index,
   ) {
     bool isToday(DateTime date) {
@@ -462,9 +479,18 @@ class AccountData extends ChangeNotifier {
     }
 
     DateTime today = DateTime.now();
+    // List<int> entriesAmount = [];
+
+    // for (int i = 0; i < entries.length; i++) {
+    //   if (entries[i].dateTime == today.millisecondsSinceEpoch) {
+    //     entries[i].amount = 5;
+    //   }
+    //   entriesAmount.add(entries[i].amount.toInt());
+    // }
+    List<IncomeAmount> currentEntries = [];
 
     // entries = Provider.of<AccountData>(context, listen: false).records;
-    List<Income> currentEntries = [];
+
     if (index == 0) {
       currentEntries = entries
           .where((entry) =>
@@ -501,13 +527,13 @@ class AccountData extends ChangeNotifier {
               1)
           .toList();
     } else if (currentEntries.isEmpty) {
-      currentEntries.add(Income(
-          name: 'test',
-          amount: 1,
-          color: Colors.teal,
-          icon: Icons.store,
-          dateTime: DateTime.now().millisecondsSinceEpoch));
+      currentEntries.add(IncomeAmount(
+          amount: 1, dateTime: DateTime.now().millisecondsSinceEpoch));
     }
+    //  else if (currentEntries.length < entries.length) {
+    //   currentEntries.add(IncomeAmount(
+    //       amount: 1, dateTime: DateTime.now().millisecondsSinceEpoch));
+    // }
 
     currentEntries.sort(((a, b) => b.dateTime.compareTo(a.dateTime)));
 

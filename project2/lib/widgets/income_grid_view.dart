@@ -17,7 +17,8 @@ class IncomeGridView extends StatelessWidget {
     return Consumer<AccountData>(builder: ((context, accountData, child) {
       return GridView.builder(
         itemBuilder: (context, index2) {
-          final incomesAmount = accountData.incomes[index2].amount.toInt();
+          final incomesAmount =
+              accountData.incomeAmounts[index2].amount.toInt();
 
           return IncomesIconButton(
             onTap: () {

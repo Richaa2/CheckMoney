@@ -70,7 +70,7 @@ class AddAmount extends StatelessWidget {
                       dateTime: DateTime.now().millisecondsSinceEpoch,
                     ),
                     Provider.of<AccountData>(context, listen: false)
-                        .incomes[index2],
+                        .incomeAmounts[index2],
                   );
                   // ignore: avoid_print
                   print(Provider.of<AccountData>(context, listen: false)
