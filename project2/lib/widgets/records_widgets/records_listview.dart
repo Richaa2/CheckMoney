@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../../models/account_data.dart';
 import 'build_record.dart';
-import 'package:project2/screen/history_screen.dart';
 
 class RecordsListView extends StatelessWidget {
   const RecordsListView({Key? key, required this.indexx}) : super(key: key);
@@ -25,9 +24,6 @@ class RecordsListView extends StatelessWidget {
         .format(DateTime.now().add(const Duration(days: -1)));
     return ListView.builder(
         itemBuilder: (context, index) {
-          var sum = Provider.of<AccountData>(context, listen: false)
-              .sumOfRecords(indexx);
-
           // var sum = Provider.of<AccountData>(context, listen: false)
           //     .sumOfDay(accountData.records);
           final recordDate = accountData.records[index].dateTime;

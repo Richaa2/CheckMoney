@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/account_data.dart';
-import '../models/history.dart';
+
 import '../widgets/records_widgets/records_listview.dart';
 
-Color _color = Colors.transparent;
-Color _selectedColor = Colors.white;
 int currentIndex = 0;
 
 class HistoryScreen extends StatefulWidget {
@@ -39,7 +37,7 @@ class _HistoryScreenState extends State<HistoryScreen>
     return Scaffold(
         appBar: AppBar(
             bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: TabBar(controller: _tabController, tabs: const [
             Tab(
               text: 'Today',

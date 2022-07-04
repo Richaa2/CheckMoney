@@ -72,36 +72,62 @@ class AccountData extends ChangeNotifier {
       amount: 0,
       color: Colors.pink,
       icon: Icons.add_to_photos,
+      dateTime: DateTime.now().millisecondsSinceEpoch,
     ),
     Income(
       name: 'Dance',
-      amount: 0,
+      amount: 1,
       color: Colors.blue,
       icon: Icons.add_to_photos,
+      dateTime: DateTime.now()
+          .add(const Duration(
+            days: -1,
+          ))
+          .millisecondsSinceEpoch,
     ),
     Income(
       name: 'Gift',
-      amount: 0,
+      amount: 5,
       color: Colors.yellowAccent,
       icon: Icons.add_to_photos,
+      dateTime: DateTime.now()
+          .add(const Duration(
+            days: -5,
+          ))
+          .millisecondsSinceEpoch,
     ),
     Income(
       name: 'Binance',
-      amount: 0,
+      amount: 10,
       color: Colors.blue,
       icon: Icons.add_to_photos,
+      dateTime: DateTime.now()
+          .add(const Duration(
+            days: -10,
+          ))
+          .millisecondsSinceEpoch,
     ),
     Income(
       name: 'Crypto',
-      amount: 0,
+      amount: 35,
       color: Colors.deepPurple,
       icon: Icons.add_alarm_sharp,
+      dateTime: DateTime.now()
+          .add(const Duration(
+            days: -35,
+          ))
+          .millisecondsSinceEpoch,
     ),
     Income(
       name: 'Futures',
-      amount: 0,
+      amount: 150,
       color: Colors.teal,
       icon: Icons.store,
+      dateTime: DateTime.now()
+          .add(const Duration(
+            days: -150,
+          ))
+          .millisecondsSinceEpoch,
     ),
   ];
   Map<String, double> dataMapExpenses = {
@@ -130,18 +156,17 @@ class AccountData extends ChangeNotifier {
     Record(
         action: 2,
         name: 'Privat',
-        amount: 1500,
+        amount: 1300,
         dateTime: DateTime.now().millisecondsSinceEpoch),
     Record(
         action: 2,
-        name: 'Privat',
-        amount: 1500,
-        dateTime: DateTime.now().millisecondsSinceEpoch),
-    Record(
-        action: 2,
-        name: 'Privat',
-        amount: 1500,
-        dateTime: DateTime.now().millisecondsSinceEpoch),
+        name: 'Mono',
+        amount: 1000,
+        dateTime: DateTime.now()
+            .add(const Duration(
+              days: -5,
+            ))
+            .millisecondsSinceEpoch),
     Record(
         action: 2,
         name: 'Mono',
@@ -241,10 +266,16 @@ class AccountData extends ChangeNotifier {
     return sum;
   }
 
-  double? sumOfRecords(int index) {
-    double sum = 0;
+  int? sumOfRecords(int index) {
+    int sum = 0;
     for (int i = 0; i < currentEntries(records, index).length; i++) {
-      sum += currentEntries(records, index)[i].amount;
+      if (currentEntries(records, index)[i].action == 1) {
+        return sum -= currentEntries(records, index)[i].amount.toInt();
+      }
+      sum += currentEntries(records, index)[i].amount.toInt();
+      if (currentEntries(records, index)[i].action == 3) {
+        sum -= currentEntries(records, index)[i].amount.toInt();
+      }
     }
     return sum;
   }
@@ -407,6 +438,74 @@ class AccountData extends ChangeNotifier {
       currentEntries.add(Record(
           name: 'Test',
           amount: 1,
+          dateTime: DateTime.now().millisecondsSinceEpoch));
+    }
+
+    currentEntries.sort(((a, b) => b.dateTime.compareTo(a.dateTime)));
+
+    return currentEntries;
+  }
+
+  List<Income> currentIncome(
+    List<Income> entries,
+    int? index,
+  ) {
+    bool isToday(DateTime date) {
+      var today = DateTime.now();
+
+      if (date.year == today.year &&
+          date.month == today.month &&
+          date.day == today.day) {
+        return true;
+      }
+      return false;
+    }
+
+    DateTime today = DateTime.now();
+
+    // entries = Provider.of<AccountData>(context, listen: false).records;
+    List<Income> currentEntries = [];
+    if (index == 0) {
+      currentEntries = entries
+          .where((entry) =>
+              isToday(DateTime.fromMillisecondsSinceEpoch(entry.dateTime)))
+          .toList();
+    } else if (index == 1) {
+      Duration week = Duration(days: 7);
+      currentEntries = entries
+          .where((entry) =>
+              today
+                  .difference(
+                      DateTime.fromMillisecondsSinceEpoch(entry.dateTime))
+                  .compareTo(week) <
+              1)
+          .toList();
+    } else if (index == 2) {
+      Duration month = Duration(days: 30);
+      currentEntries = entries
+          .where((entry) =>
+              today
+                  .difference(
+                      DateTime.fromMillisecondsSinceEpoch(entry.dateTime))
+                  .compareTo(month) <
+              1)
+          .toList();
+    } else if (index == 3) {
+      Duration year = Duration(days: 365);
+      currentEntries = entries
+          .where((entry) =>
+              today
+                  .difference(
+                      DateTime.fromMillisecondsSinceEpoch(entry.dateTime))
+                  .compareTo(year) <
+              1)
+          .toList();
+    } else if (currentEntries.isEmpty) {
+      currentEntries.add(Income(
+          name: 'test',
+          amount: 1,
+          color: Colors.teal,
+          icon: Icons.store,
           dateTime: DateTime.now().millisecondsSinceEpoch));
     }
 
