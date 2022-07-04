@@ -5,7 +5,9 @@ class Expense {
   String name;
   num amount;
   IconData? icon;
+  DateTime? dateTime;
   Expense({
+    this.dateTime,
     this.color = Colors.blueAccent,
     required this.name,
     required this.amount,
