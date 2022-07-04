@@ -16,8 +16,10 @@ class IncomesIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int lengthList =
-        Provider.of<AccountData>(context, listen: false).incomes.length;
+    final int lengthList = Provider.of<AccountData>(context, listen: false)
+        .currentIncome(Provider.of<AccountData>(context, listen: false).incomes,
+            indexForTab)
+        .length;
 
     if (index + 1 > lengthList) {
       return const SizedBox(
