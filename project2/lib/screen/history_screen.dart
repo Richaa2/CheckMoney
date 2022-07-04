@@ -89,7 +89,7 @@ class RecordTabs extends StatelessWidget {
           padding: const EdgeInsets.all(15.0),
           child: Expanded(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 // Text(
                 //   'june 2022',
@@ -98,6 +98,7 @@ class RecordTabs extends StatelessWidget {
                 //       fontSize: 20,
                 //       fontWeight: FontWeight.w700),
                 // ),
+
                 Text(
                   '+\$$sum',
                   textAlign: TextAlign.end,

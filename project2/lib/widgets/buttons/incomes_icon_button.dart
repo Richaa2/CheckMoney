@@ -4,18 +4,22 @@ import 'package:provider/provider.dart';
 import 'package:project2/models/account_data.dart';
 
 class IncomesIconButton extends StatelessWidget {
+  final int? indexForTab;
   final int index;
   final void Function()? onTap;
   const IncomesIconButton({
     Key? key,
+    this.indexForTab,
     required this.index,
     this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final int lengthList =
-        Provider.of<AccountData>(context, listen: false).incomes.length;
+    final int lengthList = Provider.of<AccountData>(context, listen: false)
+        .currentIncome(Provider.of<AccountData>(context, listen: false).incomes,
+            indexForTab)
+        .length;
 
     if (index + 1 > lengthList) {
       return const SizedBox(
@@ -30,8 +34,11 @@ class IncomesIconButton extends StatelessWidget {
       final iconn =
           Provider.of<AccountData>(context, listen: false).incomes[index].icon;
       final amountt = Provider.of<AccountData>(context, listen: false)
-          .incomes[index]
-          .amount;
+          .currentIncome(
+              Provider.of<AccountData>(context, listen: false).incomes,
+              indexForTab)[index]
+          .amount
+          .toInt();
       return SizedBox(
         width: 60,
         height: 120,

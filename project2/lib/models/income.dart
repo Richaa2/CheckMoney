@@ -5,7 +5,9 @@ class Income {
   String name;
   num amount;
   IconData? icon;
+  int dateTime = DateTime.now().millisecondsSinceEpoch;
   Income({
+    required this.dateTime,
     this.color = Colors.blueAccent,
     required this.name,
     required this.amount,
