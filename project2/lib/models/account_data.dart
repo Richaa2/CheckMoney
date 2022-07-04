@@ -241,10 +241,16 @@ class AccountData extends ChangeNotifier {
     return sum;
   }
 
-  double? sumOfRecords(int index) {
-    double sum = 0;
+  int? sumOfRecords(int index) {
+    int sum = 0;
     for (int i = 0; i < currentEntries(records, index).length; i++) {
-      sum += currentEntries(records, index)[i].amount;
+      if (currentEntries(records, index)[i].action == 1) {
+        return sum -= currentEntries(records, index)[i].amount.toInt();
+      }
+      sum += currentEntries(records, index)[i].amount.toInt();
+      if (currentEntries(records, index)[i].action == 3) {
+        sum -= currentEntries(records, index)[i].amount.toInt();
+      }
     }
     return sum;
   }
