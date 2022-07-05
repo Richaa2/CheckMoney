@@ -14,27 +14,53 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  // void initState() {
+  //   super.initState();
+  //   Provider.of<AccountData>(context, listen: false).signIn();
+  // }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<AccountData>(
       create: (BuildContext context) => AccountData(),
-      child: MaterialApp(
-        initialRoute: '/',
-        routes: {
-          '/': (context) => const MainPage(),
-          '/addAcc': (context) => const AddAccountScreen(),
-          '/addExp': ((context) => const AddExpenseScreen()),
-          '/addInc': ((context) => const AddIncomeScreen()),
-        },
-        title: 'Project',
-        theme: ThemeData(
-          brightness: Brightness.dark,
-        ),
-      ),
+      builder: (context, child) {
+        return MaterialApp(
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const MainPage(),
+            '/addAcc': (context) => const AddAccountScreen(),
+            '/addExp': ((context) => const AddExpenseScreen()),
+            '/addInc': ((context) => const AddIncomeScreen()),
+          },
+          title: 'Project',
+          theme: ThemeData(
+            brightness: Brightness.dark,
+          ),
+        );
+      },
+      // child: MaterialApp(
+      //   initialRoute: '/',
+      //   routes: {
+      //     '/': (context) => const MainPage(),
+      //     '/addAcc': (context) => const AddAccountScreen(),
+      //     '/addExp': ((context) => const AddExpenseScreen()),
+      //     '/addInc': ((context) => const AddIncomeScreen()),
+      //   },
+      //   title: 'Project',
+      //   theme: ThemeData(
+      //     brightness: Brightness.dark,
+      //   ),
+      // ),
     );
   }
 }

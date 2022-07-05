@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
@@ -12,21 +14,94 @@ class AccountData extends ChangeNotifier {
     Account(
       name: 'Mono',
       money: 100,
-      color: Colors.amber,
-      icon: Icons.credit_card,
+      colorValue: Colors.amber.value.toString(),
+      icon: Icons.credit_card.codePoint.toString(),
     ),
     Account(
         name: 'Privat',
         money: 2000,
-        color: Colors.blueAccent,
-        icon: Icons.credit_card),
+        colorValue: Colors.blueAccent.value.toString(),
+        icon: Icons.credit_card.codePoint.toString()),
     Account(
       name: 'Cash',
       money: 50,
-      color: Colors.teal,
-      icon: Icons.credit_card,
+      colorValue: Colors.teal.value.toString(),
+      icon: Icons.credit_card.codePoint.toString(),
     )
   ];
+
+  late FirebaseAuth auth;
+  User? user; //null if not signed in
+  AppProvider() {
+    auth = FirebaseAuth.instance;
+    setupAuthListener();
+  }
+
+  Future<UserCredential> signIn() {
+    return auth.signInAnonymously();
+  }
+
+  setupAuthListener() {
+    auth.authStateChanges().listen((user) {
+      print("is user signed in: ${user != null} as ${user?.uid}");
+      this.user = user;
+      if (user != null) {
+        load();
+      }
+    });
+  }
+
+  load() async {
+    late QuerySnapshot query;
+    QueryDocumentSnapshot? lastLoaded;
+    late bool loading = false;
+    late bool endReached = false;
+    if (user == null || endReached || loading) return;
+    loading = true;
+
+    if (lastLoaded == null) {
+      accounts.clear();
+    }
+    Query q = FirebaseFirestore.instance
+        .collection("account")
+        .where("id", isEqualTo: user?.uid)
+        .orderBy("name");
+
+    if (lastLoaded != null) {
+      print("Loading more: ${accounts.length}");
+      q = q.startAfterDocument(lastLoaded);
+    }
+
+    query = await q.limit(5).get();
+
+    if (query.docs.length != 5) {
+      bool endReached = true;
+    }
+    //  lastLoaded = query.docs.last;
+    // query.docs.forEach((element) {
+    //   accounts.add(Account.fromMap(element.data(), element.id));
+    // });
+    loading = false;
+    notifyListeners();
+  }
+
+  void addAccountFirebase(String title, String color, String icon, int money) {
+    FirebaseFirestore.instance.collection("account").add({
+      "name": title,
+      "color": color,
+      "id": user!.uid,
+      "icon": icon,
+    }).then((value) {
+      accounts.add(Account(
+          name: title,
+          colorValue: color,
+          icon: icon,
+          id: value.id,
+          money: money));
+      notifyListeners();
+    });
+  }
+
   List<Expense> expenses = [
     Expense(
       name: '1',

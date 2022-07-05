@@ -20,7 +20,7 @@ class AccountsListView extends StatelessWidget {
         itemBuilder: (context, index) {
           final accountsName = accountData.accounts[index].name;
           final accountssMoney = accountData.accounts[index].money;
-          final accountColor = accountData.accounts[index].color;
+          final accountColor = accountData.accounts[index].colorValue;
           final accountsIcon = accountData.accounts[index].icon;
 
           if (index == 0) {
@@ -51,8 +51,7 @@ class AccountsListView extends StatelessWidget {
                     height: 5,
                   ),
                   AccountsListTile(
-                    amount: accountssMoney,
-                    nameTitle: accountsName,
+                    account: accountData.accounts[index],
                     onTap: () {
                       print(accountssMoney);
 
@@ -62,8 +61,6 @@ class AccountsListView extends StatelessWidget {
                             index: index,
                           ));
                     },
-                    color: accountColor,
-                    icon: accountsIcon,
                   ),
                 ],
               ),
@@ -73,8 +70,7 @@ class AccountsListView extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
             child: AccountsListTile(
-              amount: accountssMoney,
-              nameTitle: accountsName,
+              account: accountData.accounts[index],
               onTap: () {
                 print(accountssMoney);
 
@@ -84,8 +80,6 @@ class AccountsListView extends StatelessWidget {
                       index: index,
                     ));
               },
-              color: accountColor,
-              icon: accountsIcon,
             ),
           );
         },

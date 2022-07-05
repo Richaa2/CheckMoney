@@ -63,7 +63,13 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
           child: AppBarContent(
             done: () {
               Provider.of<AccountData>(context, listen: false).addAccount(
-                  Account(name: name, money: money), valuee, iconValue);
+                  Account(
+                      name: name,
+                      money: money,
+                      colorValue: valuee.toString(),
+                      icon: iconValue!.codePoint.toString()),
+                  valuee,
+                  iconValue);
               Navigator.popAndPushNamed(context, '/');
             },
             textField: TextField(

@@ -21,11 +21,10 @@ class AccountsListView2 extends StatelessWidget {
           // accountData.accounts.removeAt(index1);
           final accountsName = accountData.accounts[index2].name;
           final accountssMoney = accountData.accounts[index2].money;
-          final accountsColor = accountData.accounts[index2].color;
+          final accountsColor = accountData.accounts[index2].colorValue;
           final accountsIcon = accountData.accounts[index2].icon;
           return AccountsListTile(
-            amount: accountssMoney,
-            nameTitle: accountsName,
+            account: accountData.accounts[index2],
             onTap: () {
               // ignore: avoid_print
               print(accountssMoney);
@@ -37,8 +36,6 @@ class AccountsListView2 extends StatelessWidget {
                     index2: index2,
                   ));
             },
-            color: accountsColor,
-            icon: accountsIcon,
           );
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(
