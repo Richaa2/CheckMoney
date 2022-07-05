@@ -9,8 +9,6 @@ import 'package:provider/provider.dart';
 import '../widgets/dialog_widget.dart';
 import '../widgets/drawer.dart';
 
-import 'expense/expenses_screen.dart';
-
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -23,7 +21,6 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _screens = [
     const AccountScreen(),
-    const ExpensesScreen(),
     const HistoryScreen(),
   ];
 
@@ -78,10 +75,6 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.credit_card),
               label: 'Accounts',
-              backgroundColor: Colors.white),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.circle_outlined),
-              label: 'Categories',
               backgroundColor: Colors.white),
           BottomNavigationBarItem(
               icon: Icon(Icons.receipt),

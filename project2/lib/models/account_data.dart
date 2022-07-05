@@ -130,23 +130,7 @@ class AccountData extends ChangeNotifier {
           .millisecondsSinceEpoch,
     ),
   ];
-  Map<String, double> dataMapExpenses = {
-    'Market': 100,
-    'Sport': 1000,
-    'Hobby': 2500,
-    'Dance': 6666,
-    'Clouthes': 500,
-    'Car': 0,
-  };
 
-  Map<String, double> dataMapIncomes = {
-    'Market': 100,
-    'Sport': 1000,
-    'Hobby': 2500,
-    'Dance': 6666,
-    'Clouthes': 500,
-    'Car': 0,
-  };
   List<Record> records = [
     Record(
         action: 2,
@@ -232,36 +216,10 @@ class AccountData extends ChangeNotifier {
             .millisecondsSinceEpoch),
   ]..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
 
-  // List<p.Page> pages = List.generate(10, (index) {
-  //   return p.Page(
-  //       dateTime: DateTime.now()
-  //           .add(Duration(
-  //             days: Random().nextInt(1) + 10,
-  //           ))
-  //           .millisecondsSinceEpoch);
-  // })
-  //   ..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
-
   int? sumOfAccounts() {
     int sum = 0;
     for (int i = 0; i < accounts.length.toInt(); i++) {
       sum += accounts[i].money;
-    }
-    return sum;
-  }
-
-  double? sumOfExpenses() {
-    double sum = 0;
-    for (int i = 0; i < expenses.length.toInt(); i++) {
-      sum += expenses[i].amount;
-    }
-    return sum;
-  }
-
-  double? sumOfIncomes() {
-    double sum = 0;
-    for (int i = 0; i < incomes.length.toInt(); i++) {
-      sum += incomes[i].amount;
     }
     return sum;
   }
@@ -279,18 +237,6 @@ class AccountData extends ChangeNotifier {
     }
     return sum;
   }
-
-  // double? sumOfDay() {
-  //   int index = 0;
-  //   double sum = 0;
-
-  //   while (records[index].dateTime == records[index + 1].dateTime) {
-  //     sum + records[index].amount;
-  //     index++;
-  //   }
-
-  //   return sum;
-  // }
 
   void addAmountOnScreen(
       int amount, Account accountMoney, Record record, Income income) {
@@ -438,74 +384,6 @@ class AccountData extends ChangeNotifier {
       currentEntries.add(Record(
           name: 'Test',
           amount: 1,
-          dateTime: DateTime.now().millisecondsSinceEpoch));
-    }
-
-    currentEntries.sort(((a, b) => b.dateTime.compareTo(a.dateTime)));
-
-    return currentEntries;
-  }
-
-  List<Income> currentIncome(
-    List<Income> entries,
-    int? index,
-  ) {
-    bool isToday(DateTime date) {
-      var today = DateTime.now();
-
-      if (date.year == today.year &&
-          date.month == today.month &&
-          date.day == today.day) {
-        return true;
-      }
-      return false;
-    }
-
-    DateTime today = DateTime.now();
-
-    // entries = Provider.of<AccountData>(context, listen: false).records;
-    List<Income> currentEntries = [];
-    if (index == 0) {
-      currentEntries = entries
-          .where((entry) =>
-              isToday(DateTime.fromMillisecondsSinceEpoch(entry.dateTime)))
-          .toList();
-    } else if (index == 1) {
-      Duration week = Duration(days: 7);
-      currentEntries = entries
-          .where((entry) =>
-              today
-                  .difference(
-                      DateTime.fromMillisecondsSinceEpoch(entry.dateTime))
-                  .compareTo(week) <
-              1)
-          .toList();
-    } else if (index == 2) {
-      Duration month = Duration(days: 30);
-      currentEntries = entries
-          .where((entry) =>
-              today
-                  .difference(
-                      DateTime.fromMillisecondsSinceEpoch(entry.dateTime))
-                  .compareTo(month) <
-              1)
-          .toList();
-    } else if (index == 3) {
-      Duration year = Duration(days: 365);
-      currentEntries = entries
-          .where((entry) =>
-              today
-                  .difference(
-                      DateTime.fromMillisecondsSinceEpoch(entry.dateTime))
-                  .compareTo(year) <
-              1)
-          .toList();
-    } else if (currentEntries.isEmpty) {
-      currentEntries.add(Income(
-          name: 'test',
-          amount: 1,
-          color: Colors.teal,
-          icon: Icons.store,
           dateTime: DateTime.now().millisecondsSinceEpoch));
     }
 
