@@ -54,15 +54,13 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
           decoration: BoxDecoration(color: valuee),
           child: AppBarContent(
             done: () {
-              Provider.of<AccountData>(context, listen: false).addIncome(
-                  Income(
-                    name: name,
-                    color: valuee,
-                    icon: iconValue,
-                  ),
-                  IncomeAmount(
-                      amount: money,
-                      dateTime: DateTime.now().millisecondsSinceEpoch));
+              Provider.of<AccountData>(context, listen: false).addIncome(Income(
+                  name: name,
+                  color: valuee,
+                  icon: iconValue,
+                  amount: money,
+                  dateTime: DateTime.now().millisecondsSinceEpoch));
+
               Navigator.popAndPushNamed(context, '/');
             },
             textField: TextField(

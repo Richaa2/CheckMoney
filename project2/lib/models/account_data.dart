@@ -69,75 +69,60 @@ class AccountData extends ChangeNotifier {
   List<Income> incomes = [
     Income(
       name: 'Job',
+      amount: 0,
       color: Colors.pink,
       icon: Icons.add_to_photos,
+      dateTime: DateTime.now().millisecondsSinceEpoch,
     ),
     Income(
       name: 'Dance',
-      color: Colors.blue,
-      icon: Icons.add_to_photos,
-    ),
-    Income(
-      name: 'Gift',
-      color: Colors.yellowAccent,
-      icon: Icons.add_to_photos,
-    ),
-    Income(
-      name: 'Binance',
-      color: Colors.blue,
-      icon: Icons.add_to_photos,
-    ),
-    Income(
-      name: 'Crypto',
-      color: Colors.deepPurple,
-      icon: Icons.add_alarm_sharp,
-    ),
-    Income(
-      name: 'Futures',
-      color: Colors.teal,
-      icon: Icons.store,
-    ),
-  ];
-
-  List<IncomeAmount> incomeAmounts = [
-    IncomeAmount(
-      amount: 0,
-      dateTime: DateTime.now().millisecondsSinceEpoch,
-    ),
-    IncomeAmount(
       amount: 1,
+      color: Colors.blue,
+      icon: Icons.add_to_photos,
       dateTime: DateTime.now()
           .add(const Duration(
             days: -1,
           ))
           .millisecondsSinceEpoch,
     ),
-    IncomeAmount(
+    Income(
+      name: 'Gift',
       amount: 5,
+      color: Colors.yellowAccent,
+      icon: Icons.add_to_photos,
       dateTime: DateTime.now()
           .add(const Duration(
             days: -5,
           ))
           .millisecondsSinceEpoch,
     ),
-    IncomeAmount(
+    Income(
+      name: 'Binance',
       amount: 10,
+      color: Colors.blue,
+      icon: Icons.add_to_photos,
       dateTime: DateTime.now()
           .add(const Duration(
             days: -10,
           ))
           .millisecondsSinceEpoch,
     ),
-    IncomeAmount(
+    Income(
+      name: 'Crypto',
       amount: 35,
+      color: Colors.deepPurple,
+      icon: Icons.add_alarm_sharp,
       dateTime: DateTime.now()
           .add(const Duration(
             days: -35,
           ))
           .millisecondsSinceEpoch,
     ),
-    IncomeAmount(
+    Income(
+      name: 'Futures',
       amount: 150,
+      color: Colors.teal,
+      icon: Icons.store,
       dateTime: DateTime.now()
           .add(const Duration(
             days: -150,
@@ -145,23 +130,7 @@ class AccountData extends ChangeNotifier {
           .millisecondsSinceEpoch,
     ),
   ];
-  Map<String, double> dataMapExpenses = {
-    'Market': 100,
-    'Sport': 1000,
-    'Hobby': 2500,
-    'Dance': 6666,
-    'Clouthes': 500,
-    'Car': 0,
-  };
 
-  Map<String, double> dataMapIncomes = {
-    'Market': 100,
-    'Sport': 1000,
-    'Hobby': 2500,
-    'Dance': 6666,
-    'Clouthes': 500,
-    'Car': 0,
-  };
   List<Record> records = [
     Record(
         action: 2,
@@ -247,36 +216,10 @@ class AccountData extends ChangeNotifier {
             .millisecondsSinceEpoch),
   ]..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
 
-  // List<p.Page> pages = List.generate(10, (index) {
-  //   return p.Page(
-  //       dateTime: DateTime.now()
-  //           .add(Duration(
-  //             days: Random().nextInt(1) + 10,
-  //           ))
-  //           .millisecondsSinceEpoch);
-  // })
-  //   ..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
-
   int? sumOfAccounts() {
     int sum = 0;
     for (int i = 0; i < accounts.length.toInt(); i++) {
       sum += accounts[i].money;
-    }
-    return sum;
-  }
-
-  double? sumOfExpenses() {
-    double sum = 0;
-    for (int i = 0; i < expenses.length.toInt(); i++) {
-      sum += expenses[i].amount;
-    }
-    return sum;
-  }
-
-  double? sumOfIncomes() {
-    double sum = 0;
-    for (int i = 0; i < incomes.length.toInt(); i++) {
-      sum += incomeAmounts[i].amount;
     }
     return sum;
   }
@@ -295,25 +238,12 @@ class AccountData extends ChangeNotifier {
     return sum;
   }
 
-  // double? sumOfDay() {
-  //   int index = 0;
-  //   double sum = 0;
-
-  //   while (records[index].dateTime == records[index + 1].dateTime) {
-  //     sum + records[index].amount;
-  //     index++;
-  //   }
-
-  //   return sum;
-  // }
-
-  void addAmountOnScreen(int amount, Account accountMoney, Record record,
-      IncomeAmount incomeAmount, int index) {
+  void addAmountOnScreen(
+      int amount, Account accountMoney, Record record, Income income) {
     accountMoney.addAmount(amount);
     records.insert(0, record);
     record.action = 2;
-    incomeAmount.addIncome(amount);
-    currentIncome(incomeAmounts, 0)[index].amount;
+    income.addIncome(amount);
 
     notifyListeners();
   }
@@ -360,10 +290,8 @@ class AccountData extends ChangeNotifier {
 
   void addIncome(
     Income income,
-    IncomeAmount incomeAmount,
   ) {
     incomes.add(income);
-    incomeAmounts.add(incomeAmount);
 
     notifyListeners();
   }
@@ -458,111 +386,6 @@ class AccountData extends ChangeNotifier {
           amount: 1,
           dateTime: DateTime.now().millisecondsSinceEpoch));
     }
-
-    currentEntries.sort(((a, b) => b.dateTime.compareTo(a.dateTime)));
-
-    return currentEntries;
-  }
-
-  List<IncomeAmount> currentIncome(
-    List<IncomeAmount> entries,
-    int? index,
-  ) {
-    bool isToday(DateTime date) {
-      var today = DateTime.now();
-
-      if (date.year == today.year &&
-          date.month == today.month &&
-          date.day == today.day) {
-        return true;
-      }
-      return false;
-    }
-
-    DateTime today = DateTime.now();
-    // List<int> entriesAmount = [];
-
-    // for (int i = 0; i < entries.length; i++) {
-    //   if (entries[i].dateTime == today.millisecondsSinceEpoch) {
-    //     entries[i].amount = 5;
-    //   }
-    //   entriesAmount.add(entries[i].amount.toInt());
-    // }
-    List<IncomeAmount> currentEntries = [];
-
-    // entries = Provider.of<AccountData>(context, listen: false).records;
-
-    if (index == 0) {
-      currentEntries = entries
-          .where((entry) =>
-              isToday(DateTime.fromMillisecondsSinceEpoch(entry.dateTime)))
-          .toList();
-      if (currentEntries.length < entries.length) {
-        for (int i = currentEntries.length + 1; i < entries.length; i++) {
-          currentEntries.add(IncomeAmount(
-              amount: i, dateTime: DateTime.now().millisecondsSinceEpoch));
-        }
-      }
-    } else if (index == 1) {
-      Duration week = Duration(days: 7);
-      currentEntries = entries
-          .where((entry) =>
-              today
-                  .difference(
-                      DateTime.fromMillisecondsSinceEpoch(entry.dateTime))
-                  .compareTo(week) <
-              1)
-          .toList();
-      if (currentEntries.length < entries.length) {
-        for (int i = currentEntries.length + 1; i < entries.length; i++) {
-          currentEntries.add(IncomeAmount(
-              amount: i, dateTime: DateTime.now().millisecondsSinceEpoch));
-        }
-      }
-    } else if (index == 2) {
-      Duration month = Duration(days: 30);
-      currentEntries = entries
-          .where((entry) =>
-              today
-                  .difference(
-                      DateTime.fromMillisecondsSinceEpoch(entry.dateTime))
-                  .compareTo(month) <
-              1)
-          .toList();
-      if (currentEntries.length < entries.length) {
-        for (int i = currentEntries.length + 1; i < entries.length; i++) {
-          currentEntries.add(IncomeAmount(
-              amount: i, dateTime: DateTime.now().millisecondsSinceEpoch));
-        }
-      }
-    } else if (index == 3) {
-      Duration year = Duration(days: 365);
-      currentEntries = entries
-          .where((entry) =>
-              today
-                  .difference(
-                      DateTime.fromMillisecondsSinceEpoch(entry.dateTime))
-                  .compareTo(year) <
-              1)
-          .toList();
-      if (currentEntries.length < entries.length) {
-        for (int i = currentEntries.length + 1; i < entries.length; i++) {
-          currentEntries.add(IncomeAmount(
-              amount: i, dateTime: DateTime.now().millisecondsSinceEpoch));
-        }
-      }
-    } else if (currentEntries.isEmpty) {
-      if (currentEntries.length < entries.length) {
-        for (int i = currentEntries.length + 1; i < entries.length; i++) {
-          currentEntries.add(IncomeAmount(
-              amount: i, dateTime: DateTime.now().millisecondsSinceEpoch));
-        }
-      }
-    }
-    //  else if (currentEntries.length < entries.length) {
-    //   currentEntries.add(IncomeAmount(
-    //       amount: 1, dateTime: DateTime.now().millisecondsSinceEpoch));
-    // }
 
     currentEntries.sort(((a, b) => b.dateTime.compareTo(a.dateTime)));
 

@@ -38,7 +38,9 @@ dependencies:
   persistent_bottom_nav_bar: ^4.0.2
   intl: ^0.17.0
   pie_chart: ^5.3.1
-  
+  firebase_auth: ^3.4.1
+  firebase_core: ^1.19.1
+  cloud_firestore: ^3.2.1
   
 
 dev_dependencies:
