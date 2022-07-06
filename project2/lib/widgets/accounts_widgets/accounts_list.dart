@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:project2/models/account_data.dart';
@@ -65,6 +66,10 @@ class AccountsListView extends StatelessWidget {
                 ],
               ),
             );
+          }
+
+          if (index > accountData.accounts.length - 2) {
+            accountData.load();
           }
 
           return Padding(

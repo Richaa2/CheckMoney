@@ -11,28 +11,28 @@ import 'history.dart';
 
 class AccountData extends ChangeNotifier {
   List<Account> accounts = [
-    Account(
-      name: 'Mono',
-      money: 100,
-      colorValue: Colors.amber.value.toString(),
-      icon: Icons.credit_card.codePoint.toString(),
-    ),
-    Account(
-        name: 'Privat',
-        money: 2000,
-        colorValue: Colors.blueAccent.value.toString(),
-        icon: Icons.credit_card.codePoint.toString()),
-    Account(
-      name: 'Cash',
-      money: 50,
-      colorValue: Colors.teal.value.toString(),
-      icon: Icons.credit_card.codePoint.toString(),
-    )
+    // Account(
+    //   name: 'Mono',
+    //   money: 100,
+    //   colorValue: Colors.amber.value.toString(),
+    //   icon: Icons.credit_card.codePoint.toString(),
+    // ),
+    // Account(
+    //     name: 'Privat',
+    //     money: 2000,
+    //     colorValue: Colors.blueAccent.value.toString(),
+    //     icon: Icons.credit_card.codePoint.toString()),
+    // Account(
+    //   name: 'Cash',
+    //   money: 50,
+    //   colorValue: Colors.teal.value.toString(),
+    //   icon: Icons.credit_card.codePoint.toString(),
+    // )
   ];
 
   late FirebaseAuth auth;
   User? user; //null if not signed in
-  AppProvider() {
+  AccountData() {
     auth = FirebaseAuth.instance;
     setupAuthListener();
   }
@@ -51,6 +51,39 @@ class AccountData extends ChangeNotifier {
     });
   }
 
+  // SomeNotifier() {
+  //   FirebaseFirestore.instance.collection("account").snapshots().listen((data) {
+  //     accounts = data.docs.map((doc) => Account(doc));
+  //     notifyListeners();
+  //   });
+  // }
+  void getAccountStream() async {
+    await for (var snapshot
+        in FirebaseFirestore.instance.collection('account').snapshots()) {
+      for (int i = 0; i < snapshot.docs.length; i++) {
+        snapshot.docs[i].data();
+        String color = snapshot.docs[i].data()['color'];
+        String name = snapshot.docs[i].data()['name'];
+        num money = snapshot.docs[i].data()['money'];
+        String icon = snapshot.docs[i].data()['icon'];
+        String id;
+        if (snapshot.docs[i].data()['id'] != null) {
+          id = snapshot.docs[i].data()['id'];
+        } else {
+          id = 'a';
+        }
+
+        accounts.add(Account(
+            colorValue: color,
+            name: name,
+            money: money.toInt(),
+            icon: icon,
+            id: id));
+      }
+    }
+    notifyListeners();
+  }
+
   load() async {
     late QuerySnapshot query;
     QueryDocumentSnapshot? lastLoaded;
@@ -63,8 +96,11 @@ class AccountData extends ChangeNotifier {
       accounts.clear();
     }
     Query q = FirebaseFirestore.instance
+        // .collection("account")
+        // .where("id", isEqualTo: user?.uid)
+        // .orderBy("name");
         .collection("account")
-        .where("id", isEqualTo: user?.uid)
+        .where("id", isEqualTo: 'a')
         .orderBy("name");
 
     if (lastLoaded != null) {
@@ -77,7 +113,8 @@ class AccountData extends ChangeNotifier {
     if (query.docs.length != 5) {
       bool endReached = true;
     }
-    //  lastLoaded = query.docs.last;
+    lastLoaded = query.docs.last;
+
     // query.docs.forEach((element) {
     //   accounts.add(Account.fromMap(element.data(), element.id));
     // });
@@ -89,8 +126,9 @@ class AccountData extends ChangeNotifier {
     FirebaseFirestore.instance.collection("account").add({
       "name": title,
       "color": color,
-      "id": user!.uid,
+      "id": user?.uid,
       "icon": icon,
+      "money": money,
     }).then((value) {
       accounts.add(Account(
           name: title,

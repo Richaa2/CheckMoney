@@ -8,20 +8,20 @@ class Account {
   late int money;
   String colorValue = colorr.value.toString();
   String icon = icondataa!.codePoint.toString();
-  String? id;
+  String id;
 
   Account(
       {required this.colorValue,
       required this.name,
       required this.money,
       required this.icon,
-      this.id});
+      required this.id});
 
   Account.fromMap(Map<String, dynamic> data, this.id) {
-    this.name = data['name'];
-    this.money = data['money'];
-    this.colorValue = data['color'];
-    this.icon = data['icon'];
+    name = data['name'];
+    money = data['money'];
+    colorValue = data['color'];
+    icon = data['icon'];
   }
 
   void pickIcon(IconData? iconn) {

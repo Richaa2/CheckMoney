@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/models/account_data.dart';
 
@@ -10,8 +11,10 @@ import 'package:provider/provider.dart';
 
 import 'screen/main_page.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -22,18 +25,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
-  // void initState() {
-  //   super.initState();
-  //   Provider.of<AccountData>(context, listen: false).signIn();
-  // }
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<AccountData>(
       create: (BuildContext context) => AccountData(),
       builder: (context, child) {
+        @override
+        void initState() {
+          super.initState();
+          Provider.of<AccountData>(context, listen: false).signIn();
+        }
+
         return MaterialApp(
           initialRoute: '/',
           routes: {
