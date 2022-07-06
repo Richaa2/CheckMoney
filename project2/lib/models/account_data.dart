@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
@@ -9,24 +11,135 @@ import 'history.dart';
 
 class AccountData extends ChangeNotifier {
   List<Account> accounts = [
-    Account(
-      name: 'Mono',
-      money: 100,
-      color: Colors.amber,
-      icon: Icons.credit_card,
-    ),
-    Account(
-        name: 'Privat',
-        money: 2000,
-        color: Colors.blueAccent,
-        icon: Icons.credit_card),
-    Account(
-      name: 'Cash',
-      money: 50,
-      color: Colors.teal,
-      icon: Icons.credit_card,
-    )
+    // Account(
+    //   name: 'Mono',
+    //   money: 100,
+    //   colorValue: Colors.amber.value.toString(),
+    //   icon: Icons.credit_card.codePoint.toString(),
+    // ),
+    // Account(
+    //     name: 'Privat',
+    //     money: 2000,
+    //     colorValue: Colors.blueAccent.value.toString(),
+    //     icon: Icons.credit_card.codePoint.toString()),
+    // Account(
+    //   name: 'Cash',
+    //   money: 50,
+    //   colorValue: Colors.teal.value.toString(),
+    //   icon: Icons.credit_card.codePoint.toString(),
+    // )
   ];
+
+  late FirebaseAuth auth;
+  User? user; //null if not signed in
+  AccountData() {
+    auth = FirebaseAuth.instance;
+    setupAuthListener();
+  }
+
+  Future<UserCredential> signIn() {
+    return auth.signInAnonymously();
+  }
+
+  setupAuthListener() {
+    auth.authStateChanges().listen((user) {
+      print("is user signed in: ${user != null} as ${user?.uid}");
+      this.user = user;
+      if (user != null) {
+        load();
+      }
+    });
+  }
+
+  // SomeNotifier() {
+  //   FirebaseFirestore.instance.collection("account").snapshots().listen((data) {
+  //     accounts = data.docs.map((doc) => Account(doc));
+  //     notifyListeners();
+  //   });
+  // }
+  void getAccountStream() async {
+    await for (var snapshot
+        in FirebaseFirestore.instance.collection('account').snapshots()) {
+      for (int i = 0; i < snapshot.docs.length; i++) {
+        snapshot.docs[i].data();
+        String color = snapshot.docs[i].data()['color'];
+        String name = snapshot.docs[i].data()['name'];
+        num money = snapshot.docs[i].data()['money'];
+        String icon = snapshot.docs[i].data()['icon'];
+        String id;
+        if (snapshot.docs[i].data()['id'] != null) {
+          id = snapshot.docs[i].data()['id'];
+        } else {
+          id = 'nothing';
+        }
+
+        accounts.add(Account(
+            colorValue: color,
+            name: name,
+            money: money.toInt(),
+            icon: icon,
+            id: id));
+      }
+      notifyListeners();
+    }
+  }
+
+  load() async {
+    late QuerySnapshot query;
+    QueryDocumentSnapshot? lastLoaded;
+    late bool loading = false;
+    late bool endReached = false;
+    if (user == null || endReached || loading) return;
+    loading = true;
+
+    if (lastLoaded == null) {
+      accounts.clear();
+    }
+    Query q = FirebaseFirestore.instance
+        // .collection("account")
+        // .where("id", isEqualTo: user?.uid)
+        // .orderBy("name");
+        .collection("account")
+        .where("id", isEqualTo: 'a')
+        .orderBy("name");
+
+    if (lastLoaded != null) {
+      print("Loading more: ${accounts.length}");
+      q = q.startAfterDocument(lastLoaded);
+    }
+
+    query = await q.limit(5).get();
+
+    if (query.docs.length != 5) {
+      bool endReached = true;
+    }
+    lastLoaded = query.docs.last;
+
+    // query.docs.forEach((element) {
+    //   accounts.add(Account.fromMap(element.data(), element.id));
+    // });
+    loading = false;
+    notifyListeners();
+  }
+
+  void addAccountFirebase(String title, String color, String icon, int money) {
+    FirebaseFirestore.instance.collection("account").add({
+      "name": title,
+      "color": color,
+      "id": user?.uid,
+      "icon": icon,
+      "money": money,
+    }).then((value) {
+      accounts.add(Account(
+          name: title,
+          colorValue: color,
+          icon: icon,
+          id: value.id,
+          money: money));
+      notifyListeners();
+    });
+  }
+
   List<Expense> expenses = [
     Expense(
       name: '1',

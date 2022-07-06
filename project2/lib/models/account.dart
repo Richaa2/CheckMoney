@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
 
+Color colorr = Colors.green;
+IconData? icondataa = IconData(0xe737, fontFamily: 'MaterialIcons');
+
 class Account {
-  String name;
-  int money;
-  Color? color = Colors.green;
-  IconData? icon;
+  late String name;
+  late int money;
+  String colorValue = colorr.value.toString();
+  String icon = icondataa!.codePoint.toString();
+  String id;
 
-  Account({this.color, required this.name, required this.money, this.icon});
+  Account(
+      {required this.colorValue,
+      required this.name,
+      required this.money,
+      required this.icon,
+      required this.id});
 
-// class AccountName {
-//   String name;
-//   AccountName({required this.name});
-// }
-
-// class AccountMoney {
-//   int money;
-
-//   AccountMoney({required this.money});
+  Account.fromMap(Map<String, dynamic> data, this.id) {
+    name = data['name'];
+    money = data['money'];
+    colorValue = data['color'];
+    icon = data['icon'];
+  }
 
   void pickIcon(IconData? iconn) {
-    icon = iconn;
+    icon = iconn.toString();
   }
 
   void pickColor(Color? colorr) {
-    color = colorr;
+    colorValue = colorr.toString();
   }
 
   void addAmount(int amount) {

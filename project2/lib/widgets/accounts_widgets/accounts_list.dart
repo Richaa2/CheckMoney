@@ -1,9 +1,14 @@
 // ignore_for_file: avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project2/firestore_services.dart';
+import 'package:project2/models/account.dart';
 
 import 'package:project2/models/account_data.dart';
+import 'package:project2/models/account_for_firebase.dart';
 import 'package:project2/screen/control_account_screen.dart';
+import 'package:project2/widgets/accounts_widgets/accounts_tile_firebase.dart';
 import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 import 'package:provider/provider.dart';
 
@@ -14,14 +19,21 @@ class AccountsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var accountss = Provider.of<List<AccountFirebase>>(context);
+
     var sum = Provider.of<AccountData>(context).sumOfAccounts();
     return Consumer<AccountData>(builder: ((context, accountData, child) {
+      if (accountData.accounts.isEmpty) {
+        accountData.getAccountStream();
+      }
       return ListView.separated(
         itemBuilder: (context, index) {
           final accountsName = accountData.accounts[index].name;
           final accountssMoney = accountData.accounts[index].money;
-          final accountColor = accountData.accounts[index].color;
+          final accountColor = accountData.accounts[index].colorValue;
           final accountsIcon = accountData.accounts[index].icon;
+
+          AccountFirebase account = accountss[index];
 
           if (index == 0) {
             return Padding(
@@ -51,8 +63,7 @@ class AccountsListView extends StatelessWidget {
                     height: 5,
                   ),
                   AccountsListTile(
-                    amount: accountssMoney,
-                    nameTitle: accountsName,
+                    account: accountData.accounts[index],
                     onTap: () {
                       print(accountssMoney);
 
@@ -62,19 +73,20 @@ class AccountsListView extends StatelessWidget {
                             index: index,
                           ));
                     },
-                    color: accountColor,
-                    icon: accountsIcon,
                   ),
                 ],
               ),
             );
           }
 
+          if (index > accountData.accounts.length - 2) {
+            accountData.load();
+          }
+
           return Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
-            child: AccountsListTile(
-              amount: accountssMoney,
-              nameTitle: accountsName,
+            child: AccountsListTileFirebase(
+              account: account,
               onTap: () {
                 print(accountssMoney);
 
@@ -84,8 +96,6 @@ class AccountsListView extends StatelessWidget {
                       index: index,
                     ));
               },
-              color: accountColor,
-              icon: accountsIcon,
             ),
           );
         },
