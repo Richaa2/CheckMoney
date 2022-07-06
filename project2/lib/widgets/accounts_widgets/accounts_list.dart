@@ -2,9 +2,13 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project2/firestore_services.dart';
+import 'package:project2/models/account.dart';
 
 import 'package:project2/models/account_data.dart';
+import 'package:project2/models/account_for_firebase.dart';
 import 'package:project2/screen/control_account_screen.dart';
+import 'package:project2/widgets/accounts_widgets/accounts_tile_firebase.dart';
 import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 import 'package:provider/provider.dart';
 
@@ -15,14 +19,21 @@ class AccountsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var accountss = Provider.of<List<AccountFirebase>>(context);
+
     var sum = Provider.of<AccountData>(context).sumOfAccounts();
     return Consumer<AccountData>(builder: ((context, accountData, child) {
+      if (accountData.accounts.isEmpty) {
+        accountData.getAccountStream();
+      }
       return ListView.separated(
         itemBuilder: (context, index) {
           final accountsName = accountData.accounts[index].name;
           final accountssMoney = accountData.accounts[index].money;
           final accountColor = accountData.accounts[index].colorValue;
           final accountsIcon = accountData.accounts[index].icon;
+
+          AccountFirebase account = accountss[index];
 
           if (index == 0) {
             return Padding(
@@ -74,8 +85,8 @@ class AccountsListView extends StatelessWidget {
 
           return Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
-            child: AccountsListTile(
-              account: accountData.accounts[index],
+            child: AccountsListTileFirebase(
+              account: account,
               onTap: () {
                 print(accountssMoney);
 

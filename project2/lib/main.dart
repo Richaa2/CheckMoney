@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:project2/firestore_services.dart';
 import 'package:project2/models/account_data.dart';
 
 import 'package:project2/screen/add_account/add_account_screen.dart';
@@ -28,8 +29,15 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AccountData>(
-      create: (BuildContext context) => AccountData(),
+    final FirestoreServices _db = FirestoreServices();
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (BuildContext context) => AccountData()),
+        StreamProvider(
+            create: (BuildContext context) => _db.getAccount(),
+            initialData: _db.getAccount()),
+      ],
+
       builder: (context, child) {
         @override
         void initState() {

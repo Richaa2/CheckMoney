@@ -34,9 +34,6 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     var sum = Provider.of<AccountData>(context).sumOfAccounts();
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        Provider.of<AccountData>(context, listen: false).getAccountStream();
-      }),
       drawer: const DrawerWidget(),
       appBar: AppBar(
           title: Column(

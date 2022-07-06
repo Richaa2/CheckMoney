@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:project2/models/account_for_firebase.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/account.dart';
 
-class AccountsListTile extends StatelessWidget {
+class AccountsListTileFirebase extends StatelessWidget {
   // final IconData? icon;
   // final Color? color;
   // final String nameTitle;
   // final int amount;
-  final Account account;
+  final AccountFirebase account;
   final void Function() onTap;
-  const AccountsListTile({
+  const AccountsListTileFirebase({
     Key? key,
     // required this.nameTitle,
     // required this.amount,

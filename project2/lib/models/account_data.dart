@@ -70,7 +70,7 @@ class AccountData extends ChangeNotifier {
         if (snapshot.docs[i].data()['id'] != null) {
           id = snapshot.docs[i].data()['id'];
         } else {
-          id = 'a';
+          id = 'nothing';
         }
 
         accounts.add(Account(
@@ -80,8 +80,8 @@ class AccountData extends ChangeNotifier {
             icon: icon,
             id: id));
       }
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   load() async {
