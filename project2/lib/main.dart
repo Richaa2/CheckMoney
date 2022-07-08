@@ -29,21 +29,16 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final FirestoreServices _db = FirestoreServices();
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (BuildContext context) => AccountData()),
-        StreamProvider(
-            create: (BuildContext context) => _db.getAccount(),
-            initialData: _db.getAccount()),
-      ],
+    // final FirestoreServices _db = FirestoreServices();
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => AccountData(),
 
       builder: (context, child) {
-        @override
-        void initState() {
-          super.initState();
-          Provider.of<AccountData>(context, listen: false).signIn();
-        }
+        // @override
+        // void initState() {
+        //   super.initState();
+        //   Provider.of<AccountData>(context, listen: false).signIn();
+        // }
 
         return MaterialApp(
           initialRoute: '/',
