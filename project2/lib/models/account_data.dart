@@ -5,7 +5,6 @@ import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
 import 'package:project2/models/income.dart';
 // ignore: unused_import
-import 'page_date.dart' as p;
 
 import 'history.dart';
 
@@ -16,6 +15,7 @@ class AccountData extends ChangeNotifier {
     //   money: 100,
     //   colorValue: Colors.amber.value.toString(),
     //   icon: Icons.credit_card.codePoint.toString(),
+    //   id: 'm',
     // ),
     // Account(
     //     name: 'Privat',
@@ -30,26 +30,26 @@ class AccountData extends ChangeNotifier {
     // )
   ];
 
-  late FirebaseAuth auth;
-  User? user; //null if not signed in
-  AccountData() {
-    auth = FirebaseAuth.instance;
-    setupAuthListener();
-  }
+  // late FirebaseAuth auth;
+  // User? user; //null if not signed in
+  // AccountData() {
+  //   auth = FirebaseAuth.instance;
+  //   setupAuthListener();
+  // }
 
-  Future<UserCredential> signIn() {
-    return auth.signInAnonymously();
-  }
+  // Future<UserCredential> signIn() {
+  //   return auth.signInAnonymously();
+  // }
 
-  setupAuthListener() {
-    auth.authStateChanges().listen((user) {
-      print("is user signed in: ${user != null} as ${user?.uid}");
-      this.user = user;
-      if (user != null) {
-        load();
-      }
-    });
-  }
+  // setupAuthListener() {
+  //   auth.authStateChanges().listen((user) {
+  //     print("is user signed in: ${user != null} as ${user?.uid}");
+  //     this.user = user;
+  //     if (user != null) {
+  //       load();
+  //     }
+  //   });
+  // }
 
   // SomeNotifier() {
   //   FirebaseFirestore.instance.collection("account").snapshots().listen((data) {
@@ -57,87 +57,108 @@ class AccountData extends ChangeNotifier {
   //     notifyListeners();
   //   });
   // }
-  void getAccountStream() async {
-    await for (var snapshot
-        in FirebaseFirestore.instance.collection('account').snapshots()) {
-      for (int i = 0; i < snapshot.docs.length; i++) {
-        snapshot.docs[i].data();
-        String color = snapshot.docs[i].data()['color'];
-        String name = snapshot.docs[i].data()['name'];
-        num money = snapshot.docs[i].data()['money'];
-        String icon = snapshot.docs[i].data()['icon'];
-        String id;
-        if (snapshot.docs[i].data()['id'] != null) {
-          id = snapshot.docs[i].data()['id'];
-        } else {
-          id = 'nothing';
-        }
 
-        accounts.add(Account(
-            colorValue: color,
-            name: name,
-            money: money.toInt(),
-            icon: icon,
-            id: id));
-      }
-      notifyListeners();
+  Future getDocs() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection("account").get();
+    for (int i = 0; i < querySnapshot.docs.length; i++) {
+      var a = querySnapshot.docs[i];
+      print(a.id);
     }
   }
 
-  load() async {
-    late QuerySnapshot query;
-    QueryDocumentSnapshot? lastLoaded;
-    late bool loading = false;
-    late bool endReached = false;
-    if (user == null || endReached || loading) return;
-    loading = true;
-
-    if (lastLoaded == null) {
-      accounts.clear();
-    }
-    Query q = FirebaseFirestore.instance
-        // .collection("account")
-        // .where("id", isEqualTo: user?.uid)
-        // .orderBy("name");
-        .collection("account")
-        .where("id", isEqualTo: 'a')
-        .orderBy("name");
-
-    if (lastLoaded != null) {
-      print("Loading more: ${accounts.length}");
-      q = q.startAfterDocument(lastLoaded);
-    }
-
-    query = await q.limit(5).get();
-
-    if (query.docs.length != 5) {
-      bool endReached = true;
-    }
-    lastLoaded = query.docs.last;
-
-    // query.docs.forEach((element) {
-    //   accounts.add(Account.fromMap(element.data(), element.id));
-    // });
-    loading = false;
-    notifyListeners();
+  CollectionReference _collectionRef =
+      FirebaseFirestore.instance.collection('account');
+  Future<void> getData() async {
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await _collectionRef.get();
+    // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    print(allData);
   }
 
-  void addAccountFirebase(String title, String color, String icon, int money) {
+  // void getAccountStream() async {
+  //   await for (var snapshot
+  //       in FirebaseFirestore.instance.collection('account').snapshots()) {
+  //     for (int i = 0; i < snapshot.docs.length; i++) {
+  //       snapshot.docs[i].data();
+  //       String color = snapshot.docs[i].data()['color'];
+  //       String name = snapshot.docs[i].data()['name'];
+  //       num money = snapshot.docs[i].data()['money'];
+  //       String icon = snapshot.docs[i].data()['icon'];
+  //       String id;
+  //       if (snapshot.docs[i].data()['id'] != null) {
+  //         id = snapshot.docs[i].data()['id'];
+  //       } else {
+  //         id = 'nothing';
+  //       }
+
+  //       accounts.add(Account(
+  //           colorValue: color,
+  //           name: name,
+  //           money: money.toInt(),
+  //           icon: icon,
+  //           id: id));
+  //     }
+  //     notifyListeners();
+  //   }
+  // }
+
+  // load() async {
+  //   late QuerySnapshot query;
+  //   QueryDocumentSnapshot? lastLoaded;
+  //   late bool loading = false;
+  //   late bool endReached = false;
+  //   if (user == null || endReached || loading) return;
+  //   loading = true;
+
+  //   if (lastLoaded == null) {
+  //     accounts.clear();
+  //   }
+  //   Query q = FirebaseFirestore.instance
+  //       // .collection("account")
+  //       // .where("id", isEqualTo: user?.uid)
+  //       // .orderBy("name");
+  //       .collection("account")
+  //       .where("id", isEqualTo: 'a')
+  //       .orderBy("name");
+
+  //   if (lastLoaded != null) {
+  //     print("Loading more: ${accounts.length}");
+  //     q = q.startAfterDocument(lastLoaded);
+  //   }
+
+  //   query = await q.limit(5).get();
+
+  //   if (query.docs.length != 5) {
+  //     bool endReached = true;
+  //   }
+  //   lastLoaded = query.docs.last;
+
+  //   // query.docs.forEach((element) {
+  //   //   accounts.add(Account.fromMap(element.data(), element.id));
+  //   // });
+  //   loading = false;
+  //   notifyListeners();
+  // }
+  void addAccountFirebase(Account account) {
     FirebaseFirestore.instance.collection("account").add({
-      "name": title,
-      "color": color,
-      "id": user?.uid,
-      "icon": icon,
-      "money": money,
-    }).then((value) {
-      accounts.add(Account(
-          name: title,
-          colorValue: color,
-          icon: icon,
-          id: value.id,
-          money: money));
-      notifyListeners();
+      "name": account.name,
+      "color": account.colorValue,
+      "id": account.id,
+      "icon": account.icon,
+      "money": account.money,
+      'q': account.q
     });
+    // .then((value) {
+    //   accounts.add(Account(
+    //       name: title,
+    //       colorValue: color,
+    //       icon: icon,
+    //       id: value.id,
+    //       money: money));
+    // });
+    notifyListeners();
   }
 
   List<Expense> expenses = [
@@ -385,10 +406,12 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addAccount(Account account, Color? color, IconData? icon) {
+  void addAccount(
+    Account account,
+  ) {
     accounts.add(account);
-    account.pickColor(color);
-    account.pickIcon(icon);
+    // account.pickColor(color);
+    // account.pickIcon(icon);
 
     notifyListeners();
   }

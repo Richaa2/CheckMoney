@@ -9,19 +9,22 @@ class Account {
   String colorValue = colorr.value.toString();
   String icon = icondataa!.codePoint.toString();
   String id;
+  int q = 1;
 
   Account(
       {required this.colorValue,
       required this.name,
       required this.money,
       required this.icon,
-      required this.id});
+      required this.id,
+      required this.q});
 
   Account.fromMap(Map<String, dynamic> data, this.id) {
     name = data['name'];
     money = data['money'];
     colorValue = data['color'];
     icon = data['icon'];
+    q = data['q'];
   }
 
   void pickIcon(IconData? iconn) {
