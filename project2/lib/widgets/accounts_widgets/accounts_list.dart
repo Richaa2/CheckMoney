@@ -20,36 +20,56 @@ class AccountsListView extends StatelessWidget {
     // var accountss = Provider.of<List<AccountFirebase>>(context);
 
     var sum = Provider.of<AccountData>(context).sumOfAccounts();
-    return Consumer<AccountData>(builder: ((context, accountData, child) {
-      // if (accountData.accounts.isEmpty) {
-      //   accountData.getAccountStream();
-      // }
-      return StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance
-              .collection('account')
-              .orderBy('id', descending: true)
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: Colors.lightBlueAccent,
-                ),
-              );
-            }
-            final accounts = snapshot.data!.docs;
-            List<Account> accountsList = accountData.accounts;
 
-            for (var account in accounts) {
-              final accountRow = Account(
-                  colorValue: account['color'],
-                  name: account['name'],
-                  money: account['money'],
-                  icon: account['icon'],
-                  id: account['id'] ?? 'nothing');
-              accountsList.add(accountRow);
+    // if (accountData.accounts.isEmpty) {
+    //   accountData.getAccountStream();
+    // }
+    return StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('account')
+            .orderBy(
+              "q",
+            )
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.lightBlueAccent,
+              ),
+            );
+          }
+          final accounts = snapshot.data!.docs;
+          final accountsLast = snapshot.data!.docs.last;
+          List<Account> accountsList =
+              Provider.of<AccountData>(context, listen: false).accounts;
+          if (accountsList.isEmpty) {
+            if (accountsList.length < accounts.length) {
+              for (var account in accounts) {
+                final accountRow = Account(
+                    colorValue: account['color'],
+                    name: account['name'],
+                    money: account['money'],
+                    icon: account['icon'],
+                    id: account['id'] ?? 'nothing',
+                    q: account['q']);
+                accountsList.add(accountRow);
+              }
             }
+          } else if (accounts.length > accountsList.length) {
+            accountsList.insert(
+                accounts.length + -1,
+                Account(
+                  colorValue: accountsLast['color'],
+                  icon: accountsLast['icon'],
+                  id: accountsLast['id'],
+                  money: accountsLast['money'],
+                  name: accountsLast['name'],
+                  q: accountsLast['q'],
+                ));
+          }
 
+          return Consumer<AccountData>(builder: ((context, accountData, child) {
             return ListView.separated(
               itemBuilder: (context, index) {
                 // final accountsName = accountData.accounts[index].name;
@@ -130,7 +150,7 @@ class AccountsListView extends StatelessWidget {
               ),
               itemCount: accountData.accounts.length,
             );
-          });
-    }));
+          }));
+        });
   }
 }

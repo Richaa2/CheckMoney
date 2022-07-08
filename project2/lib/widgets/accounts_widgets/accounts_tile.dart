@@ -24,7 +24,7 @@ class AccountsListTile extends StatelessWidget {
     return Consumer(
       builder: (BuildContext context, value, Widget? child) {
         return ListTile(
-          trailing: Text(account.id),
+          trailing: Text('${account.q}'),
           onTap: onTap,
           leading: Container(
             width: 40,

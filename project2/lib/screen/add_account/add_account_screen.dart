@@ -69,15 +69,20 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
               //   iconValue!.codePoint.toString(),
               //   money,
               // );
-              Provider.of<AccountData>(context, listen: false).addAccount(
-                Account(
-                    colorValue: valuee!.value.toString(),
-                    name: name,
-                    money: money,
-                    icon: iconValue!.codePoint.toString(),
-                    id: 'b'),
-              );
-
+              Provider.of<AccountData>(context, listen: false)
+                  .addAccountFirebase(Account(
+                      colorValue: valuee!.value.toString(),
+                      name: name,
+                      money: money,
+                      icon: iconValue!.codePoint.toString(),
+                      id: 'f',
+                      q: Provider.of<AccountData>(context, listen: false)
+                              .accounts
+                              .length +
+                          1));
+              print(Provider.of<AccountData>(context, listen: false)
+                  .accounts
+                  .length);
               Navigator.popAndPushNamed(context, '/');
             },
             textField: TextField(

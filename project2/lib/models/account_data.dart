@@ -10,13 +10,13 @@ import 'history.dart';
 
 class AccountData extends ChangeNotifier {
   List<Account> accounts = [
-    Account(
-      name: 'Mono',
-      money: 100,
-      colorValue: Colors.amber.value.toString(),
-      icon: Icons.credit_card.codePoint.toString(),
-      id: 'm',
-    ),
+    // Account(
+    //   name: 'Mono',
+    //   money: 100,
+    //   colorValue: Colors.amber.value.toString(),
+    //   icon: Icons.credit_card.codePoint.toString(),
+    //   id: 'm',
+    // ),
     // Account(
     //     name: 'Privat',
     //     money: 2000,
@@ -57,6 +57,26 @@ class AccountData extends ChangeNotifier {
   //     notifyListeners();
   //   });
   // }
+
+  Future getDocs() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection("account").get();
+    for (int i = 0; i < querySnapshot.docs.length; i++) {
+      var a = querySnapshot.docs[i];
+      print(a.id);
+    }
+  }
+
+  CollectionReference _collectionRef =
+      FirebaseFirestore.instance.collection('account');
+  Future<void> getData() async {
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await _collectionRef.get();
+    // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    print(allData);
+  }
+
   // void getAccountStream() async {
   //   await for (var snapshot
   //       in FirebaseFirestore.instance.collection('account').snapshots()) {
@@ -121,23 +141,24 @@ class AccountData extends ChangeNotifier {
   //   loading = false;
   //   notifyListeners();
   // }
-
-  void addAccountFirebase(String title, String color, String icon, int money) {
+  void addAccountFirebase(Account account) {
     FirebaseFirestore.instance.collection("account").add({
-      "name": title,
-      "color": color,
-      "id": 'user?.uid',
-      "icon": icon,
-      "money": money,
-    }).then((value) {
-      accounts.add(Account(
-          name: title,
-          colorValue: color,
-          icon: icon,
-          id: value.id,
-          money: money));
-      notifyListeners();
+      "name": account.name,
+      "color": account.colorValue,
+      "id": account.id,
+      "icon": account.icon,
+      "money": account.money,
+      'q': account.q
     });
+    // .then((value) {
+    //   accounts.add(Account(
+    //       name: title,
+    //       colorValue: color,
+    //       icon: icon,
+    //       id: value.id,
+    //       money: money));
+    // });
+    notifyListeners();
   }
 
   List<Expense> expenses = [
@@ -393,7 +414,6 @@ class AccountData extends ChangeNotifier {
     // account.pickIcon(icon);
 
     notifyListeners();
-    dispose();
   }
 
   void addExpense(
