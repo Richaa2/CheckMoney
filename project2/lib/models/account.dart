@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 Color colorr = Colors.green;
@@ -25,6 +26,32 @@ class Account {
     colorValue = data['color'];
     icon = data['icon'];
     q = data['q'];
+  }
+
+  factory Account.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
+    return Account(
+      name: data?['name'],
+      money: data?['money'],
+      colorValue: data?['color'],
+      icon: data?['icon'],
+      q: data?['q'],
+      id: data?['id'],
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      if (name != null) "name": name,
+      if (money != null) "state": money,
+      if (colorValue != null) "color": colorValue,
+      if (icon != null) "icon": icon,
+      if (q != null) "q": q,
+      if (id != null) "id": id,
+    };
   }
 
   void pickIcon(IconData? iconn) {
