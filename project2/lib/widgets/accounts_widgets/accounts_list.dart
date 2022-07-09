@@ -33,17 +33,29 @@ class AccountsListView extends StatelessWidget {
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.lightBlueAccent,
-              ),
-            );
+            Provider.of<AccountData>(context).addAccount(Account(
+                colorValue: Colors.red.toString(),
+                name: 'test',
+                money: 1,
+                icon: Icons.store.codePoint.toString(),
+                id: 'g',
+                q: 1));
           }
           final accounts = snapshot.data!.docs;
           final accountsLast = snapshot.data!.docs.last;
           List<Account> accountsList =
               Provider.of<AccountData>(context, listen: false).accounts;
-          if (accountsList.isEmpty) {
+          if (accounts.isEmpty) {
+            Provider.of<AccountData>(context, listen: false).addAccountFirebase(
+                Account(
+                    colorValue: Colors.tealAccent.value.toString(),
+                    name: 'First account',
+                    money: 0,
+                    icon: Icons.credit_card.codePoint.toString(),
+                    id: 'z',
+                    q: 1));
+          }
+          if (accountsList.isEmpty || accounts.isNotEmpty) {
             if (accountsList.length < accounts.length) {
               for (var account in accounts) {
                 final accountRow = Account(
@@ -58,7 +70,7 @@ class AccountsListView extends StatelessWidget {
             }
           } else if (accounts.length > accountsList.length) {
             accountsList.insert(
-                accounts.length + -1,
+                accounts.length - 1,
                 Account(
                   colorValue: accountsLast['color'],
                   icon: accountsLast['icon'],
@@ -108,6 +120,10 @@ class AccountsListView extends StatelessWidget {
                           height: 5,
                         ),
                         AccountsListTile(
+                          onDismissible: accounts.length > 1
+                              ? (direction) =>
+                                  accountData.removeAccount(index, snapshot)
+                              : null,
                           account: accountsList[index],
                           onTap: () {
                             print(accountsList[index].money);

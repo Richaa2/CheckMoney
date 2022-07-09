@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project2/models/account_data.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/account.dart';
@@ -8,6 +9,7 @@ class AccountsListTile extends StatelessWidget {
   // final Color? color;
   // final String nameTitle;
   // final int amount;
+  final void Function(DismissDirection)? onDismissible;
   final Account account;
   final void Function() onTap;
   const AccountsListTile({
@@ -16,6 +18,7 @@ class AccountsListTile extends StatelessWidget {
     // required this.amount,
     required this.account,
     required this.onTap,
+    this.onDismissible,
     // required this.color,
     // this.icon,
   }) : super(key: key);
@@ -23,29 +26,36 @@ class AccountsListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (BuildContext context, value, Widget? child) {
-        return ListTile(
-          trailing: Text('${account.q}'),
-          onTap: onTap,
-          leading: Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: Color(int.parse(account.colorValue)),
+        return Dismissible(
+          key: UniqueKey(),
+          onDismissed: onDismissible,
+          direction: DismissDirection.startToEnd,
+          child: ListTile(
+            trailing: Text('${account.q}'),
+            onTap: onTap,
+            leading: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: Color(int.parse(account.colorValue)),
+              ),
+              child: Icon(IconData(int.parse(account.icon),
+                  fontFamily: 'MaterialIcons')),
             ),
-            child: Icon(
-                IconData(int.parse(account.icon), fontFamily: 'MaterialIcons')),
-          ),
-          title: Text(
-            account.name,
-            style: const TextStyle(
-              fontSize: 20,
+            title: Text(
+              account.name,
+              style: const TextStyle(
+                fontSize: 20,
+              ),
             ),
-          ),
-          subtitle: Text(
-            '${account.money}\$',
-            style: const TextStyle(
-                fontSize: 17, color: Colors.green, fontWeight: FontWeight.w500),
+            subtitle: Text(
+              '${account.money}\$',
+              style: const TextStyle(
+                  fontSize: 17,
+                  color: Colors.green,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
         );
       },
