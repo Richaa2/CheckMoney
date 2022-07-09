@@ -27,9 +27,7 @@ class AccountsListView extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('account')
-            .orderBy(
-              "q",
-            )
+            .orderBy("q")
             .snapshots(),
         builder: (context, snapshot) {
           // if (!snapshot.hasData) {
@@ -48,17 +46,17 @@ class AccountsListView extends StatelessWidget {
             final accounts = snapshot.data!.docs;
             final accountsLast = snapshot.data!.docs.last;
 
-            if (accounts.isEmpty) {
-              Provider.of<AccountData>(context, listen: false)
-                  .addAccountFirebase(Account(
-                      colorValue: Colors.tealAccent.value.toString(),
-                      name: 'First account',
-                      money: 0,
-                      icon: Icons.credit_card.codePoint.toString(),
-                      id: 'z',
-                      q: 1));
-            }
-            if (accountsList.isEmpty || accounts.isNotEmpty) {
+            // if (accounts.isEmpty) {
+            //   Provider.of<AccountData>(context, listen: false)
+            //       .addAccountFirebase(Account(
+            //           colorValue: Colors.tealAccent.value.toString(),
+            //           name: 'First account',
+            //           money: 0,
+            //           icon: Icons.credit_card.codePoint.toString(),
+            //           id: 'z',
+            //           q: 1));
+            // }
+            if (accountsList.isEmpty) {
               if (accountsList.length < accounts.length) {
                 for (var account in accounts) {
                   final accountRow = Account(
@@ -71,7 +69,8 @@ class AccountsListView extends StatelessWidget {
                   accountsList.add(accountRow);
                 }
               }
-            } else if (accounts.length > accountsList.length) {
+            }
+            if (accounts.length > accountsList.length) {
               accountsList.insert(
                   accounts.length - 1,
                   Account(
@@ -127,7 +126,7 @@ class AccountsListView extends StatelessWidget {
                             onDismissible: snapshot.hasData ||
                                     snapshot.data!.docs.length > 1
                                 ? (direction) =>
-                                    accountData.removeAccount(index, snapshot)
+                                    accountData.removeAccount(snapshot, index)
                                 : null,
                             account: accountsList[index],
                             onTap: () {
@@ -152,6 +151,13 @@ class AccountsListView extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(left: 15, right: 15),
                     child: AccountsListTile(
+                      onDismissible:
+                          snapshot.hasData || snapshot.data!.docs.length > 1
+                              ? (direction) => accountData.removeAccount(
+                                    snapshot,
+                                    index,
+                                  )
+                              : null,
                       account: accountsList[index],
                       onTap: () {
                         print(accountsList[index].money);

@@ -78,7 +78,8 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                       id: 'f',
                       q: Provider.of<AccountData>(context, listen: false)
                               .accounts
-                              .length +
+                              .last
+                              .q +
                           1));
               print(Provider.of<AccountData>(context, listen: false)
                   .accounts

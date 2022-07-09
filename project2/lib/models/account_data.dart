@@ -10,14 +10,14 @@ import 'history.dart';
 
 class AccountData extends ChangeNotifier {
   List<Account> accounts = [
-    Account(
-      name: 'Mono',
-      money: 100,
-      colorValue: Colors.amber.value.toString(),
-      icon: Icons.credit_card.codePoint.toString(),
-      id: 'm',
-      q: 1,
-    ),
+    // Account(
+    //   name: 'Mono',
+    //   money: 100,
+    //   colorValue: Colors.amber.value.toString(),
+    //   icon: Icons.credit_card.codePoint.toString(),
+    //   id: 'm',
+    //   q: 1,
+    // ),
     // Account(
     //     name: 'Privat',
     //     money: 2000,
@@ -167,11 +167,10 @@ class AccountData extends ChangeNotifier {
   }
 
   void removeAccount(
-      int index, AsyncSnapshot<QuerySnapshot<Object?>> snapshot) async {
-    await FirebaseFirestore.instance
-        .runTransaction((Transaction myTransaction) async {
-      myTransaction.delete(snapshot.data!.docs[index].reference);
-    });
+      AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) async {
+    var id = snapshot.data!.docs[index].id;
+    FirebaseFirestore.instance.collection('account').doc(id).delete();
+    accounts.removeAt(index);
   }
 
   List<Expense> expenses = [
