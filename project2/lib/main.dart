@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/firestore_services.dart';
 import 'package:project2/models/account_data.dart';
+import 'package:project2/screen/account_screen.dart';
 
 import 'package:project2/screen/add_account/add_account_screen.dart';
 import 'package:project2/screen/add_ex_in/add_expense.dart';
@@ -43,7 +44,7 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           initialRoute: '/',
           routes: {
-            '/': (context) => const MainPage(),
+            '/': (context) => const AccountScreen(),
             '/addAcc': (context) => const AddAccountScreen(),
             '/addExp': ((context) => const AddExpenseScreen()),
             '/addInc': ((context) => const AddIncomeScreen()),
