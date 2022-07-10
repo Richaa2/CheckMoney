@@ -231,88 +231,88 @@ class AccountData extends ChangeNotifier {
   ];
 
   List<Record> records = [
-    Record(
-        action: 2,
-        name: 'Privat',
-        amount: 1500,
-        dateTime: DateTime.now().millisecondsSinceEpoch),
-    Record(
-        action: 2,
-        name: 'Privat',
-        amount: 1300,
-        dateTime: DateTime.now().millisecondsSinceEpoch),
-    Record(
-        action: 2,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -5,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 2,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -19,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 3,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -30,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 3,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -50,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 3,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -130,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 3,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -100,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 3,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -200,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 3,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -250,
-            ))
-            .millisecondsSinceEpoch),
+    // Record(
+    //     action: 2,
+    //     name: 'Privat',
+    //     amount: 1500,
+    //     dateTime: DateTime.now().millisecondsSinceEpoch),
+    // Record(
+    //     action: 2,
+    //     name: 'Privat',
+    //     amount: 1300,
+    //     dateTime: DateTime.now().millisecondsSinceEpoch),
+    // Record(
+    //     action: 2,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -5,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 2,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -19,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 3,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -30,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 3,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -50,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 3,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -130,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 3,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -100,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 3,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -200,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 3,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -250,
+    //         ))
+    //         .millisecondsSinceEpoch),
   ]..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
 
   int? sumOfAccounts() {
@@ -380,6 +380,13 @@ class AccountData extends ChangeNotifier {
       'q': accountMoney.q,
     };
     FirebaseFirestore.instance.collection('account').doc(id).set(data);
+    FirebaseFirestore.instance.collection('record').add({
+      "name": record.name,
+      "id": record.id,
+      "amount": record.amount,
+      "action": record.action,
+      'dateTime': record.dateTime,
+    });
 
     notifyListeners();
   }
@@ -405,6 +412,13 @@ class AccountData extends ChangeNotifier {
       'q': accountMoney.q,
     };
     FirebaseFirestore.instance.collection('account').doc(id).set(data);
+    FirebaseFirestore.instance.collection('record').add({
+      "name": record.name,
+      "id": record.id,
+      "amount": record.amount,
+      "action": record.action,
+      'dateTime': record.dateTime,
+    });
 
     notifyListeners();
   }
@@ -456,6 +470,14 @@ class AccountData extends ChangeNotifier {
     };
     FirebaseFirestore.instance.collection('account').doc(id1).set(data1);
     FirebaseFirestore.instance.collection('account').doc(id2).set(data2);
+
+    FirebaseFirestore.instance.collection('record').add({
+      "name": record.name,
+      "id": record.id,
+      "amount": record.amount,
+      "action": record.action,
+      'dateTime': record.dateTime,
+    });
 
     notifyListeners();
   }

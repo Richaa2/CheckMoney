@@ -39,7 +39,7 @@ class _HistoryScreenState extends State<HistoryScreen>
     return Scaffold(
         appBar: AppBar(
             bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: TabBar(controller: _tabController, tabs: const [
             Tab(
               text: 'Today',
@@ -81,45 +81,47 @@ class RecordTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var sum =
-        Provider.of<AccountData>(context, listen: false).sumOfRecords(index);
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                // Text(
-                //   'june 2022',
-                //   style: TextStyle(
-                //       color: Colors.grey,
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.w700),
-                // ),
-
-                Text(
-                  '+\$$sum',
-                  textAlign: TextAlign.end,
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18),
-                ),
-              ],
+    var sum = Provider.of<AccountData>(
+      context,
+    ).sumOfRecords(index);
+    return Expanded(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "History",
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    '\$$sum',
+                    textAlign: TextAlign.end,
+                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                        color: sum! >= 0 ? Colors.green : Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Expanded(
-          child: RecordsListView(
-            indexx: index,
+          const SizedBox(
+            height: 5,
           ),
-        ),
-      ],
+          Expanded(
+            child: RecordsListView(
+              indexx: index,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
