@@ -403,6 +403,8 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
+  void FilterList() {}
+
   void transferAmountOnScreen(
       int amount,
       Account accountMoney1,
