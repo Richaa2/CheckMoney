@@ -316,20 +316,32 @@ class AccountData extends ChangeNotifier {
   ]..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
 
   int? sumOfAccounts() {
-    int sum = 0;
-    for (int i = 0; i < accounts.length.toInt(); i++) {
-      final data = {
-        'money': accounts[i].money,
-      };
+    var sum = 0;
 
-      data.forEach((key, value) {
-        sum += value;
-      });
+    // FirebaseFirestore.instance.collection('account').get().whenComplete(() {
+    //   for (int i = 0; i < accounts.length; i++) {
+    //     final data = {
+    //       'money': accounts[i].money,
+    //     };
+    //     data.forEach((key, value) {
+    //       sum += value;
+    //     });
+    //   }
+    // });
 
-      // sum += accounts[i].money;
+    for (int i = 0; i < accounts.length; i++) {
+      // final data = {
+      //   'money': accounts[i].money,
+      // };
+      // data.forEach((key, value) {
+      //   sum += value;
+      // });
 
+      sum += accounts[i].money;
     }
+
     print(sum);
+
     return sum;
   }
 
@@ -412,8 +424,6 @@ class AccountData extends ChangeNotifier {
     FirebaseFirestore.instance.collection('account').doc(id).set(data);
     notifyListeners();
   }
-
-  void FilterList() {}
 
   void transferAmountOnScreen(
       int amount,

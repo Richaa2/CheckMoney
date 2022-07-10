@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -30,42 +31,42 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // final FirestoreServices _db = FirestoreServices();
     return ChangeNotifierProvider(
-      create: (BuildContext context) => AccountData(),
+        create: (BuildContext context) => AccountData(),
+        builder: (context, child) {
+          // @override
+          // void initState() {
+          //   super.initState();
+          //   Provider.of<AccountData>(context, listen: false).signIn();
+          // }
 
-      builder: (context, child) {
-        // @override
-        // void initState() {
-        //   super.initState();
-        //   Provider.of<AccountData>(context, listen: false).signIn();
-        // }
-        var sum = Provider.of<AccountData>(context).sumOfAccounts();
-        return MaterialApp(
-          initialRoute: '/',
-          routes: {
-            '/': (context) => MainPage(sum: sum),
-            '/addAcc': (context) => const AddAccountScreen(),
-            '/addExp': ((context) => const AddExpenseScreen()),
-            '/addInc': ((context) => const AddIncomeScreen()),
-          },
-          title: 'Project',
-          theme: ThemeData(
-            brightness: Brightness.dark,
-          ),
+          return MaterialApp(
+            initialRoute: '/',
+            routes: {
+              '/': (context) => MainPage(),
+              '/addAcc': (context) => const AddAccountScreen(),
+              '/addExp': ((context) => const AddExpenseScreen()),
+              '/addInc': ((context) => const AddIncomeScreen()),
+            },
+            title: 'Project',
+            theme: ThemeData(
+              brightness: Brightness.dark,
+            ),
+          );
+        }
+
+        // child: MaterialApp(
+        //   initialRoute: '/',
+        //   routes: {
+        //     '/': (context) => const MainPage(),
+        //     '/addAcc': (context) => const AddAccountScreen(),
+        //     '/addExp': ((context) => const AddExpenseScreen()),
+        //     '/addInc': ((context) => const AddIncomeScreen()),
+        //   },
+        //   title: 'Project',
+        //   theme: ThemeData(
+        //     brightness: Brightness.dark,
+        //   ),
+        // ),
         );
-      },
-      // child: MaterialApp(
-      //   initialRoute: '/',
-      //   routes: {
-      //     '/': (context) => const MainPage(),
-      //     '/addAcc': (context) => const AddAccountScreen(),
-      //     '/addExp': ((context) => const AddExpenseScreen()),
-      //     '/addInc': ((context) => const AddIncomeScreen()),
-      //   },
-      //   title: 'Project',
-      //   theme: ThemeData(
-      //     brightness: Brightness.dark,
-      //   ),
-      // ),
-    );
   }
 }

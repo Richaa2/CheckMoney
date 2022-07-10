@@ -11,8 +11,9 @@ import '../widgets/dialog_widget.dart';
 import '../widgets/drawer.dart';
 
 class MainPage extends StatefulWidget {
-  var sum;
-  MainPage({Key? key, required this.sum}) : super(key: key);
+  MainPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -34,59 +35,66 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    var sum = Provider.of<AccountData>(context).sumOfAccounts();
-
-    return Scaffold(
-      drawer: const DrawerWidget(),
-      appBar: AppBar(
-          title: Column(
-            children: [
-              const Text(
-                'All account',
-                style: TextStyle(fontSize: 15),
-              ),
-              Text(
-                '\$${sum}',
-                style: const TextStyle(
-                  fontSize: 20,
+    return StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('account')
+            .orderBy("q")
+            .snapshots(),
+        builder: (context, snapshot) {
+          var sum =
+              Provider.of<AccountData>(context, listen: true).sumOfAccounts();
+          return Scaffold(
+            drawer: const DrawerWidget(),
+            appBar: AppBar(
+                title: Column(
+                  children: [
+                    const Text(
+                      'All account',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Text(
+                      '\$${sum}',
+                      style: const TextStyle(
+                        fontSize: 20,
+                      ),
+                    )
+                  ],
                 ),
-              )
-            ],
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.blueGrey,
+                centerTitle: true,
+                backgroundColor: Colors.blueGrey,
 
-          // leading: IconButton(
-          //   icon: Icon(Icons.menu),
-          //   onPressed: () {},
-          // ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () {
-                // Navigator.pushNamed(context, '/addAcc');
-                showDialog(
-                    context: context,
-                    builder: (context) => const DialogWidget());
-              },
+                // leading: IconButton(
+                //   icon: Icon(Icons.menu),
+                //   onPressed: () {},
+                // ),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.add),
+                    onPressed: () {
+                      // Navigator.pushNamed(context, '/addAcc');
+                      showDialog(
+                          context: context,
+                          builder: (context) => const DialogWidget());
+                    },
+                  ),
+                ]),
+            body: _screens.elementAt(_selectedIndex),
+            bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              items: const [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.credit_card),
+                    label: 'Accounts',
+                    backgroundColor: Colors.white),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.receipt),
+                    label: 'History',
+                    backgroundColor: Colors.white),
+              ],
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
             ),
-          ]),
-      body: _screens.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.credit_card),
-              label: 'Accounts',
-              backgroundColor: Colors.white),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.receipt),
-              label: 'History',
-              backgroundColor: Colors.white),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-    );
+          );
+        });
   }
 }
