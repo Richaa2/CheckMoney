@@ -38,11 +38,11 @@ class _MyAppState extends State<MyApp> {
         //   super.initState();
         //   Provider.of<AccountData>(context, listen: false).signIn();
         // }
-
+        var sum = Provider.of<AccountData>(context).sumOfAccounts();
         return MaterialApp(
           initialRoute: '/',
           routes: {
-            '/': (context) => const MainPage(),
+            '/': (context) => MainPage(sum: sum),
             '/addAcc': (context) => const AddAccountScreen(),
             '/addExp': ((context) => const AddExpenseScreen()),
             '/addInc': ((context) => const AddIncomeScreen()),

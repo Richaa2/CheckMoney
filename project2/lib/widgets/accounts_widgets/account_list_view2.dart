@@ -21,8 +21,7 @@ class AccountsListView2 extends StatelessWidget {
         Provider.of<AccountData>(context, listen: false).accounts;
 
     List<Account> filter = [];
-    // filter.addAll(accountsList);
-    // filter.retainWhere((element) => false)
+
     for (var i = 0; i < index1; i++) {
       filter.add(accountsList[i]);
     }
@@ -35,13 +34,8 @@ class AccountsListView2 extends StatelessWidget {
         return ListView.separated(
           itemBuilder: (context, index2) {
             // accountsList.where((x) => x.name < index1);
-            final accountsName = accountData.accounts[index2].name;
-            final accountssMoney = accountData.accounts[index2].money;
-            final accountsColor = accountData.accounts[index2].colorValue;
-            final accountsIcon = accountData.accounts[index2].icon;
 
-            // accountsList.getRange(1, index1 - 1);
-            // accountsList = accountsList.skip(index1).toList();
+            final accountssMoney = accountData.accounts[index2].money;
 
             return AccountsListTile(
               account: filter[index2],

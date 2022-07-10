@@ -318,8 +318,18 @@ class AccountData extends ChangeNotifier {
   int? sumOfAccounts() {
     int sum = 0;
     for (int i = 0; i < accounts.length.toInt(); i++) {
-      sum += accounts[i].money;
+      final data = {
+        'money': accounts[i].money,
+      };
+
+      data.forEach((key, value) {
+        sum += value;
+      });
+
+      // sum += accounts[i].money;
+
     }
+    print(sum);
     return sum;
   }
 

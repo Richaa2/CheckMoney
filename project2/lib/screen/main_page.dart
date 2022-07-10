@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:project2/models/account_data.dart';
@@ -10,7 +11,8 @@ import '../widgets/dialog_widget.dart';
 import '../widgets/drawer.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  var sum;
+  MainPage({Key? key, required this.sum}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -20,7 +22,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    const AccountScreen(),
+    AccountScreen(),
     const HistoryScreen(),
   ];
 
@@ -33,6 +35,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     var sum = Provider.of<AccountData>(context).sumOfAccounts();
+
     return Scaffold(
       drawer: const DrawerWidget(),
       appBar: AppBar(
@@ -43,7 +46,7 @@ class _MainPageState extends State<MainPage> {
                 style: TextStyle(fontSize: 15),
               ),
               Text(
-                '\$$sum',
+                '\$${sum}',
                 style: const TextStyle(
                   fontSize: 20,
                 ),
