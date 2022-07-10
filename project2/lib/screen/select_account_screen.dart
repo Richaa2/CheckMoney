@@ -11,7 +11,7 @@ class SelectAccount extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var sum = Provider.of<AccountData>(context).sumOfAccounts();
+    // var sum = Provider.of<AccountData>(context).sumOfAccounts();
     return SizedBox(
       height: 500,
       child: Padding(
@@ -28,23 +28,23 @@ class SelectAccount extends StatelessWidget {
                       fontSize: 20,
                       fontWeight: FontWeight.w700),
                 ),
-                Text(
-                  '$sum ',
-                  style: const TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500),
-                ),
+                // Text(
+                //   '$sum ',
+                //   style: const TextStyle(
+                //       color: Colors.green,
+                //       fontSize: 20,
+                //       fontWeight: FontWeight.w500),
+                // ),
               ],
             ),
             const SizedBox(
               height: 5,
             ),
-            // Expanded(
-            //   child: AccountsListView2(
-            //     index1: index1,
-            //   ),
-            // ),
+            Expanded(
+              child: AccountsListView2(
+                index1: index1,
+              ),
+            ),
           ],
         ),
       ),

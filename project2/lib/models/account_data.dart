@@ -68,16 +68,6 @@ class AccountData extends ChangeNotifier {
     }
   }
 
-  CollectionReference _collectionRef =
-      FirebaseFirestore.instance.collection('account');
-  Future<void> getData() async {
-    // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _collectionRef.get();
-    // Get data from docs and convert map to List
-    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    print(allData);
-  }
-
   void getAccountStream() async {
     await for (var snapshot
         in FirebaseFirestore.instance.collection('account').snapshots()) {
@@ -107,43 +97,6 @@ class AccountData extends ChangeNotifier {
     }
   }
 
-  // load() async {
-  //   late QuerySnapshot query;
-  //   QueryDocumentSnapshot? lastLoaded;
-  //   late bool loading = false;
-  //   late bool endReached = false;
-  //   if (user == null || endReached || loading) return;
-  //   loading = true;
-
-  //   if (lastLoaded == null) {
-  //     accounts.clear();
-  //   }
-  //   Query q = FirebaseFirestore.instance
-  //       // .collection("account")
-  //       // .where("id", isEqualTo: user?.uid)
-  //       // .orderBy("name");
-  //       .collection("account")
-  //       .where("id", isEqualTo: 'a')
-  //       .orderBy("name");
-
-  //   if (lastLoaded != null) {
-  //     print("Loading more: ${accounts.length}");
-  //     q = q.startAfterDocument(lastLoaded);
-  //   }
-
-  //   query = await q.limit(5).get();
-
-  //   if (query.docs.length != 5) {
-  //     bool endReached = true;
-  //   }
-  //   lastLoaded = query.docs.last;
-
-  //   // query.docs.forEach((element) {
-  //   //   accounts.add(Account.fromMap(element.data(), element.id));
-  //   // });
-  //   loading = false;
-  //   notifyListeners();
-  // }
   void addAccountFirebase(Account account) {
     FirebaseFirestore.instance.collection("account").add({
       "name": account.name,
@@ -278,95 +231,117 @@ class AccountData extends ChangeNotifier {
   ];
 
   List<Record> records = [
-    Record(
-        action: 2,
-        name: 'Privat',
-        amount: 1500,
-        dateTime: DateTime.now().millisecondsSinceEpoch),
-    Record(
-        action: 2,
-        name: 'Privat',
-        amount: 1300,
-        dateTime: DateTime.now().millisecondsSinceEpoch),
-    Record(
-        action: 2,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -5,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 2,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -19,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 3,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -30,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 3,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -50,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 3,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -130,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 3,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -100,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 3,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -200,
-            ))
-            .millisecondsSinceEpoch),
-    Record(
-        action: 3,
-        name: 'Mono',
-        amount: 1000,
-        dateTime: DateTime.now()
-            .add(const Duration(
-              days: -250,
-            ))
-            .millisecondsSinceEpoch),
+    // Record(
+    //     action: 2,
+    //     name: 'Privat',
+    //     amount: 1500,
+    //     dateTime: DateTime.now().millisecondsSinceEpoch),
+    // Record(
+    //     action: 2,
+    //     name: 'Privat',
+    //     amount: 1300,
+    //     dateTime: DateTime.now().millisecondsSinceEpoch),
+    // Record(
+    //     action: 2,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -5,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 2,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -19,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 3,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -30,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 3,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -50,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 3,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -130,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 3,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -100,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 3,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -200,
+    //         ))
+    //         .millisecondsSinceEpoch),
+    // Record(
+    //     action: 3,
+    //     name: 'Mono',
+    //     amount: 1000,
+    //     dateTime: DateTime.now()
+    //         .add(const Duration(
+    //           days: -250,
+    //         ))
+    //         .millisecondsSinceEpoch),
   ]..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
 
   int? sumOfAccounts() {
-    int sum = 0;
-    for (int i = 0; i < accounts.length.toInt(); i++) {
+    var sum = 0;
+
+    // FirebaseFirestore.instance.collection('account').get().whenComplete(() {
+    //   for (int i = 0; i < accounts.length; i++) {
+    //     final data = {
+    //       'money': accounts[i].money,
+    //     };
+    //     data.forEach((key, value) {
+    //       sum += value;
+    //     });
+    //   }
+    // });
+
+    for (int i = 0; i < accounts.length; i++) {
+      // final data = {
+      //   'money': accounts[i].money,
+      // };
+      // data.forEach((key, value) {
+      //   sum += value;
+      // });
+
       sum += accounts[i].money;
     }
+
+    print(sum);
+
     return sum;
   }
 
@@ -385,35 +360,124 @@ class AccountData extends ChangeNotifier {
   }
 
   void addAmountOnScreen(
-      int amount, Account accountMoney, Record record, Income income) {
+      int amount,
+      Account accountMoney,
+      Record record,
+      Income income,
+      AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
+      int index) {
     accountMoney.addAmount(amount);
     records.insert(0, record);
     record.action = 2;
     income.addIncome(amount);
+    var id = snapshot.data!.docs[index].id;
+    final data = {
+      'money': accountMoney.money,
+      'color': accountMoney.colorValue,
+      'icon': accountMoney.icon,
+      'name': accountMoney.name,
+      'id': accountMoney.id,
+      'q': accountMoney.q,
+    };
+    FirebaseFirestore.instance.collection('account').doc(id).set(data);
+    FirebaseFirestore.instance.collection('record').add({
+      "name": record.name,
+      "id": record.id,
+      "amount": record.amount,
+      "action": record.action,
+      'dateTime': record.dateTime,
+    });
 
     notifyListeners();
   }
 
   void minAmountOnScreen(
-      int amount, Account accountMoney, Record record, Expense expense) {
+      int amount,
+      Account accountMoney,
+      Record record,
+      Expense expense,
+      AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
+      int index) {
     accountMoney.minAmount(amount);
     records.insert(0, record);
     record.action = 1;
     expense.addExpense(amount);
+    var id = snapshot.data!.docs[index].id;
+    final data = {
+      'money': accountMoney.money,
+      'color': accountMoney.colorValue,
+      'icon': accountMoney.icon,
+      'name': accountMoney.name,
+      'id': accountMoney.id,
+      'q': accountMoney.q,
+    };
+    FirebaseFirestore.instance.collection('account').doc(id).set(data);
+    FirebaseFirestore.instance.collection('record').add({
+      "name": record.name,
+      "id": record.id,
+      "amount": record.amount,
+      "action": record.action,
+      'dateTime': record.dateTime,
+    });
 
     notifyListeners();
   }
 
-  void editAmountOnScreen(int newAmount, Account accountMoney) {
+  void editAmountOnScreen(int newAmount, Account accountMoney,
+      AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
     accountMoney.editAmount(newAmount);
+    var id = snapshot.data!.docs[index].id;
+    final data = {
+      'money': accountMoney.money,
+      'color': accountMoney.colorValue,
+      'icon': accountMoney.icon,
+      'name': accountMoney.name,
+      'id': accountMoney.id,
+      'q': accountMoney.q,
+    };
+    FirebaseFirestore.instance.collection('account').doc(id).set(data);
     notifyListeners();
   }
 
   void transferAmountOnScreen(
-      int amount, Account accountMoney1, Account accountMoney2, Record record) {
+      int amount,
+      Account accountMoney1,
+      Account accountMoney2,
+      Record record,
+      AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
+      int index1,
+      int index2) {
     accountMoney1.transferAmount(accountMoney1, accountMoney2, amount);
     records.insert(0, record);
     record.action = 3;
+    var id1 = snapshot.data!.docs[index1].id;
+    var id2 = snapshot.data!.docs[index2].id;
+    final data1 = {
+      'money': accountMoney1.money,
+      'color': accountMoney1.colorValue,
+      'icon': accountMoney1.icon,
+      'name': accountMoney1.name,
+      'id': accountMoney1.id,
+      'q': accountMoney1.q,
+    };
+    final data2 = {
+      'money': accountMoney2.money,
+      'color': accountMoney2.colorValue,
+      'icon': accountMoney2.icon,
+      'name': accountMoney2.name,
+      'id': accountMoney2.id,
+      'q': accountMoney2.q,
+    };
+    FirebaseFirestore.instance.collection('account').doc(id1).set(data1);
+    FirebaseFirestore.instance.collection('account').doc(id2).set(data2);
+
+    FirebaseFirestore.instance.collection('record').add({
+      "name": record.name,
+      "id": record.id,
+      "amount": record.amount,
+      "action": record.action,
+      'dateTime': record.dateTime,
+    });
 
     notifyListeners();
   }

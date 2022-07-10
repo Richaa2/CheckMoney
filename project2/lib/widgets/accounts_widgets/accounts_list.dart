@@ -13,13 +13,13 @@ import 'package:provider/provider.dart';
 import 'accounts_tile.dart';
 
 class AccountsListView extends StatelessWidget {
-  const AccountsListView({Key? key}) : super(key: key);
+  AccountsListView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // var accountss = Provider.of<List<AccountFirebase>>(context);
-
-    var sum = Provider.of<AccountData>(context).sumOfAccounts();
 
     // if (accountData.accounts.isEmpty) {
     //   accountData.getAccountStream();
@@ -30,6 +30,7 @@ class AccountsListView extends StatelessWidget {
             .orderBy("q")
             .snapshots(),
         builder: (context, snapshot) {
+          var sum = Provider.of<AccountData>(context).sumOfAccounts();
           // if (!snapshot.hasData) {
           //   Provider.of<AccountData>(context).addAccount(Account(
           //       colorValue: Colors.red.toString(),
