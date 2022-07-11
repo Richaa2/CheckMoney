@@ -147,8 +147,12 @@ class RecordsListView extends StatelessWidget {
                             ]),
                       )
                     : const Offstage(),
-                buildRecord(index, context, date,
-                    accountData.currentEntries(recordsList, indexx)[index]),
+                buildRecord(
+                    index,
+                    context,
+                    date,
+                    accountData.currentEntries(recordsList, indexx)[index],
+                    snapshot),
               ],
             );
           },

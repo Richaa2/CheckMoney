@@ -41,8 +41,9 @@ class AccountsListView extends StatelessWidget {
           //       q: 1));
           // }
 
-          List<Account> accountsList =
-              Provider.of<AccountData>(context, listen: false).accounts;
+          List<Account> accountsList = Provider.of<AccountData>(
+            context,
+          ).accounts;
           if (snapshot.hasData) {
             final accounts = snapshot.data!.docs;
             final accountsLast = snapshot.data!.docs.last;

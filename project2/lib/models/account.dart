@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-Color colorr = Colors.green;
-IconData? icondataa = IconData(0xe737, fontFamily: 'MaterialIcons');
+import '../utils.dart';
 
 class Account {
   late String name;

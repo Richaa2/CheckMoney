@@ -126,108 +126,115 @@ class AccountData extends ChangeNotifier {
     accounts.removeAt(index);
   }
 
+  void removeRecord(
+      AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) async {
+    var id = snapshot.data!.docs[index].id;
+    FirebaseFirestore.instance.collection('record').doc(id).delete();
+    records.removeAt(index);
+  }
+
   List<Expense> expenses = [
-    Expense(
-      name: '1',
-      amount: 0,
-      color: Colors.teal,
-      icon: Icons.store,
-    ),
-    Expense(
-      name: '2',
-      amount: 0,
-      color: Colors.amber,
-      icon: Icons.accessibility,
-    ),
-    Expense(
-      name: '3',
-      amount: 0,
-      color: Colors.deepPurple,
-      icon: Icons.add_alarm_sharp,
-    ),
-    Expense(
-      name: '4',
-      amount: 0,
-      color: Colors.yellowAccent,
-      icon: Icons.add_to_photos,
-    ),
-    Expense(
-      name: '5',
-      amount: 0,
-      color: Colors.blue,
-      icon: Icons.add_to_photos,
-    ),
-    Expense(
-      name: '6',
-      amount: 0,
-      color: Colors.pink,
-      icon: Icons.add_to_photos,
-    ),
+    // Expense(
+    //   name: '1',
+    //   amount: 0,
+    //   color: Colors.teal,
+    //   icon: Icons.store,
+    // ),
+    // Expense(
+    //   name: '2',
+    //   amount: 0,
+    //   color: Colors.amber,
+    //   icon: Icons.accessibility,
+    // ),
+    // Expense(
+    //   name: '3',
+    //   amount: 0,
+    //   color: Colors.deepPurple,
+    //   icon: Icons.add_alarm_sharp,
+    // ),
+    // Expense(
+    //   name: '4',
+    //   amount: 0,
+    //   color: Colors.yellowAccent,
+    //   icon: Icons.add_to_photos,
+    // ),
+    // Expense(
+    //   name: '5',
+    //   amount: 0,
+    //   color: Colors.blue,
+    //   icon: Icons.add_to_photos,
+    // ),
+    // Expense(
+    //   name: '6',
+    //   amount: 0,
+    //   color: Colors.pink,
+    //   icon: Icons.add_to_photos,
+    // ),
   ];
 
   List<Income> incomes = [
-    Income(
-      name: 'Job',
-      amount: 0,
-      color: Colors.pink,
-      icon: Icons.add_to_photos,
-      dateTime: DateTime.now().millisecondsSinceEpoch,
-    ),
-    Income(
-      name: 'Dance',
-      amount: 1,
-      color: Colors.blue,
-      icon: Icons.add_to_photos,
-      dateTime: DateTime.now()
-          .add(const Duration(
-            days: -1,
-          ))
-          .millisecondsSinceEpoch,
-    ),
-    Income(
-      name: 'Gift',
-      amount: 5,
-      color: Colors.yellowAccent,
-      icon: Icons.add_to_photos,
-      dateTime: DateTime.now()
-          .add(const Duration(
-            days: -5,
-          ))
-          .millisecondsSinceEpoch,
-    ),
-    Income(
-      name: 'Binance',
-      amount: 10,
-      color: Colors.blue,
-      icon: Icons.add_to_photos,
-      dateTime: DateTime.now()
-          .add(const Duration(
-            days: -10,
-          ))
-          .millisecondsSinceEpoch,
-    ),
-    Income(
-      name: 'Crypto',
-      amount: 35,
-      color: Colors.deepPurple,
-      icon: Icons.add_alarm_sharp,
-      dateTime: DateTime.now()
-          .add(const Duration(
-            days: -35,
-          ))
-          .millisecondsSinceEpoch,
-    ),
-    Income(
-      name: 'Futures',
-      amount: 150,
-      color: Colors.teal,
-      icon: Icons.store,
-      dateTime: DateTime.now()
-          .add(const Duration(
-            days: -150,
-          ))
-          .millisecondsSinceEpoch,
-    ),
+    // Income(
+    //   name: 'Job',
+    //   amount: 0,
+    //   color: Colors.pink,
+    //   icon: Icons.add_to_photos,
+    //   dateTime: DateTime.now().millisecondsSinceEpoch,
+    // ),
+    // Income(
+    //   name: 'Dance',
+    //   amount: 1,
+    //   color: Colors.blue,
+    //   icon: Icons.add_to_photos,
+    //   dateTime: DateTime.now()
+    //       .add(const Duration(
+    //         days: -1,
+    //       ))
+    //       .millisecondsSinceEpoch,
+    // ),
+    // Income(
+    //   name: 'Gift',
+    //   amount: 5,
+    //   color: Colors.yellowAccent,
+    //   icon: Icons.add_to_photos,
+    //   dateTime: DateTime.now()
+    //       .add(const Duration(
+    //         days: -5,
+    //       ))
+    //       .millisecondsSinceEpoch,
+    // ),
+    // Income(
+    //   name: 'Binance',
+    //   amount: 10,
+    //   color: Colors.blue,
+    //   icon: Icons.add_to_photos,
+    //   dateTime: DateTime.now()
+    //       .add(const Duration(
+    //         days: -10,
+    //       ))
+    //       .millisecondsSinceEpoch,
+    // ),
+    // Income(
+    //   name: 'Crypto',
+    //   amount: 35,
+    //   color: Colors.deepPurple,
+    //   icon: Icons.add_alarm_sharp,
+    //   dateTime: DateTime.now()
+    //       .add(const Duration(
+    //         days: -35,
+    //       ))
+    //       .millisecondsSinceEpoch,
+    // ),
+    // Income(
+    //   name: 'Futures',
+    //   amount: 150,
+    //   color: Colors.teal,
+    //   icon: Icons.store,
+    //   dateTime: DateTime.now()
+    //       .add(const Duration(
+    //         days: -150,
+    //       ))
+    //       .millisecondsSinceEpoch,
+    // ),
   ];
 
   List<Record> records = [
@@ -360,17 +367,21 @@ class AccountData extends ChangeNotifier {
   }
 
   void addAmountOnScreen(
-      int amount,
-      Account accountMoney,
-      Record record,
-      Income income,
-      AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
-      int index) {
-    accountMoney.addAmount(amount);
+    int amount,
+    Account accountMoney,
+    Record record,
+    Income income,
+    AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
+    int index,
+    int index2,
+    AsyncSnapshot<QuerySnapshot<Object?>> snapshot2,
+  ) {
     records.insert(0, record);
     record.action = 2;
+    accountMoney.addAmount(amount);
     income.addIncome(amount);
-    var id = snapshot.data!.docs[index].id;
+    var id = snapshot2.data!.docs[index].id;
+    var id2 = snapshot.data!.docs[index2].id;
     final data = {
       'money': accountMoney.money,
       'color': accountMoney.colorValue,
@@ -378,6 +389,15 @@ class AccountData extends ChangeNotifier {
       'name': accountMoney.name,
       'id': accountMoney.id,
       'q': accountMoney.q,
+    };
+
+    final dataIncome = {
+      'amount': income.amount,
+      'color': income.color,
+      'name': income.name,
+      'dateTime': income.dateTime,
+      'icon': income.icon,
+      'id': income.id,
     };
     FirebaseFirestore.instance.collection('account').doc(id).set(data);
     FirebaseFirestore.instance.collection('record').add({
@@ -387,22 +407,27 @@ class AccountData extends ChangeNotifier {
       "action": record.action,
       'dateTime': record.dateTime,
     });
+    FirebaseFirestore.instance.collection('income').doc(id2).set(dataIncome);
 
     notifyListeners();
   }
 
   void minAmountOnScreen(
-      int amount,
-      Account accountMoney,
-      Record record,
-      Expense expense,
-      AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
-      int index) {
+    int amount,
+    Account accountMoney,
+    Record record,
+    Expense expense,
+    AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
+    int index,
+    int index2,
+    AsyncSnapshot<QuerySnapshot<Object?>> snapshot2,
+  ) {
     accountMoney.minAmount(amount);
     records.insert(0, record);
     record.action = 1;
     expense.addExpense(amount);
-    var id = snapshot.data!.docs[index].id;
+    var id = snapshot2.data!.docs[index].id;
+    var id2 = snapshot.data!.docs[index2].id;
     final data = {
       'money': accountMoney.money,
       'color': accountMoney.colorValue,
@@ -410,6 +435,15 @@ class AccountData extends ChangeNotifier {
       'name': accountMoney.name,
       'id': accountMoney.id,
       'q': accountMoney.q,
+    };
+
+    final dataExpense = {
+      'amount': expense.amount,
+      'color': expense.color,
+      'name': expense.name,
+      'dateTime': expense.dateTime,
+      'icon': expense.icon,
+      'id': expense.id,
     };
     FirebaseFirestore.instance.collection('account').doc(id).set(data);
     FirebaseFirestore.instance.collection('record').add({
@@ -419,6 +453,8 @@ class AccountData extends ChangeNotifier {
       "action": record.action,
       'dateTime': record.dateTime,
     });
+
+    FirebaseFirestore.instance.collection('expense').doc(id2).set(dataExpense);
 
     notifyListeners();
   }
@@ -492,17 +528,31 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addExpense(
-    Expense expense,
-  ) {
+  void addExpense(Expense expense) {
+    FirebaseFirestore.instance.collection("expense").add({
+      "name": expense.name,
+      "color": expense.color,
+      "id": expense.id,
+      "icon": expense.icon,
+      "amount": expense.amount,
+      "dateTime": expense.dateTime
+    });
+
     expenses.add(expense);
 
     notifyListeners();
   }
 
-  void addIncome(
-    Income income,
-  ) {
+  void addIncome(Income income) {
+    FirebaseFirestore.instance.collection("income").add({
+      "name": income.name,
+      "color": income.color,
+      "id": income.id,
+      "icon": income.icon,
+      "amount": income.amount,
+      "dateTime": income.dateTime
+    });
+
     incomes.add(income);
 
     notifyListeners();

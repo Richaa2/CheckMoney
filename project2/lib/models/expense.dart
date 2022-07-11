@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 
+import '../utils.dart';
+
 class Expense {
-  Color? color;
+  String color = colorr.value.toString();
+  String icon = icondataa!.codePoint.toString();
   String name;
   num amount;
-  IconData? icon;
-  DateTime? dateTime;
+  int? dateTime;
+  String id;
+
   Expense({
-    this.dateTime,
-    this.color = Colors.blueAccent,
     required this.name,
     required this.amount,
-    this.icon = Icons.store,
+    required this.dateTime,
+    required this.id,
+    required this.color,
+    required this.icon,
   });
 
   void addExpense(int amount2) {
