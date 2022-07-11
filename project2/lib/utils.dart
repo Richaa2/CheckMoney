@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Utils {
   static bool isToday(DateTime date) {
     var today = DateTime.now();
@@ -27,3 +29,6 @@ class Utils {
     return number.toStringAsFixed(maxFractionDigits);
   }
 }
+
+const Color colorr = Colors.green;
+const IconData? icondataa = IconData(0xe737, fontFamily: 'MaterialIcons');

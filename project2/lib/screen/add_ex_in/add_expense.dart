@@ -58,9 +58,13 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           child: AppBarContent(
             done: () {
               Provider.of<AccountData>(context, listen: false).addExpense(
-                Expense(
-                    name: name, amount: money, color: valuee, icon: iconValue),
-              );
+                  Expense(
+                      name: name,
+                      color: valuee!.value.toString(),
+                      icon: iconValue!.codePoint.toString(),
+                      amount: money,
+                      dateTime: DateTime.now().millisecondsSinceEpoch,
+                      id: 'UK'));
               Navigator.popAndPushNamed(context, '/');
             },
             textField: TextField(

@@ -30,7 +30,6 @@ class AccountsListView extends StatelessWidget {
             .orderBy("q")
             .snapshots(),
         builder: (context, snapshot) {
-          var sum = Provider.of<AccountData>(context).sumOfAccounts();
           // if (!snapshot.hasData) {
           //   Provider.of<AccountData>(context).addAccount(Account(
           //       colorValue: Colors.red.toString(),
@@ -41,9 +40,12 @@ class AccountsListView extends StatelessWidget {
           //       q: 1));
           // }
 
-          List<Account> accountsList =
-              Provider.of<AccountData>(context, listen: false).accounts;
           if (snapshot.hasData) {
+            var sum = Provider.of<AccountData>(context).sumOfAccounts();
+            List<Account> accountsList = Provider.of<AccountData>(
+              context,
+            ).accounts;
+
             final accounts = snapshot.data!.docs;
             final accountsLast = snapshot.data!.docs.last;
 
@@ -184,7 +186,8 @@ class AccountsListView extends StatelessWidget {
             print(snapshot.error);
             //! do any error handling here
           }
-          return const Center(child: CircularProgressIndicator());
+
+          return Center(child: Text('NoNO'));
         });
   }
 }

@@ -30,7 +30,9 @@ class RecordsListView extends StatelessWidget {
     AccountData accountData,
     AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
   ) {
-    List<Record> recordsList = accountData.records;
+    List<Record> recordsList = accountData.records
+      ..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
+
     if (snapshot.hasData) {
       final records = snapshot.data!.docs;
 
@@ -56,9 +58,6 @@ class RecordsListView extends StatelessWidget {
 
       return ListView.builder(
           itemBuilder: (context, index) {
-            var sum = Provider.of<AccountData>(context, listen: false)
-                .sumOfRecords(indexx);
-
             // var sum = Provider.of<AccountData>(context, listen: false)
             //     .sumOfDay(accountData.records);
 
@@ -147,8 +146,12 @@ class RecordsListView extends StatelessWidget {
                             ]),
                       )
                     : const Offstage(),
-                buildRecord(index, context, date,
-                    accountData.currentEntries(recordsList, indexx)[index]),
+                buildRecord(
+                    index,
+                    context,
+                    date,
+                    accountData.currentEntries(recordsList, indexx)[index],
+                    snapshot),
               ],
             );
           },

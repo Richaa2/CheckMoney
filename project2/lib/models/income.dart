@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../utils.dart';
+
 class Income {
-  Color? color;
+  String color = colorr.value.toString();
+  String icon = icondataa!.codePoint.toString();
   String name;
   num amount;
   int dateTime = DateTime.now().millisecondsSinceEpoch;
 
-  IconData? icon;
+  String id;
 
   Income({
+    required this.name,
     required this.amount,
     required this.dateTime,
-    this.color = Colors.blueAccent,
-    required this.name,
-    this.icon = Icons.store,
+    required this.id,
+    required this.color,
+    required this.icon,
   });
   void addIncome(int amount2) {
     amount = amount + amount2;

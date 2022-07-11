@@ -3,21 +3,26 @@ import 'package:provider/provider.dart';
 
 import 'package:project2/models/account_data.dart';
 
+import '../../models/income.dart';
+
 class IncomesIconButton extends StatelessWidget {
   final int? indexForTab;
   final int index;
   final void Function()? onTap;
+  final Income income;
   const IncomesIconButton({
     Key? key,
     this.indexForTab,
     required this.index,
     this.onTap,
+    required this.income,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final int lengthList =
-        Provider.of<AccountData>(context, listen: false).incomes.length;
+    final int lengthList = Provider.of<AccountData>(
+      context,
+    ).incomes.length;
 
     if (index + 1 > lengthList) {
       return const SizedBox(
@@ -25,37 +30,28 @@ class IncomesIconButton extends StatelessWidget {
         height: 120,
       );
     } else if (index + 1 <= lengthList) {
-      final color =
-          Provider.of<AccountData>(context, listen: false).incomes[index].color;
-      final title =
-          Provider.of<AccountData>(context, listen: false).incomes[index].name;
-      final iconn =
-          Provider.of<AccountData>(context, listen: false).incomes[index].icon;
-      final amountt = Provider.of<AccountData>(context, listen: false)
-          .incomes[index]
-          .amount;
-
       return SizedBox(
         width: 60,
         height: 120,
         child: Column(
           children: [
-            Text(title),
+            Text(income.name),
             const SizedBox(
               height: 10,
             ),
             CircleAvatar(
-              backgroundColor: color,
+              backgroundColor: Color(int.parse(income.color)),
               child: IconButton(
                 onPressed: onTap,
-                icon: Icon(iconn),
+                icon: Icon(IconData(int.parse(income.icon),
+                    fontFamily: 'MaterialIcons')),
                 color: Colors.white,
               ),
             ),
             const SizedBox(
               height: 10,
             ),
-            Text('$amountt'),
+            Text('${income.amount}'),
           ],
         ),
       );

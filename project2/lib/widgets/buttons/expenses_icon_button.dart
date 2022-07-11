@@ -3,14 +3,18 @@ import 'package:provider/provider.dart';
 
 import 'package:project2/models/account_data.dart';
 
+import '../../models/expense.dart';
+
 class ExpensesIconButton extends StatelessWidget {
   final int index;
   final void Function()? onTap;
+  final Expense expense;
 
   const ExpensesIconButton({
     Key? key,
     required this.index,
     this.onTap,
+    required this.expense,
   }) : super(key: key);
 
   @override
@@ -24,37 +28,28 @@ class ExpensesIconButton extends StatelessWidget {
         height: 120,
       );
     } else if (index + 1 <= lengthList) {
-      final color = Provider.of<AccountData>(context, listen: false)
-          .expenses[index]
-          .color;
-      final title =
-          Provider.of<AccountData>(context, listen: false).expenses[index].name;
-      final iconn =
-          Provider.of<AccountData>(context, listen: false).expenses[index].icon;
-      final amountt = Provider.of<AccountData>(context, listen: false)
-          .expenses[index]
-          .amount;
       return SizedBox(
         width: 60,
         height: 120,
         child: Column(
           children: [
-            Text(title),
+            Text(expense.name),
             const SizedBox(
               height: 10,
             ),
             CircleAvatar(
-              backgroundColor: color,
+              backgroundColor: Color(int.parse(expense.color)),
               child: IconButton(
                 onPressed: onTap,
-                icon: Icon(iconn),
+                icon: Icon(IconData(int.parse(expense.icon),
+                    fontFamily: 'MaterialIcons')),
                 color: Colors.white,
               ),
             ),
             const SizedBox(
               height: 10,
             ),
-            Text('$amountt'),
+            Text('${expense.amount}'),
           ],
         ),
       );

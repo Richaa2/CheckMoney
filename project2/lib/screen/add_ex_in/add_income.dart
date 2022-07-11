@@ -56,10 +56,11 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
             done: () {
               Provider.of<AccountData>(context, listen: false).addIncome(Income(
                   name: name,
-                  color: valuee,
-                  icon: iconValue,
+                  color: valuee!.value.toString(),
+                  icon: iconValue!.codePoint.toString(),
                   amount: money,
-                  dateTime: DateTime.now().millisecondsSinceEpoch));
+                  dateTime: DateTime.now().millisecondsSinceEpoch,
+                  id: 'UK'));
 
               Navigator.popAndPushNamed(context, '/');
             },
