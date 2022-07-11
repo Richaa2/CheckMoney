@@ -16,15 +16,17 @@ InkWell recordCardInfo(Record record, BuildContext context,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: (record.action == 1)
-                    ? ([Colors.deepOrange, Colors.red])
-                    : (record.action == 2)
-                        ? ([Colors.green, Colors.teal])
-                        : ([
-                            Colors.grey,
-                            const Color.fromARGB(66, 255, 255, 255)
-                          ]))),
+          gradient: LinearGradient(
+            colors: (record.action == 1)
+                ? ([Colors.deepOrange, Colors.red])
+                : (record.action == 2)
+                    ? ([Colors.green, Colors.teal])
+                    : ([
+                        Colors.grey,
+                        const Color.fromARGB(66, 255, 255, 255),
+                      ]),
+          ),
+        ),
         child: Row(
           children: <Widget>[
             Expanded(
