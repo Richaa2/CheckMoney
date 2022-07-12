@@ -25,6 +25,9 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Text(_auth.currentUser != null
+                ? '${_auth.currentUser!.email}'
+                : '123'),
             Hero(
               tag: 'logo',
               child: Container(
@@ -65,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   final existUser = await _auth.signInWithEmailAndPassword(
                       email: email, password: password);
                   if (existUser != null) {
-                    Navigator.pushNamed(context, '/m');
+                    Navigator.pushNamed(context, '/');
                   }
                 } catch (e) {
                   print(e);

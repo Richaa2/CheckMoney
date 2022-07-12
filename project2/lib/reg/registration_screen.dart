@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:project2/models/account.dart';
+import 'package:project2/models/account_data.dart';
 import 'package:project2/widgets/rounded_button.dart';
 import 'package:project2/utils.dart';
+import 'package:provider/provider.dart';
 
 @override
 class RegistrationScreen extends StatefulWidget {
@@ -77,10 +80,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     final newUser = await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
                     if (newUser != null) {
-                      Navigator.pushNamed(context, '/m');
+                      Navigator.pushNamed(context, '/');
+
                       setState(() {
                         showSpinner = false;
                       });
+                      Provider.of<AccountData>(context, listen: false)
+                          .addAccountFirebase(Account(
+                              colorValue: Colors.teal.value.toString(),
+                              name: 'First account',
+                              money: 0,
+                              icon: Icons.credit_card.codePoint.toString(),
+                              id: '1',
+                              q: 1));
                     }
                   } catch (e) {
                     print(e);

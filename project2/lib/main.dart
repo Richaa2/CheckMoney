@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/reg/login_screen.dart';
@@ -37,17 +38,14 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider(
         create: (BuildContext context) => AccountData(),
         builder: (context, child) {
-          // @override
-          // void initState() {
-          //   super.initState();
-          //   Provider.of<AccountData>(context, listen: false).signIn();
-          // }
+          FirebaseAuth.instance.signOut();
+          // Provider.of<AccountData>(context, listen: false).ClearLists();
 
           return MaterialApp(
-            initialRoute: '/',
+            initialRoute: '/m',
             routes: {
-              '/': (context) => WelcomeScreen(),
-              '/m': (context) => MainPage(),
+              '/m': (context) => WelcomeScreen(),
+              '/': (context) => MainPage(),
               '/addAcc': ((context) => const AddAccountScreen()),
               '/addExp': ((context) => const AddExpenseScreen()),
               '/addInc': ((context) => const AddIncomeScreen()),
