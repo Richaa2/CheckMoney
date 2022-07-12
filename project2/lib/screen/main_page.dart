@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:project2/models/account_data.dart';
@@ -20,6 +22,22 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final _auth = FirebaseAuth.instance;
+  User? loggedInUser = FirebaseAuth.instance.currentUser;
+
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+
+        print(loggedInUser!.email);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
@@ -35,66 +53,72 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('account')
-            .orderBy("q")
-            .snapshots(),
-        builder: (context, snapshot) {
-          var sum =
-              Provider.of<AccountData>(context, listen: true).sumOfAccounts();
-          return Scaffold(
-            drawer: const DrawerWidget(),
-            appBar: AppBar(
-                title: Column(
-                  children: [
-                    const Text(
-                      'All account',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    Text(
-                      '\$${sum}',
-                      style: const TextStyle(
-                        fontSize: 20,
+    if (loggedInUser != null) {
+      getCurrentUser();
+      return StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection('account')
+              .orderBy("q")
+              .snapshots(),
+          builder: (context, snapshot) {
+            var sum =
+                Provider.of<AccountData>(context, listen: true).sumOfAccounts();
+            return Scaffold(
+              drawer: const DrawerWidget(),
+              appBar: AppBar(
+                  title: Column(
+                    children: [
+                      Text(
+                        'All account ${loggedInUser!.email}',
+                        style: TextStyle(fontSize: 15),
                       ),
-                    )
-                  ],
-                ),
-                centerTitle: true,
-                backgroundColor: Colors.blueGrey,
-
-                // leading: IconButton(
-                //   icon: Icon(Icons.menu),
-                //   onPressed: () {},
-                // ),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    onPressed: () {
-                      // Navigator.pushNamed(context, '/addAcc');
-                      showDialog(
-                          context: context,
-                          builder: (context) => const DialogWidget());
-                    },
+                      Text(
+                        '\$${sum}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                        ),
+                      )
+                    ],
                   ),
-                ]),
-            body: _screens.elementAt(_selectedIndex),
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              items: const [
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.credit_card),
-                    label: 'Accounts',
-                    backgroundColor: Colors.white),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.receipt),
-                    label: 'History',
-                    backgroundColor: Colors.white),
-              ],
-              currentIndex: _selectedIndex,
-              onTap: _onItemTapped,
-            ),
-          );
-        });
+                  centerTitle: true,
+                  backgroundColor: Colors.blueGrey,
+
+                  // leading: IconButton(
+                  //   icon: Icon(Icons.menu),
+                  //   onPressed: () {},
+                  // ),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.add),
+                      onPressed: () {
+                        // Navigator.pushNamed(context, '/addAcc');
+                        showDialog(
+                            context: context,
+                            builder: (context) => const DialogWidget());
+                      },
+                    ),
+                  ]),
+              body: _screens.elementAt(_selectedIndex),
+              bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                items: const [
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.credit_card),
+                      label: 'Accounts',
+                      backgroundColor: Colors.white),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.receipt),
+                      label: 'History',
+                      backgroundColor: Colors.white),
+                ],
+                currentIndex: _selectedIndex,
+                onTap: _onItemTapped,
+              ),
+            );
+          });
+    }
+    return Container();
   }
 }

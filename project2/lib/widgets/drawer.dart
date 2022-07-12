@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project2/models/account_data.dart';
+import 'package:provider/provider.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({
@@ -40,7 +43,11 @@ class DrawerWidget extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: const Text('Logout'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {
+              FirebaseAuth.instance.signOut(),
+              Provider.of<AccountData>(context, listen: false).ClearLists(),
+              Navigator.of(context).popUntil(ModalRoute.withName('/m'))
+            },
           ),
         ],
       ),

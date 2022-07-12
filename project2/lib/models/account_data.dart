@@ -11,33 +11,12 @@ import 'history.dart';
 class AccountData extends ChangeNotifier {
   List<Account> accounts = [];
 
-  // late FirebaseAuth auth;
-  // User? user; //null if not signed in
-  // AccountData() {
-  //   auth = FirebaseAuth.instance;
-  //   setupAuthListener();
-  // }
-
-  // Future<UserCredential> signIn() {
-  //   return auth.signInAnonymously();
-  // }
-
-  // setupAuthListener() {
-  //   auth.authStateChanges().listen((user) {
-  //     print("is user signed in: ${user != null} as ${user?.uid}");
-  //     this.user = user;
-  //     if (user != null) {
-  //       load();
-  //     }
-  //   });
-  // }
-
-  // SomeNotifier() {
-  //   FirebaseFirestore.instance.collection("account").snapshots().listen((data) {
-  //     accounts = data.docs.map((doc) => Account(doc));
-  //     notifyListeners();
-  //   });
-  // }
+  void ClearLists() {
+    accounts.clear();
+    records.clear();
+    incomes.clear();
+    expenses.clear();
+  }
 
   void getAccountStream() async {
     await for (var snapshot
@@ -69,14 +48,22 @@ class AccountData extends ChangeNotifier {
   }
 
   void addAccountFirebase(Account account) {
-    FirebaseFirestore.instance.collection("account").add({
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('account')
+        .add({
       "name": account.name,
       "color": account.colorValue,
       "id": account.id,
       "icon": account.icon,
       "money": account.money,
-      'q': account.q
+      "q": account.q
     });
+
+    // FirebaseFirestore.instance.collection("account").add({});
 
     // .then((value) {
     //   accounts.add(Account(
@@ -92,18 +79,30 @@ class AccountData extends ChangeNotifier {
 
   void removeAccount(
       AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
     var id = snapshot.data!.docs[index].id;
 
     if (accounts.length > 1) {
-      FirebaseFirestore.instance.collection('account').doc(id).delete();
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('account')
+          .doc(id)
+          .delete();
       accounts.removeAt(index);
     }
     if (accounts.length == 1) {}
   }
 
   void removeRecord(AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
     var id = snapshot.data!.docs[index].id;
-    FirebaseFirestore.instance.collection('record').doc(id).delete();
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('record')
+        .doc(id)
+        .delete();
 
     records.removeAt(index);
 
@@ -171,6 +170,7 @@ class AccountData extends ChangeNotifier {
     int index2,
     AsyncSnapshot<QuerySnapshot<Object?>> snapshot2,
   ) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
     records.insert(0, record);
     record.action = 2;
     accountMoney.addAmount(amount);
@@ -194,15 +194,29 @@ class AccountData extends ChangeNotifier {
       'icon': income.icon,
       'id': income.id,
     };
-    FirebaseFirestore.instance.collection('account').doc(id).set(data);
-    FirebaseFirestore.instance.collection('record').add({
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('account')
+        .doc(id)
+        .set(data);
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('record')
+        .add({
       "name": record.name,
       "id": record.id,
       "amount": record.amount,
       "action": record.action,
       'dateTime': record.dateTime,
     });
-    FirebaseFirestore.instance.collection('income').doc(id2).set(dataIncome);
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('income')
+        .doc(id2)
+        .set(dataIncome);
 
     notifyListeners();
   }
@@ -217,6 +231,7 @@ class AccountData extends ChangeNotifier {
     int index2,
     AsyncSnapshot<QuerySnapshot<Object?>> snapshot2,
   ) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
     accountMoney.minAmount(amount);
     records.insert(0, record);
     record.action = 1;
@@ -240,8 +255,17 @@ class AccountData extends ChangeNotifier {
       'icon': expense.icon,
       'id': expense.id,
     };
-    FirebaseFirestore.instance.collection('account').doc(id).set(data);
-    FirebaseFirestore.instance.collection('record').add({
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('account')
+        .doc(id)
+        .set(data);
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('record')
+        .add({
       "name": record.name,
       "id": record.id,
       "amount": record.amount,
@@ -249,13 +273,19 @@ class AccountData extends ChangeNotifier {
       'dateTime': record.dateTime,
     });
 
-    FirebaseFirestore.instance.collection('expense').doc(id2).set(dataExpense);
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('expense')
+        .doc(id2)
+        .set(dataExpense);
 
     notifyListeners();
   }
 
   void editAmountOnScreen(int newAmount, Account accountMoney,
       AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
     accountMoney.editAmount(newAmount);
     var id = snapshot.data!.docs[index].id;
     final data = {
@@ -266,7 +296,12 @@ class AccountData extends ChangeNotifier {
       'id': accountMoney.id,
       'q': accountMoney.q,
     };
-    FirebaseFirestore.instance.collection('account').doc(id).set(data);
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('account')
+        .doc(id)
+        .set(data);
     notifyListeners();
   }
 
@@ -278,6 +313,7 @@ class AccountData extends ChangeNotifier {
       AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
       int index1,
       int index2) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
     accountMoney1.transferAmount(accountMoney1, accountMoney2, amount);
     records.insert(0, record);
     record.action = 3;
@@ -299,10 +335,24 @@ class AccountData extends ChangeNotifier {
       'id': accountMoney2.id,
       'q': accountMoney2.q,
     };
-    FirebaseFirestore.instance.collection('account').doc(id1).set(data1);
-    FirebaseFirestore.instance.collection('account').doc(id2).set(data2);
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('account')
+        .doc(id1)
+        .set(data1);
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('account')
+        .doc(id2)
+        .set(data2);
 
-    FirebaseFirestore.instance.collection('record').add({
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('record')
+        .add({
       "name": record.name,
       "id": record.id,
       "amount": record.amount,
@@ -324,7 +374,12 @@ class AccountData extends ChangeNotifier {
   }
 
   void addExpense(Expense expense) {
-    FirebaseFirestore.instance.collection("expense").add({
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection("expense")
+        .add({
       "name": expense.name,
       "color": expense.color,
       "id": expense.id,
@@ -339,7 +394,12 @@ class AccountData extends ChangeNotifier {
   }
 
   void addIncome(Income income) {
-    FirebaseFirestore.instance.collection("income").add({
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection("income")
+        .add({
       "name": income.name,
       "color": income.color,
       "id": income.id,

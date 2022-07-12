@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:project2/reg/login_screen.dart';
 
 import 'package:project2/models/account_data.dart';
 import 'package:project2/screen/account_screen.dart';
@@ -9,6 +11,7 @@ import 'package:project2/screen/add_account/add_account_screen.dart';
 import 'package:project2/screen/add_ex_in/add_expense.dart';
 import 'package:project2/screen/add_ex_in/add_income.dart';
 import 'package:project2/screen/history_screen.dart';
+import 'package:project2/reg/welcome_screen.dart';
 
 import 'package:provider/provider.dart';
 
@@ -35,17 +38,15 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider(
         create: (BuildContext context) => AccountData(),
         builder: (context, child) {
-          // @override
-          // void initState() {
-          //   super.initState();
-          //   Provider.of<AccountData>(context, listen: false).signIn();
-          // }
+          FirebaseAuth.instance.signOut();
+          // Provider.of<AccountData>(context, listen: false).ClearLists();
 
           return MaterialApp(
-            initialRoute: '/',
+            initialRoute: '/m',
             routes: {
+              '/m': (context) => WelcomeScreen(),
               '/': (context) => MainPage(),
-              '/addAcc': (context) => const AddAccountScreen(),
+              '/addAcc': ((context) => const AddAccountScreen()),
               '/addExp': ((context) => const AddExpenseScreen()),
               '/addInc': ((context) => const AddIncomeScreen()),
             },
