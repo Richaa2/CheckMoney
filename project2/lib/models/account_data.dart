@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
 import 'package:project2/models/income.dart';
-// ignore: unused_import
+import 'package:project2/models/name_account.dart';
 
 import 'history.dart';
 
 class AccountData extends ChangeNotifier {
+  void updateNameOfAccount(String newName) {
+    (newName);
+  }
+
   List<Account> accounts = [];
 
   void ClearLists() {

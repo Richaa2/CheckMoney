@@ -38,11 +38,12 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider(
         create: (BuildContext context) => AccountData(),
         builder: (context, child) {
-          FirebaseAuth.instance.signOut();
+          // FirebaseAuth.instance.signOut();
           // Provider.of<AccountData>(context, listen: false).ClearLists();
 
           return MaterialApp(
-            initialRoute: '/m',
+            initialRoute:
+                FirebaseAuth.instance.currentUser == null ? '/m' : '/',
             routes: {
               '/m': (context) => WelcomeScreen(),
               '/': (context) => MainPage(),
