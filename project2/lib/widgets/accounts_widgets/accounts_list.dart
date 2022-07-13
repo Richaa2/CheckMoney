@@ -14,9 +14,8 @@ import 'package:provider/provider.dart';
 import 'accounts_tile.dart';
 
 class AccountsListView extends StatelessWidget {
-  AccountsListView({
-    Key? key,
-  }) : super(key: key);
+  int? sum;
+  AccountsListView({Key? key, this.sum}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,11 +88,14 @@ class AccountsListView extends StatelessWidget {
                   ));
             }
 
+            if (accounts.length == accountsList.length) {
+              sum = Provider.of<AccountData>(context).sumOfAccounts();
+              Provider.of<AccountData>(context).updateSum(sum!);
+              print(Provider.of<AccountData>(context).sumOfOf! + 1);
+            }
             return Consumer<AccountData>(
                 builder: ((context, accountData, child) {
               if (accounts.length == accountsList.length) {
-                var sum =
-                    Provider.of<AccountData>(context).sumOfAccounts(snapshot);
                 return ListView.separated(
                   itemBuilder: (context, index) {
                     // final accountsName = accountData.accounts[index].name;

@@ -5,12 +5,24 @@ import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
 import 'package:project2/models/income.dart';
 import 'package:project2/models/name_account.dart';
+import 'user_info.dart' as q;
 
 import 'history.dart';
 
 class AccountData extends ChangeNotifier {
-  void updateNameOfAccount(String newName) {
-    (newName);
+  int? sumOfOf;
+
+  int? updateSum(int amount) {
+    sumOfOf = amount;
+    return sumOfOf;
+  }
+
+  String? nameOfAccount;
+
+  void updateNameOfAccount(String? newName) {
+    nameOfAccount = newName;
+
+    notifyListeners();
   }
 
   List<Account> accounts = [];
@@ -120,16 +132,12 @@ class AccountData extends ChangeNotifier {
   List<Record> records = []
     ..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
 
-  var sum = 1;
+  int? sumOfAccounts() {
+    var sum = 0;
 
-  int? sumOfAccounts(
-    AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
-  ) {
-    sum = 0;
     if (accounts.isEmpty) {
       print('HELLO');
     }
-    if (snapshot.connectionState == ConnectionState.active) {}
     // FirebaseFirestore.instance
     //     .collection('users')
     //     .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -145,19 +153,21 @@ class AccountData extends ChangeNotifier {
     //     });
     //   }
     // });
+    if (accounts.isNotEmpty) {
+      for (int i = 0; i < accounts.length; i++) {
+        // final data = {
+        //   'money': accounts[i].money,
+        // };
+        // data.forEach((key, value) {
+        //   sum += value;
+        // });
 
-    for (int i = 0; i < accounts.length; i++) {
-      // final data = {
-      //   'money': accounts[i].money,
-      // };
-      // data.forEach((key, value) {
-      //   sum += value;
-      // });
-
-      sum += accounts[i].money;
+        sum += accounts[i].money;
+      }
     }
 
     print(sum);
+    // sumUser.amount = sum;
 
     return sum;
   }
@@ -176,6 +186,8 @@ class AccountData extends ChangeNotifier {
     return sum;
   }
 
+  // q.UserInfo sumUser = q.UserInfo();
+
   void addAmountOnScreen(
     int amount,
     Account accountMoney,
@@ -186,6 +198,8 @@ class AccountData extends ChangeNotifier {
     int index2,
     AsyncSnapshot<QuerySnapshot<Object?>> snapshot2,
   ) {
+    // sumUser.plusSum(amount);
+
     String uid = FirebaseAuth.instance.currentUser!.uid;
     records.insert(0, record);
     record.action = 2;

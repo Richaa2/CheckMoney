@@ -61,6 +61,8 @@ class RecordsListView extends StatelessWidget {
 
       return ListView.builder(
           itemBuilder: (context, index) {
+            var sum = Provider.of<AccountData>(context, listen: true)
+                .sumOfRecords(index);
             // var sum = Provider.of<AccountData>(context, listen: false)
             //     .sumOfDay(accountData.records);
 
@@ -90,63 +92,102 @@ class RecordsListView extends StatelessWidget {
                     ? Padding(
                         padding:
                             const EdgeInsets.only(bottom: 5, left: 5, right: 5),
-                        child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                height: 50,
-                                width: 200,
-                                child: ListTile(
-                                  dense: true,
-                                  leading: Text(
-                                    number,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle2
-                                        ?.copyWith(
-                                            fontSize: 25,
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                  title: Text(
-                                    dayOfWeek,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle2!
-                                        .copyWith(
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                  subtitle: Text(
-                                    mounthAndYear,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle2!
-                                        .copyWith(
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.bold),
-                                  ),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Expanded(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      "History",
+                                      style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    Text(
+                                      '\$$sum',
+                                      textAlign: TextAlign.end,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle2!
+                                          .copyWith(
+                                              color: sum! >= 0
+                                                  ? Colors.green
+                                                  : Colors.red,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              // SizedBox(
-                              //   height: 50,
-                              //   width: 100,
-                              //   child: ListTile(
-                              //     title: Text(
-                              //       '+\$$sum',
-                              //       textAlign: TextAlign.end,
-                              //       style: Theme.of(context)
-                              //           .textTheme
-                              //           .subtitle2!
-                              //           .copyWith(
-                              //               color: Colors.green,
-                              //               fontWeight: FontWeight.bold,
-                              //               fontSize: 18),
-                              //     ),
-                              //   ),
-                              // )
-                            ]),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    height: 50,
+                                    width: 200,
+                                    child: ListTile(
+                                      dense: true,
+                                      leading: Text(
+                                        number,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2
+                                            ?.copyWith(
+                                                fontSize: 25,
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                      title: Text(
+                                        dayOfWeek,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                      subtitle: Text(
+                                        mounthAndYear,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                  // SizedBox(
+                                  //   height: 50,
+                                  //   width: 100,
+                                  //   child: ListTile(
+                                  //     title: Text(
+                                  //       '+\$$sum',
+                                  //       textAlign: TextAlign.end,
+                                  //       style: Theme.of(context)
+                                  //           .textTheme
+                                  //           .subtitle2!
+                                  //           .copyWith(
+                                  //               color: Colors.green,
+                                  //               fontWeight: FontWeight.bold,
+                                  //               fontSize: 18),
+                                  //     ),
+                                  //   ),
+                                  // )
+                                ]),
+                          ],
+                        ),
                       )
                     : const Offstage(),
                 buildRecord(

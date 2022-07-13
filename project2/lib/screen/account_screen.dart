@@ -2,23 +2,20 @@ import 'package:flutter/material.dart';
 
 import 'package:project2/widgets/accounts_widgets/accounts_list.dart';
 
-class AccountScreen extends StatefulWidget {
-  AccountScreen({
-    Key? key,
-  }) : super(key: key);
+class AccountScreen extends StatelessWidget {
+  final int? sum;
 
-  @override
-  State<AccountScreen> createState() => _AccountScreenState();
-}
+  AccountScreen({Key? key, this.sum}) : super(key: key);
 
-class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
           Expanded(
-            child: AccountsListView(),
+            child: AccountsListView(
+              sum: sum,
+            ),
           ),
         ],
       ),

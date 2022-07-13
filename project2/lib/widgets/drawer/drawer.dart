@@ -31,7 +31,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('${FirebaseAuth.instance.currentUser!.email}'),
-                Text(inputName),
+                Text(Provider.of<AccountData>(
+                      context,
+                    ).nameOfAccount ??
+                    ''),
               ],
             ),
           ),
