@@ -120,10 +120,22 @@ class AccountData extends ChangeNotifier {
   List<Record> records = []
     ..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
 
-  int? sumOfAccounts() {
-    var sum = 0;
+  var sum = 1;
 
-    // FirebaseFirestore.instance.collection('account').get().whenComplete(() {
+  int? sumOfAccounts(
+    AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
+  ) {
+    sum = 0;
+    if (accounts.isEmpty) {
+      print('HELLO');
+    }
+    if (snapshot.connectionState == ConnectionState.active) {}
+    // FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(FirebaseAuth.instance.currentUser!.uid)
+    //     .collection('account')
+    //     .get()
+    //     .whenComplete(() {
     //   for (int i = 0; i < accounts.length; i++) {
     //     final data = {
     //       'money': accounts[i].money,
@@ -471,11 +483,6 @@ class AccountData extends ChangeNotifier {
                   .compareTo(year) <
               1)
           .toList();
-    } else if (currentEntries.isEmpty) {
-      currentEntries.add(Record(
-          name: 'Test',
-          amount: 1,
-          dateTime: DateTime.now().millisecondsSinceEpoch));
     }
 
     currentEntries.sort(((a, b) => b.dateTime.compareTo(a.dateTime)));

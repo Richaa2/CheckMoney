@@ -168,14 +168,3 @@ class RecordsListView extends StatelessWidget {
     return ListView();
   }
 }
-
-
-  // return Padding(
-        //     padding: const EdgeInsets.all(8.0),
-        //     child: RecordsListTile(
-        //       amount: recordsMoney.toInt(),
-        //       nameTitle: recordsName,
-        //       min: recordMin,
-        //     ),
-        //   );
-        // },

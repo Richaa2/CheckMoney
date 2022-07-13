@@ -54,17 +54,22 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     if (loggedInUser != null) {
-      getCurrentUser();
       return StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('users')
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .collection('account')
-              .orderBy("q")
               .snapshots(),
           builder: (context, snapshot) {
-            var sum =
-                Provider.of<AccountData>(context, listen: true).sumOfAccounts();
+            int? sum = Provider.of<AccountData>(context, listen: true).sum;
+            if (snapshot.hasData) {
+              if (snapshot.data!.docs.length ==
+                  Provider.of<AccountData>(context).accounts.length) {
+                sum = Provider.of<AccountData>(context, listen: true)
+                    .sumOfAccounts(snapshot);
+              }
+            }
+
             return Scaffold(
               drawer: const DrawerWidget(),
               appBar: AppBar(
