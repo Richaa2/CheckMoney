@@ -14,9 +14,8 @@ import 'package:provider/provider.dart';
 import 'accounts_tile.dart';
 
 class AccountsListView extends StatelessWidget {
-  AccountsListView({
-    Key? key,
-  }) : super(key: key);
+  int? sum;
+  AccountsListView({Key? key, this.sum}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,6 @@ class AccountsListView extends StatelessWidget {
           // }
 
           if (snapshot.hasData) {
-            var sum = Provider.of<AccountData>(context).sumOfAccounts();
             List<Account> accountsList = Provider.of<AccountData>(
               context,
             ).accounts;
@@ -90,100 +88,108 @@ class AccountsListView extends StatelessWidget {
                   ));
             }
 
+            if (accounts.length == accountsList.length) {
+              sum = Provider.of<AccountData>(context).sumOfAccounts();
+              Provider.of<AccountData>(context).updateSum(sum!);
+              print(Provider.of<AccountData>(context).sumOfOf! + 1);
+            }
             return Consumer<AccountData>(
                 builder: ((context, accountData, child) {
-              return ListView.separated(
-                itemBuilder: (context, index) {
-                  // final accountsName = accountData.accounts[index].name;
-                  // final accountssMoney = accountData.accounts[index].money;
-                  // final accountColor = accountData.accounts[index].colorValue;
-                  // final accountsIcon = accountData.accounts[index].icon;
+              if (accounts.length == accountsList.length) {
+                return ListView.separated(
+                  itemBuilder: (context, index) {
+                    // final accountsName = accountData.accounts[index].name;
+                    // final accountssMoney = accountData.accounts[index].money;
+                    // final accountColor = accountData.accounts[index].colorValue;
+                    // final accountsIcon = accountData.accounts[index].icon;
 
-                  // AccountFirebase account = accountss[index];
+                    // AccountFirebase account = accountss[index];
 
-                  if (index == 0) {
+                    if (index == 0) {
+                      return Padding(
+                        padding:
+                            const EdgeInsets.only(top: 15, right: 15, left: 15),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Accounts',
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                Text(
+                                  '\$$sum ',
+                                  style: const TextStyle(
+                                      color: Colors.green,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            AccountsListTile(
+                              onDismissible: snapshot.hasData ||
+                                      snapshot.data!.docs.length > 1
+                                  ? (direction) =>
+                                      accountData.removeAccount(snapshot, index)
+                                  : null,
+                              account: accountsList[index],
+                              onTap: () {
+                                print(accountsList[index].money);
+
+                                showModalBottomSheetMetod(
+                                    context,
+                                    ControlAccountScreen(
+                                      index: index,
+                                    ));
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+
+                    // if (index > accountData.accounts.length - 2) {
+                    //   accountData.load();
+                    // }
+
                     return Padding(
-                      padding:
-                          const EdgeInsets.only(top: 15, right: 15, left: 15),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Accounts',
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              Text(
-                                '\$$sum ',
-                                style: const TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          AccountsListTile(
-                            onDismissible: snapshot.hasData ||
-                                    snapshot.data!.docs.length > 1
-                                ? (direction) =>
-                                    accountData.removeAccount(snapshot, index)
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      child: AccountsListTile(
+                        onDismissible:
+                            snapshot.hasData || snapshot.data!.docs.length > 1
+                                ? (direction) => accountData.removeAccount(
+                                      snapshot,
+                                      index,
+                                    )
                                 : null,
-                            account: accountsList[index],
-                            onTap: () {
-                              print(accountsList[index].money);
+                        account: accountsList[index],
+                        onTap: () {
+                          print(accountsList[index].money);
 
-                              showModalBottomSheetMetod(
-                                  context,
-                                  ControlAccountScreen(
-                                    index: index,
-                                  ));
-                            },
-                          ),
-                        ],
+                          showModalBottomSheetMetod(
+                              context,
+                              ControlAccountScreen(
+                                index: index,
+                              ));
+                        },
                       ),
                     );
-                  }
-
-                  // if (index > accountData.accounts.length - 2) {
-                  //   accountData.load();
-                  // }
-
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: AccountsListTile(
-                      onDismissible:
-                          snapshot.hasData || snapshot.data!.docs.length > 1
-                              ? (direction) => accountData.removeAccount(
-                                    snapshot,
-                                    index,
-                                  )
-                              : null,
-                      account: accountsList[index],
-                      onTap: () {
-                        print(accountsList[index].money);
-
-                        showModalBottomSheetMetod(
-                            context,
-                            ControlAccountScreen(
-                              index: index,
-                            ));
-                      },
-                    ),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(
-                  height: 5,
-                ),
-                itemCount: accountData.accounts.length,
-              );
+                  },
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const Divider(
+                    height: 5,
+                  ),
+                  itemCount: accountData.accounts.length,
+                );
+              }
+              return Text('Error');
             }));
           }
           if (snapshot.hasError) {

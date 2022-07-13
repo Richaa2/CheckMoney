@@ -12,7 +12,7 @@ class _DialogWidgetState extends State<DialogWidget> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 70, vertical: 230),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 70, vertical: 260),
       title: const Text('What create'),
       content: Column(
         children: [

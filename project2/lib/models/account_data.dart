@@ -4,11 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
 import 'package:project2/models/income.dart';
-// ignore: unused_import
+import 'package:project2/models/name_account.dart';
+import 'user_info.dart' as q;
 
 import 'history.dart';
 
 class AccountData extends ChangeNotifier {
+  int? sumOfOf;
+
+  int? updateSum(int amount) {
+    sumOfOf = amount;
+    return sumOfOf;
+  }
+
+  String? nameOfAccount;
+
+  void updateNameOfAccount(String? newName) {
+    nameOfAccount = newName;
+
+    notifyListeners();
+  }
+
   List<Account> accounts = [];
 
   void ClearLists() {
@@ -119,7 +135,15 @@ class AccountData extends ChangeNotifier {
   int? sumOfAccounts() {
     var sum = 0;
 
-    // FirebaseFirestore.instance.collection('account').get().whenComplete(() {
+    if (accounts.isEmpty) {
+      print('HELLO');
+    }
+    // FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(FirebaseAuth.instance.currentUser!.uid)
+    //     .collection('account')
+    //     .get()
+    //     .whenComplete(() {
     //   for (int i = 0; i < accounts.length; i++) {
     //     final data = {
     //       'money': accounts[i].money,
@@ -129,19 +153,21 @@ class AccountData extends ChangeNotifier {
     //     });
     //   }
     // });
+    if (accounts.isNotEmpty) {
+      for (int i = 0; i < accounts.length; i++) {
+        // final data = {
+        //   'money': accounts[i].money,
+        // };
+        // data.forEach((key, value) {
+        //   sum += value;
+        // });
 
-    for (int i = 0; i < accounts.length; i++) {
-      // final data = {
-      //   'money': accounts[i].money,
-      // };
-      // data.forEach((key, value) {
-      //   sum += value;
-      // });
-
-      sum += accounts[i].money;
+        sum += accounts[i].money;
+      }
     }
 
     print(sum);
+    // sumUser.amount = sum;
 
     return sum;
   }
@@ -160,6 +186,8 @@ class AccountData extends ChangeNotifier {
     return sum;
   }
 
+  // q.UserInfo sumUser = q.UserInfo();
+
   void addAmountOnScreen(
     int amount,
     Account accountMoney,
@@ -170,6 +198,8 @@ class AccountData extends ChangeNotifier {
     int index2,
     AsyncSnapshot<QuerySnapshot<Object?>> snapshot2,
   ) {
+    // sumUser.plusSum(amount);
+
     String uid = FirebaseAuth.instance.currentUser!.uid;
     records.insert(0, record);
     record.action = 2;
@@ -467,11 +497,6 @@ class AccountData extends ChangeNotifier {
                   .compareTo(year) <
               1)
           .toList();
-    } else if (currentEntries.isEmpty) {
-      currentEntries.add(Record(
-          name: 'Test',
-          amount: 1,
-          dateTime: DateTime.now().millisecondsSinceEpoch));
     }
 
     currentEntries.sort(((a, b) => b.dateTime.compareTo(a.dateTime)));

@@ -10,7 +10,9 @@ import 'package:project2/screen/history_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/dialog_widget.dart';
-import '../widgets/drawer.dart';
+import '../widgets/drawer/drawer.dart';
+
+int? sumOfAllAccount = 0;
 
 class MainPage extends StatefulWidget {
   MainPage({
@@ -54,24 +56,23 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     if (loggedInUser != null) {
-      getCurrentUser();
+      print(Provider.of<AccountData>(context).nameOfAccount);
+
       return StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('users')
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .collection('account')
-              .orderBy("q")
               .snapshots(),
           builder: (context, snapshot) {
-            var sum =
-                Provider.of<AccountData>(context, listen: true).sumOfAccounts();
+            var sum = Provider.of<AccountData>(context).sumOfAccounts();
             return Scaffold(
               drawer: const DrawerWidget(),
               appBar: AppBar(
                   title: Column(
                     children: [
                       Text(
-                        'All account ${loggedInUser!.email}',
+                        'All account ',
                         style: TextStyle(fontSize: 15),
                       ),
                       Text(

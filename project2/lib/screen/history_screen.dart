@@ -87,46 +87,13 @@ class RecordTabs extends StatelessWidget {
         stream: FirebaseFirestore.instance
             .collection('users')
             .doc(FirebaseAuth.instance.currentUser!.uid)
-            .collection('account')
-            .orderBy("q")
+            .collection('record')
+            .orderBy('dateTime')
             .snapshots(),
         builder: (context, snapshot) {
-          var sum = Provider.of<AccountData>(context, listen: true)
-              .sumOfRecords(index);
           return Expanded(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "History",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        Text(
-                          '\$$sum',
-                          textAlign: TextAlign.end,
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle2!
-                              .copyWith(
-                                  color: sum! >= 0 ? Colors.green : Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
                 Expanded(
                   child: RecordsListView(
                     indexx: index,
