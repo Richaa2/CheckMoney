@@ -12,19 +12,17 @@ Widget buildRecord(
   AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
 ) {
   return IntrinsicHeight(
-    child: Expanded(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          const SizedBox(
-            width: 5,
-          ),
-          Expanded(
-            flex: 1,
-            child: recordCardInfo(record, context, snapshot, index),
-          ),
-        ],
-      ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        const SizedBox(
+          width: 5,
+        ),
+        Expanded(
+          flex: 1,
+          child: recordCardInfo(record, context, snapshot, index),
+        ),
+      ],
     ),
   );
 }

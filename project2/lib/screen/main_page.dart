@@ -44,7 +44,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _screens = [
     AccountScreen(),
-    const HistoryScreen(),
+    HistoryScreen(),
   ];
 
   void _onItemTapped(int index) {

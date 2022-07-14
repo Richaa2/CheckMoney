@@ -39,8 +39,8 @@ class _HistoryScreenState extends State<HistoryScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            bottom: PreferredSize(
+      appBar: AppBar(
+        bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
           child: TabBar(controller: _tabController, tabs: const [
             Tab(
@@ -56,8 +56,11 @@ class _HistoryScreenState extends State<HistoryScreen>
               text: 'Year',
             ),
           ]),
-        )),
-        body: TabBarView(controller: _tabController, children: const [
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: const [
           RecordTabs(
             index: 0,
           ),
@@ -70,38 +73,57 @@ class _HistoryScreenState extends State<HistoryScreen>
           RecordTabs(
             index: 3,
           ),
-        ]));
+        ],
+      ),
+    );
   }
 }
 
 class RecordTabs extends StatelessWidget {
   final int index;
-  const RecordTabs({
-    Key? key,
-    required this.index,
-  }) : super(key: key);
+  const RecordTabs({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .collection('record')
-            .orderBy('dateTime')
-            .snapshots(),
-        builder: (context, snapshot) {
-          return Expanded(
-            child: Column(
-              children: [
-                Expanded(
-                  child: RecordsListView(
-                    indexx: index,
-                  ),
-                ),
-              ],
-            ),
-          );
-        });
+    return Column(
+      children: [
+        Expanded(
+            child: RecordsListView(
+          indexx: index,
+        ))
+      ],
+    );
   }
 }
+
+// class RecordTabs extends StatelessWidget {
+//   final int index;
+//   const RecordTabs({
+//     Key? key,
+//     required this.index,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return StreamBuilder<QuerySnapshot>(
+//         stream: FirebaseFirestore.instance
+//             .collection('users')
+//             .doc(FirebaseAuth.instance.currentUser!.uid)
+//             .collection('record')
+//             .orderBy('dateTime')
+//             .snapshots(),
+//         builder: (context, snapshot) {
+//           return Expanded(
+//             child: Column(
+//               children: [
+//                 // Expanded(
+//                 //   child: RecordsListView(
+//                 //     indexx: index,
+//                 //   ),
+//                 // ),
+//               ],
+//             ),
+//           );
+//         });
+//   }
+// }
