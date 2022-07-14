@@ -9,12 +9,14 @@ class ExpensesIconButton extends StatelessWidget {
   final int index;
   final void Function()? onTap;
   final Expense expense;
+  final void Function()? onLongPress;
 
-  const ExpensesIconButton({
+  ExpensesIconButton({
     Key? key,
     required this.index,
     this.onTap,
     required this.expense,
+    this.onLongPress,
   }) : super(key: key);
 
   @override
@@ -37,13 +39,16 @@ class ExpensesIconButton extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            CircleAvatar(
-              backgroundColor: Color(int.parse(expense.color)),
-              child: IconButton(
-                onPressed: onTap,
-                icon: Icon(IconData(int.parse(expense.icon),
-                    fontFamily: 'MaterialIcons')),
-                color: Colors.white,
+            InkWell(
+              onLongPress: onLongPress,
+              child: CircleAvatar(
+                backgroundColor: Color(int.parse(expense.color)),
+                child: IconButton(
+                  onPressed: onTap,
+                  icon: Icon(IconData(int.parse(expense.icon),
+                      fontFamily: 'MaterialIcons')),
+                  color: Colors.white,
+                ),
               ),
             ),
             const SizedBox(

@@ -4,19 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
 import 'package:project2/models/income.dart';
-import 'package:project2/models/name_account.dart';
+
 import 'user_info.dart' as q;
 
 import 'history.dart';
 
 class AccountData extends ChangeNotifier {
-  int? sumOfOf;
-
-  // int? updateSum(int amount) {
-  //   sumOfOf = amount;
-  //   return sumOfOf;
-  // }
-
   List<Account> accounts = [];
 
   void ClearLists() {
@@ -26,34 +19,33 @@ class AccountData extends ChangeNotifier {
     expenses.clear();
   }
 
-  void getAccountStream() async {
-    await for (var snapshot
-        in FirebaseFirestore.instance.collection('account').snapshots()) {
-      for (int i = 0; i < snapshot.docs.length; i++) {
-        snapshot.docs[i].data();
-        String color = snapshot.docs[i].data()['color'];
-        String name = snapshot.docs[i].data()['name'];
-        num money = snapshot.docs[i].data()['money'];
-        String icon = snapshot.docs[i].data()['icon'];
-        String id;
-        int q = snapshot.docs[i].data()['q'];
-        if (snapshot.docs[i].data()['id'] != null) {
-          id = snapshot.docs[i].data()['id'];
-        } else {
-          id = 'nothing';
-        }
-
-        accounts.add(Account(
-            colorValue: color,
-            name: name,
-            money: money.toInt(),
-            icon: icon,
-            id: id,
-            q: q));
-      }
-      notifyListeners();
-    }
-  }
+  // void getAccountStream() async {
+  //   await for (var snapshot
+  //       in FirebaseFirestore.instance.collection('account').snapshots()) {
+  //     for (int i = 0; i < snapshot.docs.length; i++) {
+  //       snapshot.docs[i].data();
+  //       String color = snapshot.docs[i].data()['color'];
+  //       String name = snapshot.docs[i].data()['name'];
+  //       num money = snapshot.docs[i].data()['money'];
+  //       String icon = snapshot.docs[i].data()['icon'];
+  //       String id;
+  //       int q = snapshot.docs[i].data()['q'];
+  //       if (snapshot.docs[i].data()['id'] != null) {
+  //         id = snapshot.docs[i].data()['id'];
+  //       } else {
+  //         id = 'nothing';
+  //       }
+  //       accounts.add(Account(
+  //           colorValue: color,
+  //           name: name,
+  //           money: money.toInt(),
+  //           icon: icon,
+  //           id: id,
+  //           q: q));
+  //     }
+  //     notifyListeners();
+  //   }
+  // }
 
   void addAccountFirebase(Account account) {
     String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -83,6 +75,50 @@ class AccountData extends ChangeNotifier {
     //       q: account.q));
     // });
     notifyListeners();
+  }
+
+  void removeIncomeExpense(
+      bool inOrEx, AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    var id = snapshot.data!.docs[index].id;
+
+    if (incomes.length > 1 || inOrEx == true) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('income')
+          .doc(id)
+          .delete();
+      incomes.removeAt(index);
+      print('Income');
+    }
+
+    if (expenses.length > 1 || inOrEx == false) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('expense')
+          .doc(id)
+          .delete();
+      expenses.removeAt(index);
+      print('Expense');
+    }
+  }
+
+  void removeEx(AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    var id = snapshot.data!.docs[index].id;
+
+    if (expenses.length > 1) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('expense')
+          .doc(id)
+          .delete();
+      expenses.removeAt(index);
+    }
+    if (expenses.length == 1) {}
   }
 
   void removeAccount(
