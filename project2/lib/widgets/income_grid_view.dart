@@ -49,6 +49,8 @@ class IncomeGridView extends StatelessWidget {
               return GridView.builder(
                 itemBuilder: (context, index2) {
                   return IncomesIconButton(
+                    onLongPress: () =>
+                        accountData.removeIncomeExpense(true, snapshot, index2),
                     onTap: () {
                       showModalBottomSheetMetod(
                           context,

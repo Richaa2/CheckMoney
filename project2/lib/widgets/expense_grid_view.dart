@@ -55,6 +55,10 @@ class ExpenseGridView extends StatelessWidget {
                         accountData.expenses[index2].amount.toInt();
 
                     return ExpensesIconButton(
+                      onLongPress: () {
+                        accountData.removeIncomeExpense(
+                            false, snapshot1, index2);
+                      },
                       onTap: () {
                         // ignore: avoid_print
                         print(expensesAmount);

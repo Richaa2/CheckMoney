@@ -12,8 +12,6 @@ import 'package:provider/provider.dart';
 import '../widgets/dialog_widget.dart';
 import '../widgets/drawer/drawer.dart';
 
-int? sumOfAllAccount = 0;
-
 class MainPage extends StatefulWidget {
   MainPage({
     Key? key,
@@ -44,7 +42,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _screens = [
     AccountScreen(),
-    const HistoryScreen(),
+    HistoryScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -56,16 +54,21 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     if (loggedInUser != null) {
-      print(Provider.of<AccountData>(context).nameOfAccount);
+      print(Provider.of<AccountData>(context).sumUser.name);
 
       return StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('users')
               .doc(FirebaseAuth.instance.currentUser!.uid)
-              .collection('account')
+              .collection('userInfo')
               .snapshots(),
           builder: (context, snapshot) {
-            var sum = Provider.of<AccountData>(context).sumOfAccounts();
+            var sum = 0;
+
+            if (snapshot.hasData) {
+              sum = snapshot.data!.docs.single['sum'];
+              print('suka');
+            }
             return Scaffold(
               drawer: const DrawerWidget(),
               appBar: AppBar(
@@ -76,7 +79,7 @@ class _MainPageState extends State<MainPage> {
                         style: TextStyle(fontSize: 15),
                       ),
                       Text(
-                        '\$${sum}',
+                        '\$$sum',
                         style: const TextStyle(
                           fontSize: 20,
                         ),

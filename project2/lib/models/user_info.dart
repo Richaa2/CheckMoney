@@ -1,14 +1,18 @@
 class UserInfo {
-  final String? name;
-  final String? email;
-  late int? amount;
-  UserInfo({this.name, this.email, this.amount});
+  late String name;
+  late String email;
+  late int amount;
+  UserInfo({required this.name, required this.email, required this.amount});
+
+  void sum(int sum) {
+    amount = sum;
+  }
+
+  void updateName(String newName) {
+    name = newName;
+  }
 
   void plusSum(int newAmount) {
-    if (amount == null) {
-      amount = newAmount;
-    } else {
-      amount = amount! + newAmount;
-    }
+    amount = amount + newAmount;
   }
 }

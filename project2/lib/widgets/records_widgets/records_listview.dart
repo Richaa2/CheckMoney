@@ -81,7 +81,6 @@ class RecordsListView extends StatelessWidget {
 
             bool showHeader = prevDay != dateString;
             prevDay = dateString;
-
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -96,33 +95,31 @@ class RecordsListView extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(15.0),
-                              child: Expanded(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      "History",
-                                      style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                    Text(
-                                      '\$$sum',
-                                      textAlign: TextAlign.end,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle2!
-                                          .copyWith(
-                                              color: sum! >= 0
-                                                  ? Colors.green
-                                                  : Colors.red,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
-                                    ),
-                                  ],
-                                ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    "History",
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    '\$$sum',
+                                    textAlign: TextAlign.end,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                            color: sum! >= 0
+                                                ? Colors.green
+                                                : Colors.red,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18),
+                                  ),
+                                ],
                               ),
                             ),
                             const SizedBox(
@@ -168,23 +165,6 @@ class RecordsListView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  // SizedBox(
-                                  //   height: 50,
-                                  //   width: 100,
-                                  //   child: ListTile(
-                                  //     title: Text(
-                                  //       '+\$$sum',
-                                  //       textAlign: TextAlign.end,
-                                  //       style: Theme.of(context)
-                                  //           .textTheme
-                                  //           .subtitle2!
-                                  //           .copyWith(
-                                  //               color: Colors.green,
-                                  //               fontWeight: FontWeight.bold,
-                                  //               fontSize: 18),
-                                  //     ),
-                                  //   ),
-                                  // )
                                 ]),
                           ],
                         ),

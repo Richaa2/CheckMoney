@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -8,6 +9,7 @@ import 'package:project2/models/account_data.dart';
 import 'package:project2/widgets/rounded_button.dart';
 import 'package:project2/utils.dart';
 import 'package:provider/provider.dart';
+import 'package:project2/models/user_info.dart' as q;
 
 @override
 class RegistrationScreen extends StatefulWidget {
@@ -86,13 +88,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         showSpinner = false;
                       });
                       Provider.of<AccountData>(context, listen: false)
-                          .addAccountFirebase(Account(
-                              colorValue: Colors.teal.value.toString(),
-                              name: 'First account',
-                              money: 0,
-                              icon: Icons.credit_card.codePoint.toString(),
-                              id: '1',
-                              q: 1));
+                          .addAccountFirebase(
+                        Account(
+                            colorValue: Colors.teal.value.toString(),
+                            name: 'First account',
+                            money: 0,
+                            icon: Icons.credit_card.codePoint.toString(),
+                            id: '1',
+                            q: 1),
+                      );
+                      Provider.of<AccountData>(context, listen: false)
+                          .regUser(email);
                     }
                   } catch (e) {
                     print(e);
