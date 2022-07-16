@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
 import 'package:project2/models/income.dart';
@@ -11,6 +12,39 @@ import 'history.dart';
 
 class AccountData extends ChangeNotifier {
   List<Account> accounts = [];
+  var userInput = '';
+
+  void userInputs(String inputs) {
+    userInput += inputs;
+    print(userInput);
+
+    notifyListeners();
+  }
+
+  void userDeleteInputs(bool allOrNot) {
+    if (allOrNot == true) {
+      userInput = '';
+    }
+    if (allOrNot == false) {
+      userInput = userInput.substring(0, userInput.length - 1);
+    }
+
+    notifyListeners();
+  }
+
+  void equalPressed() {
+    String finaluserinput = userInput;
+    finaluserinput = userInput.replaceAll('x', '*');
+
+    Parser p = Parser();
+    Expression exp = p.parse(finaluserinput);
+    ContextModel cm = ContextModel();
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
+
+    userInput = eval.toInt().toString();
+
+    notifyListeners();
+  }
 
   void ClearLists() {
     accounts.clear();
@@ -283,9 +317,9 @@ class AccountData extends ChangeNotifier {
 
   void addAmountOnScreen(
     int amount,
-    Account accountMoney,
+    // Account accountMoney,
     Record record,
-    Income income,
+    // Income income,
     AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
     int index,
     int index2,
@@ -294,7 +328,8 @@ class AccountData extends ChangeNotifier {
     AsyncSnapshot<QuerySnapshot<Object?>> snapshotInfo,
   ) {
     // sumUser.plusSum(amount);
-
+    Account accountMoney = accounts[index];
+    Income income = incomes[index2];
     String uid = FirebaseAuth.instance.currentUser!.uid;
     records.insert(0, record);
     record.action = 2;

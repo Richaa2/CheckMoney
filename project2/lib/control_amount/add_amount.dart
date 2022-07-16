@@ -78,77 +78,23 @@ class AddAmount extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                             ),
-                            TextField(
-                              controller: _myController,
-                              showCursor: false,
-                              autofocus: true,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              keyboardType: TextInputType.none,
-                              textAlign: TextAlign.center,
-                              // onChanged: (value) {
-                              //   if (value.isEmpty) {
-                              //     value = '';
-                              //   } else {
-                              //     inputAmount = int.parse(value);
-                              //   }
-                              // },
-                            ),
                             NumPad2(
-                                delete: () {
-                                  if (_myController.text.isEmpty) {
-                                  } else {
-                                    _myController.text = _myController.text
-                                        .substring(
-                                            0, _myController.text.length - 1);
-                                  }
-                                },
-                                onSubmit: () {
-                                  if (_myController.text.isEmpty) {
-                                    Navigator.popUntil(
-                                        context, ModalRoute.withName('/'));
-                                  } else {
-                                    Provider.of<AccountData>(context,
-                                            listen: false)
-                                        .addAmountOnScreen(
-                                            int.parse(_myController.text),
-                                            Provider.of<AccountData>(context,
-                                                    listen: false)
-                                                .accounts[index1],
-                                            Record(
-                                              name: Provider.of<AccountData>(
-                                                      context,
-                                                      listen: false)
-                                                  .accounts[index1]
-                                                  .name,
-                                              amount:
-                                                  int.parse(_myController.text),
-                                              dateTime: DateTime.now()
-                                                  .millisecondsSinceEpoch,
-                                            ),
-                                            Provider.of<AccountData>(context,
-                                                    listen: false)
-                                                .incomes[index2],
-                                            snapshot,
-                                            index1,
-                                            index2,
-                                            snapshot2,
-                                            Provider.of<AccountData>(context,
-                                                    listen: false)
-                                                .sumUser,
-                                            snapshotInfo);
-
-                                    // ignore: avoid_print
-                                    print(Provider.of<AccountData>(context,
-                                            listen: false)
-                                        .accounts[index1]
-                                        .money);
-                                    Navigator.popUntil(
-                                        context, ModalRoute.withName('/'));
-                                  }
-                                },
-                                controller: _myController),
+                              delete: () {
+                                if (_myController.text.isEmpty) {
+                                } else {
+                                  _myController.text = _myController.text
+                                      .substring(
+                                          0, _myController.text.length - 1);
+                                }
+                              },
+                              onSubmit: () {},
+                              controller: _myController,
+                              index1: index1,
+                              index2: index2,
+                              snapshot: snapshot,
+                              snapshot2: snapshot2,
+                              snapshotInfo: snapshotInfo,
+                            ),
                           ],
                         ),
                       );
@@ -162,7 +108,7 @@ class ContainerForNumPad extends StatelessWidget {
   final bool rightOrLeft;
   final String name;
   final String icon;
-  ContainerForNumPad({
+  const ContainerForNumPad({
     Key? key,
     required this.name,
     required this.icon,
@@ -184,24 +130,24 @@ class ContainerForNumPad extends StatelessWidget {
                   Flexible(
                       flex: 2,
                       child: rightOrLeft == false
-                          ? Text(
+                          ? const Text(
                               'From category',
                             )
-                          : Text('To account')),
-                  Spacer(
+                          : const Text('To account')),
+                  const Spacer(
                     flex: 1,
                   ),
                   Flexible(
                     flex: 2,
                     child: Text(
                       name,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w500),
                     ),
                   ),
                 ],
               ),
-              Spacer(
+              const Spacer(
                 flex: 1,
               ),
               Flexible(
