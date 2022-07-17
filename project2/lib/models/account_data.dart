@@ -16,7 +16,6 @@ class AccountData extends ChangeNotifier {
 
   void userInputs(String inputs) {
     userInput += inputs;
-    print(userInput);
 
     notifyListeners();
   }
@@ -25,7 +24,7 @@ class AccountData extends ChangeNotifier {
     if (allOrNot == true) {
       userInput = '';
     }
-    if (allOrNot == false) {
+    if (allOrNot == false && userInput != '') {
       userInput = userInput.substring(0, userInput.length - 1);
     }
 
@@ -40,8 +39,15 @@ class AccountData extends ChangeNotifier {
     Expression exp = p.parse(finaluserinput);
     ContextModel cm = ContextModel();
     double eval = exp.evaluate(EvaluationType.REAL, cm);
-
+    // if (userInput.contains(RegExp('.'))) {
+    //   userInput = eval.toString();
+    // } else {
+    // userInput = eval.toInt().toString();
+    // }
     userInput = eval.toInt().toString();
+    if (userInput == '0') {
+      userInput = '';
+    }
 
     notifyListeners();
   }

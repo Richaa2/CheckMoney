@@ -146,7 +146,7 @@ class NumPad2 extends StatelessWidget {
                     color: buttonColor,
                   ),
                   FnButton(
-                    fn: '-',
+                    fn: '\$',
                     size: buttonSize,
                     color: buttonColor,
                     controller: controller,
@@ -198,11 +198,15 @@ class NumPad2 extends StatelessWidget {
                   ),
                   FnButton(
                     onPressed: () {},
-                    fn: '.',
+                    fn: '',
                     size: buttonSize,
                     color: buttonColor,
                     controller: controller,
                   ),
+                  // SizedBox(
+                  //   width: buttonSize,
+                  //   height: buttonSize - 10,
+                  // )
                 ],
               ),
               // const SizedBox(height: 20),
@@ -215,8 +219,11 @@ class NumPad2 extends StatelessWidget {
                     controller: controller,
                     sizeh: buttonSize - 5,
                     onPressed: () {
-                      Provider.of<AccountData>(context, listen: false)
-                          .userDeleteInputs(false);
+                      if (userInput == '0' || userInput == '') {}
+                      if (userInput != '0' || userInput != '') {
+                        Provider.of<AccountData>(context, listen: false)
+                            .userDeleteInputs(false);
+                      }
                     },
                   ),
                   // this button is used to delete the last number
@@ -272,10 +279,10 @@ class NumPad2 extends StatelessWidget {
                                         .sumUser,
                                     snapshotInfo);
 
-                            if (userInput != '0') {
-                              Provider.of<AccountData>(context, listen: false)
-                                  .userDeleteInputs(true);
-                            }
+                            // if (userInput != '0') {
+                            //   Provider.of<AccountData>(context, listen: false)
+                            //       .userDeleteInputs(true);
+                            // }
                             Navigator.popUntil(
                                 context, ModalRoute.withName('/'));
                           }
