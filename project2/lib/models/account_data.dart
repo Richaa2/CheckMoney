@@ -406,6 +406,7 @@ class AccountData extends ChangeNotifier {
     int index2,
     AsyncSnapshot<QuerySnapshot<Object?>> snapshot2,
   ) {
+    Account accountMoney = accounts[index];
     String uid = FirebaseAuth.instance.currentUser!.uid;
     accountMoney.minAmount(amount);
     records.insert(0, record);
@@ -458,25 +459,22 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void editAmountOnScreen(int newAmount, Account accountMoney,
+  void editAmountOnScreen(int newAmount,
       AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
+    Account accountMoney = accounts[index];
     String uid = FirebaseAuth.instance.currentUser!.uid;
     accountMoney.editAmount(newAmount);
     var id = snapshot.data!.docs[index].id;
     final data = {
       'money': accountMoney.money,
-      'color': accountMoney.colorValue,
-      'icon': accountMoney.icon,
-      'name': accountMoney.name,
-      'id': accountMoney.id,
-      'q': accountMoney.q,
     };
     FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
         .collection('account')
         .doc(id)
-        .set(data);
+        .update(data);
+    print(accountMoney.money);
     notifyListeners();
   }
 

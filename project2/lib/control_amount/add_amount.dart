@@ -41,6 +41,9 @@ class AddAmount extends StatelessWidget {
                         .orderBy("q")
                         .snapshots(),
                     builder: (context, snapshot2) {
+                      var user =
+                          Provider.of<AccountData>(context, listen: false)
+                              .userInput;
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 0, vertical: 0),
@@ -79,21 +82,86 @@ class AddAmount extends StatelessWidget {
                               height: 20,
                             ),
                             NumPad2(
-                              delete: () {
-                                if (_myController.text.isEmpty) {
+                              onSubmit: () {
+                                if (equal == false) {
+                                  if (user.endsWith('-') ||
+                                      user.endsWith('/') ||
+                                      user.endsWith('+') ||
+                                      user.endsWith('x')) {
+                                    Provider.of<AccountData>(context,
+                                            listen: false)
+                                        .userDeleteInputs(false);
+                                  }
+                                  if (user == '/' ||
+                                      user == 'x' ||
+                                      user == '+' ||
+                                      user == '-') {
+                                    Provider.of<AccountData>(context,
+                                            listen: false)
+                                        .userDeleteInputs(true);
+                                    equal = true;
+                                  } else {
+                                    Provider.of<AccountData>(context,
+                                            listen: false)
+                                        .equalPressed();
+                                    equal = true;
+                                  }
+
+                                  equal = true;
                                 } else {
-                                  _myController.text = _myController.text
-                                      .substring(
-                                          0, _myController.text.length - 1);
+                                  if (Provider.of<AccountData>(context,
+                                              listen: false)
+                                          .userInput ==
+                                      '') {
+                                    Navigator.popUntil(
+                                        context, ModalRoute.withName('/'));
+                                  } else {
+                                    Provider.of<AccountData>(context,
+                                            listen: false)
+                                        .addAmountOnScreen(
+                                            int.parse(Provider.of<AccountData>(
+                                                    context,
+                                                    listen: false)
+                                                .userInput),
+                                            Record(
+                                              name: Provider.of<AccountData>(
+                                                      context,
+                                                      listen: false)
+                                                  .accounts[index1]
+                                                  .name,
+                                              amount: int.parse(
+                                                  Provider.of<AccountData>(
+                                                          context,
+                                                          listen: false)
+                                                      .userInput),
+                                              dateTime: DateTime.now()
+                                                  .millisecondsSinceEpoch,
+                                            ),
+                                            snapshot,
+                                            index1,
+                                            index2,
+                                            snapshot2,
+                                            Provider.of<AccountData>(context,
+                                                    listen: false)
+                                                .sumUser,
+                                            snapshotInfo);
+
+                                    if (Provider.of<AccountData>(context,
+                                                listen: false)
+                                            .userInput !=
+                                        '0') {
+                                      Provider.of<AccountData>(context,
+                                              listen: false)
+                                          .userDeleteInputs(true);
+                                    }
+                                    Navigator.popUntil(
+                                        context, ModalRoute.withName('/'));
+                                  }
                                 }
                               },
-                              onSubmit: () {},
-                              controller: _myController,
-                              index1: index1,
-                              index2: index2,
-                              snapshot: snapshot,
-                              snapshot2: snapshot2,
-                              snapshotInfo: snapshotInfo,
+                              userInput: Provider.of<AccountData>(
+                                context,
+                              ).userInput,
                             ),
                           ],
                         ),
