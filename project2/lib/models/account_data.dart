@@ -342,13 +342,15 @@ class AccountData extends ChangeNotifier {
     return suma;
   }
 
-  int sumOfRecords(int index) {
+  int? sumOfRecords(int index) {
     int sum = 0;
     for (int i = 0; i < currentEntries(records, index).length; i++) {
-      if (currentEntries(records, index)[i].action == 1) {
-        return sum -= currentEntries(records, index)[i].amount.toInt();
-      }
       sum += currentEntries(records, index)[i].amount.toInt();
+
+      if (currentEntries(records, index)[i].action == 1) {
+        sum -= currentEntries(records, index)[i].amount.toInt() * 2;
+      }
+
       if (currentEntries(records, index)[i].action == 3) {
         sum -= currentEntries(records, index)[i].amount.toInt();
       }
@@ -413,6 +415,10 @@ class AccountData extends ChangeNotifier {
       "amount": record.amount,
       "action": record.action,
       'dateTime': record.dateTime,
+      'icon': record.icon,
+      'color': record.color,
+      'subName': record.subName,
+      'icon2': record.icon2
     });
     FirebaseFirestore.instance
         .collection('users')
@@ -482,6 +488,10 @@ class AccountData extends ChangeNotifier {
       "amount": record.amount,
       "action": record.action,
       'dateTime': record.dateTime,
+      'icon': record.icon,
+      'color': record.color,
+      'subName': record.subName,
+      'icon2': record.icon2
     });
 
     FirebaseFirestore.instance
@@ -566,6 +576,10 @@ class AccountData extends ChangeNotifier {
       "amount": record.amount,
       "action": record.action,
       'dateTime': record.dateTime,
+      'icon': record.icon,
+      'color': record.color,
+      'subName': record.subName,
+      'icon2': record.icon2
     });
 
     notifyListeners();

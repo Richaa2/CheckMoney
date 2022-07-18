@@ -12,54 +12,65 @@ InkWell recordCardInfo(Record record, BuildContext context,
       return Provider.of<AccountData>(context, listen: false)
           .removeRecord(snapshot, index, indexx);
     },
-    child: Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: (record.action == 1)
-                ? ([Colors.deepOrange, Colors.red])
-                : (record.action == 2)
-                    ? ([Colors.green, Colors.teal])
-                    : ([
-                        Colors.grey,
-                        const Color.fromARGB(66, 255, 255, 255),
-                      ]),
-          ),
+    child: ListTile(
+      tileColor: Color.fromARGB(26, 96, 125, 139),
+      trailing: Text(
+        '${record.amount}',
+        style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: record.action == 1
+                ? Colors.red
+                : record.action == 2
+                    ? Colors.green
+                    : Colors.grey),
+      ),
+      leading: CircleAvatar(
+        backgroundColor: Color(int.parse(record.color)),
+        child: record.action == 3
+            ? Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Color(int.parse(record.color)),
+                ),
+                child: Icon(
+                  IconData(int.parse(record.icon), fontFamily: 'MaterialIcons'),
+                  color: Colors.white,
+                ),
+              )
+            : Icon(
+                IconData(int.parse(record.icon), fontFamily: 'MaterialIcons'),
+                color: Colors.white,
+              ),
+      ),
+      title: Text(
+        record.name,
+        style: const TextStyle(
+          fontSize: 20,
         ),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                child: Text(
-                  record.name,
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle2
-                      ?.copyWith(color: Colors.white),
+      ),
+      subtitle: RichText(
+          text: TextSpan(
+              style: const TextStyle(
+                  fontSize: 17,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500),
+              children: [
+            WidgetSpan(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                child: Icon(
+                  IconData(int.parse(record.icon2),
+                      fontFamily: 'MaterialIcons'),
+                  color: Colors.grey,
+                  size: 19,
                 ),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: (record.action == 1)
-                  ? Text(
-                      NumberFormat("-###,###,#### \$").format(record.amount),
-                      style: Theme.of(context).textTheme.subtitle2?.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    )
-                  : Text(
-                      NumberFormat("###,###,#### \$").format(record.amount),
-                      style: Theme.of(context).textTheme.subtitle2?.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-            ),
-          ],
-        ),
-      ),
+            TextSpan(text: record.subName),
+          ])),
     ),
   );
 }

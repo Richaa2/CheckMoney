@@ -103,26 +103,41 @@ class MinAmount extends StatelessWidget {
                         } else {
                           Provider.of<AccountData>(context, listen: false)
                               .minAmountOnScreen(
-                                  int.parse(userInput),
-                                  Provider.of<AccountData>(context,
-                                          listen: false)
-                                      .accounts[index1],
-                                  Record(
-                                      action: 2,
-                                      name: Provider.of<AccountData>(context,
-                                              listen: false)
-                                          .accounts[index1]
-                                          .name,
-                                      amount: int.parse(userInput),
-                                      dateTime: DateTime.now()
-                                          .millisecondsSinceEpoch),
-                                  Provider.of<AccountData>(context,
-                                          listen: false)
-                                      .expenses[index2],
-                                  snapshot,
-                                  index1,
-                                  index2,
-                                  snapshot2);
+                            int.parse(userInput),
+                            Provider.of<AccountData>(context, listen: false)
+                                .accounts[index1],
+                            Record(
+                              action: 2,
+                              name: Provider.of<AccountData>(context,
+                                      listen: false)
+                                  .expenses[index2]
+                                  .name,
+                              amount: int.parse(userInput),
+                              dateTime: DateTime.now().millisecondsSinceEpoch,
+                              icon: Provider.of<AccountData>(context,
+                                      listen: false)
+                                  .expenses[index2]
+                                  .icon,
+                              color: Provider.of<AccountData>(context,
+                                      listen: false)
+                                  .expenses[index2]
+                                  .color,
+                              subName: Provider.of<AccountData>(context,
+                                      listen: false)
+                                  .accounts[index1]
+                                  .name,
+                              icon2: Provider.of<AccountData>(context,
+                                      listen: false)
+                                  .accounts[index1]
+                                  .icon,
+                            ),
+                            Provider.of<AccountData>(context, listen: false)
+                                .expenses[index2],
+                            snapshot,
+                            index1,
+                            index2,
+                            snapshot2,
+                          );
                           if (userInput != '0') {
                             Provider.of<AccountData>(context, listen: false)
                                 .userDeleteInputs(true);

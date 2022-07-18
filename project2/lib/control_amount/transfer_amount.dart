@@ -103,17 +103,33 @@ class TransferAmount extends StatelessWidget {
                               Provider.of<AccountData>(context, listen: false)
                                   .accounts[index2],
                               Record(
-                                  action: 3,
-                                  name: Provider.of<AccountData>(context,
-                                          listen: false)
-                                      .accounts[index2]
-                                      .name,
-                                  amount: int.parse(Provider.of<AccountData>(
-                                          context,
-                                          listen: false)
-                                      .userInput),
-                                  dateTime:
-                                      DateTime.now().millisecondsSinceEpoch),
+                                action: 3,
+                                name: Provider.of<AccountData>(context,
+                                        listen: false)
+                                    .accounts[index2]
+                                    .name,
+                                amount: int.parse(Provider.of<AccountData>(
+                                        context,
+                                        listen: false)
+                                    .userInput),
+                                dateTime: DateTime.now().millisecondsSinceEpoch,
+                                icon: Provider.of<AccountData>(context,
+                                        listen: false)
+                                    .accounts[index2]
+                                    .icon,
+                                color: Provider.of<AccountData>(context,
+                                        listen: false)
+                                    .accounts[index2]
+                                    .colorValue,
+                                subName: Provider.of<AccountData>(context,
+                                        listen: false)
+                                    .accounts[index1]
+                                    .name,
+                                icon2: Provider.of<AccountData>(context,
+                                        listen: false)
+                                    .accounts[index1]
+                                    .icon,
+                              ),
                               snapshot,
                               index1,
                               index2);

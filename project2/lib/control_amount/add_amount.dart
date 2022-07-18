@@ -128,7 +128,7 @@ class AddAmount extends StatelessWidget {
                                               name: Provider.of<AccountData>(
                                                       context,
                                                       listen: false)
-                                                  .accounts[index1]
+                                                  .incomes[index2]
                                                   .name,
                                               amount: int.parse(
                                                   Provider.of<AccountData>(
@@ -137,6 +137,26 @@ class AddAmount extends StatelessWidget {
                                                       .userInput),
                                               dateTime: DateTime.now()
                                                   .millisecondsSinceEpoch,
+                                              icon: Provider.of<AccountData>(
+                                                      context,
+                                                      listen: false)
+                                                  .incomes[index2]
+                                                  .icon,
+                                              color: Provider.of<AccountData>(
+                                                      context,
+                                                      listen: false)
+                                                  .incomes[index2]
+                                                  .color,
+                                              subName: Provider.of<AccountData>(
+                                                      context,
+                                                      listen: false)
+                                                  .accounts[index1]
+                                                  .name,
+                                              icon2: Provider.of<AccountData>(
+                                                      context,
+                                                      listen: false)
+                                                  .accounts[index1]
+                                                  .icon,
                                             ),
                                             snapshot,
                                             index1,

@@ -43,12 +43,15 @@ class RecordsListView extends StatelessWidget {
         if (recordsList.length < records.length) {
           for (var record in records) {
             final recordRow = Record(
-              name: record['name'],
-              amount: record['amount'],
-              action: record['action'],
-              id: record['id'],
-              dateTime: record['dateTime'],
-            );
+                name: record['name'],
+                amount: record['amount'],
+                action: record['action'],
+                id: record['id'],
+                dateTime: record['dateTime'],
+                color: record['color'],
+                icon: record['icon'],
+                subName: record['subName'],
+                icon2: record['icon2']);
             recordsList.add(recordRow);
           }
         }
@@ -117,7 +120,7 @@ class RecordsListView extends StatelessWidget {
                                         .textTheme
                                         .subtitle2!
                                         .copyWith(
-                                            color: sum >= 0
+                                            color: sum! >= 0
                                                 ? Colors.green
                                                 : Colors.red,
                                             fontWeight: FontWeight.bold,
