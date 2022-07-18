@@ -205,8 +205,7 @@ class AccountData extends ChangeNotifier {
 
   List<Income> incomes = [];
 
-  List<Record> records = []
-    ..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
+  List<Record> records = [];
 
   q.UserInfo sumUser = q.UserInfo(amount: 0, name: '', email: '');
 
@@ -330,7 +329,7 @@ class AccountData extends ChangeNotifier {
     return suma;
   }
 
-  int? sumOfRecords(int index) {
+  int sumOfRecords(int index) {
     int sum = 0;
     for (int i = 0; i < currentEntries(records, index).length; i++) {
       if (currentEntries(records, index)[i].action == 1) {
@@ -628,6 +627,8 @@ class AccountData extends ChangeNotifier {
 
     // entries = Provider.of<AccountData>(context, listen: false).records;
     List<Record> currentEntries = [];
+    // ..sort(((a, b) => b.dateTime.compareTo(a.dateTime)));
+
     if (index == 0) {
       currentEntries = entries
           .where((entry) =>

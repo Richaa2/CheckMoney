@@ -53,7 +53,7 @@ class EditAmount extends StatelessWidget {
                   context,
                 ).userInput;
           }
-          print(user);
+
           return Column(
             children: [
               Row(

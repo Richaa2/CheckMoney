@@ -16,18 +16,18 @@ class ContainerForNumPad extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late Widget text;
+
     if (rightOrLeft == false) {
-      text = Text(
-        'From category',
-      );
+      text = const Text('From category');
     } else if (rightOrLeft == true) {
-      text = Text('To account');
+      text = const Text('To account');
     }
     if (editOrTransfer == true) {
-      text = Text('Account balance');
+      text = const Text('Account balance');
     } else if (rightOrLeft == false && editOrTransfer == false) {
-      text = Text('From account');
+      text = const Text('From account');
     }
+
     return Container(
         height: 100,
         color: rightOrLeft == false ? Colors.teal[700] : Colors.teal,
