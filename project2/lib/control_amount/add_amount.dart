@@ -6,8 +6,9 @@ import 'package:provider/provider.dart';
 
 import 'package:project2/models/account_data.dart';
 import 'package:project2/models/history.dart';
-import 'package:project2/widgets/num_pad.dart';
 import 'package:project2/widgets/num_pad2.dart';
+
+import '../widgets/container_for_numpad.dart';
 
 class AddAmount extends StatelessWidget {
   final TextEditingController _myController = TextEditingController();
@@ -41,6 +42,9 @@ class AddAmount extends StatelessWidget {
                         .orderBy("q")
                         .snapshots(),
                     builder: (context, snapshot2) {
+                      var user =
+                          Provider.of<AccountData>(context, listen: false)
+                              .userInput;
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 0, vertical: 0),
@@ -79,21 +83,106 @@ class AddAmount extends StatelessWidget {
                               height: 20,
                             ),
                             NumPad2(
-                              delete: () {
-                                if (_myController.text.isEmpty) {
+                              onSubmit: () {
+                                if (equal == false) {
+                                  if (user.endsWith('-') ||
+                                      user.endsWith('/') ||
+                                      user.endsWith('+') ||
+                                      user.endsWith('x')) {
+                                    Provider.of<AccountData>(context,
+                                            listen: false)
+                                        .userDeleteInputs(false);
+                                  }
+                                  if (user == '/' ||
+                                      user == 'x' ||
+                                      user == '+' ||
+                                      user == '-') {
+                                    Provider.of<AccountData>(context,
+                                            listen: false)
+                                        .userDeleteInputs(true);
+                                    equal = true;
+                                  } else {
+                                    Provider.of<AccountData>(context,
+                                            listen: false)
+                                        .equalPressed();
+                                    equal = true;
+                                  }
+
+                                  equal = true;
                                 } else {
-                                  _myController.text = _myController.text
-                                      .substring(
-                                          0, _myController.text.length - 1);
+                                  if (Provider.of<AccountData>(context,
+                                              listen: false)
+                                          .userInput ==
+                                      '') {
+                                    Navigator.popUntil(
+                                        context, ModalRoute.withName('/'));
+                                  } else {
+                                    Provider.of<AccountData>(context,
+                                            listen: false)
+                                        .addAmountOnScreen(
+                                            int.parse(Provider.of<AccountData>(
+                                                    context,
+                                                    listen: false)
+                                                .userInput),
+                                            Record(
+                                              name: Provider.of<AccountData>(
+                                                      context,
+                                                      listen: false)
+                                                  .incomes[index2]
+                                                  .name,
+                                              amount: int.parse(
+                                                  Provider.of<AccountData>(
+                                                          context,
+                                                          listen: false)
+                                                      .userInput),
+                                              dateTime: DateTime.now()
+                                                  .millisecondsSinceEpoch,
+                                              icon: Provider.of<AccountData>(
+                                                      context,
+                                                      listen: false)
+                                                  .incomes[index2]
+                                                  .icon,
+                                              color: Provider.of<AccountData>(
+                                                      context,
+                                                      listen: false)
+                                                  .incomes[index2]
+                                                  .color,
+                                              subName: Provider.of<AccountData>(
+                                                      context,
+                                                      listen: false)
+                                                  .accounts[index1]
+                                                  .name,
+                                              icon2: Provider.of<AccountData>(
+                                                      context,
+                                                      listen: false)
+                                                  .accounts[index1]
+                                                  .icon,
+                                            ),
+                                            snapshot,
+                                            index1,
+                                            index2,
+                                            snapshot2,
+                                            Provider.of<AccountData>(context,
+                                                    listen: false)
+                                                .sumUser,
+                                            snapshotInfo);
+
+                                    if (Provider.of<AccountData>(context,
+                                                listen: false)
+                                            .userInput !=
+                                        '0') {
+                                      Provider.of<AccountData>(context,
+                                              listen: false)
+                                          .userDeleteInputs(true);
+                                    }
+                                    Navigator.popUntil(
+                                        context, ModalRoute.withName('/'));
+                                  }
                                 }
                               },
-                              onSubmit: () {},
-                              controller: _myController,
-                              index1: index1,
-                              index2: index2,
-                              snapshot: snapshot,
-                              snapshot2: snapshot2,
-                              snapshotInfo: snapshotInfo,
+                              userInput: Provider.of<AccountData>(
+                                context,
+                              ).userInput,
                             ),
                           ],
                         ),
@@ -101,84 +190,5 @@ class AddAmount extends StatelessWidget {
                     });
               });
         });
-  }
-}
-
-class ContainerForNumPad extends StatelessWidget {
-  final bool rightOrLeft;
-  final String name;
-  final String icon;
-  const ContainerForNumPad({
-    Key? key,
-    required this.name,
-    required this.icon,
-    required this.rightOrLeft,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        height: 100,
-        color: rightOrLeft == false ? Colors.teal[700] : Colors.teal,
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                      flex: 2,
-                      child: rightOrLeft == false
-                          ? const Text(
-                              'From category',
-                            )
-                          : const Text('To account')),
-                  const Spacer(
-                    flex: 1,
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: Text(
-                      name,
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ],
-              ),
-              const Spacer(
-                flex: 1,
-              ),
-              Flexible(
-                flex: 5,
-                child: rightOrLeft == false
-                    ? CircleAvatar(
-                        minRadius: 17.0,
-                        maxRadius: 23.0,
-                        backgroundColor: Colors.white,
-                        child: Icon(
-                          IconData(int.parse(icon),
-                              fontFamily: 'MaterialIcons'),
-                          color: Colors.teal[600],
-                        ),
-                      )
-                    : Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: Colors.white,
-                        ),
-                        child: Icon(
-                          IconData(int.parse(icon),
-                              fontFamily: 'MaterialIcons'),
-                          color: Colors.teal[600],
-                        ),
-                      ),
-              ),
-            ],
-          ),
-        ));
   }
 }

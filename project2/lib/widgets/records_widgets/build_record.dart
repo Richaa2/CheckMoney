@@ -5,6 +5,7 @@ import 'package:project2/models/history.dart';
 import 'package:project2/widgets/records_widgets/record_card_info.dart';
 
 Widget buildRecord(
+  int indexx,
   int index,
   BuildContext context,
   DateTime date,
@@ -20,7 +21,7 @@ Widget buildRecord(
         ),
         Expanded(
           flex: 1,
-          child: recordCardInfo(record, context, snapshot, index),
+          child: recordCardInfo(record, context, snapshot, index, indexx),
         ),
       ],
     ),

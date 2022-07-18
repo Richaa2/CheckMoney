@@ -26,8 +26,7 @@ class _HistoryScreenState extends State<HistoryScreen>
   @override
   void initState() {
     super.initState();
-    _tabController =
-        TabController(length: 4, vsync: this, initialIndex: currentIndex);
+    _tabController = TabController(length: 4, vsync: this, initialIndex: 0);
   }
 
   @override

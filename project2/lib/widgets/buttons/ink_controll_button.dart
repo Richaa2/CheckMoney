@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:project2/models/account.dart';
+import 'package:project2/models/account_data.dart';
 import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
+import 'package:provider/provider.dart';
 
 class InkControllButton extends StatelessWidget {
   final Widget screen;
@@ -31,6 +33,7 @@ class InkControllButton extends StatelessWidget {
           color: color,
           hoverColor: color,
           onPressed: () {
+            Provider.of<AccountData>(context, listen: false).userInput = '';
             removeAcc;
             showModalBottomSheetMetod(context, screen);
           },

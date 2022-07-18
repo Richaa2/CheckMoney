@@ -43,15 +43,22 @@ class RecordsListView extends StatelessWidget {
         if (recordsList.length < records.length) {
           for (var record in records) {
             final recordRow = Record(
-              name: record['name'],
-              amount: record['amount'],
-              action: record['action'],
-              id: record['id'],
-              dateTime: record['dateTime'],
-            );
+                name: record['name'],
+                amount: record['amount'],
+                action: record['action'],
+                id: record['id'],
+                dateTime: record['dateTime'],
+                color: record['color'],
+                icon: record['icon'],
+                subName: record['subName'],
+                icon2: record['icon2']);
             recordsList.add(recordRow);
           }
         }
+      }
+
+      if (recordsList.length > records.length) {
+        recordsList.clear();
       }
 
       String? prevDay;
@@ -171,11 +178,13 @@ class RecordsListView extends StatelessWidget {
                       )
                     : const Offstage(),
                 buildRecord(
-                    index,
-                    context,
-                    date,
-                    accountData.currentEntries(recordsList, indexx)[index],
-                    snapshot),
+                  indexx,
+                  index,
+                  context,
+                  date,
+                  accountData.currentEntries(recordsList, indexx)[index],
+                  snapshot,
+                ),
               ],
             );
           },

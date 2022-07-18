@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:project2/widgets/accounts_widgets/accounts_list.dart';
 
 class AccountScreen extends StatelessWidget {
-  final int? sum;
-
-  AccountScreen({Key? key, this.sum}) : super(key: key);
+  AccountScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +13,7 @@ class AccountScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: AccountsListView(
-              sum: sum,
-            ),
+            child: AccountsListView(),
           ),
         ],
       ),

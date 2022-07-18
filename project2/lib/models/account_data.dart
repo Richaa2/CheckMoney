@@ -15,18 +15,25 @@ class AccountData extends ChangeNotifier {
   var userInput = '';
 
   void userInputs(String inputs) {
-    userInput += inputs;
-    print(userInput);
+    if (userInput == '0' || userInput == '') {
+      userInput = inputs;
+    } else {
+      userInput += inputs;
+    }
 
     notifyListeners();
   }
 
   void userDeleteInputs(bool allOrNot) {
     if (allOrNot == true) {
-      userInput = '';
+      userInput = '0';
     }
-    if (allOrNot == false) {
+    if (allOrNot == false && userInput != '') {
       userInput = userInput.substring(0, userInput.length - 1);
+      if (userInput.length == 0 || userInput == '') {
+        userInput = '0';
+        print('glipse');
+      }
     }
 
     notifyListeners();
@@ -40,8 +47,15 @@ class AccountData extends ChangeNotifier {
     Expression exp = p.parse(finaluserinput);
     ContextModel cm = ContextModel();
     double eval = exp.evaluate(EvaluationType.REAL, cm);
-
+    // if (userInput.contains(RegExp('.'))) {
+    //   userInput = eval.toString();
+    // } else {
+    // userInput = eval.toInt().toString();
+    // }
     userInput = eval.toInt().toString();
+    if (userInput == '0') {
+      userInput = '';
+    }
 
     notifyListeners();
   }
@@ -172,17 +186,30 @@ class AccountData extends ChangeNotifier {
     if (accounts.length == 1) {}
   }
 
-  void removeRecord(AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
+  void removeRecord(
+      AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index, int indexx) {
     String uid = FirebaseAuth.instance.currentUser!.uid;
     var id = snapshot.data!.docs[index].id;
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('record')
-        .doc(id)
-        .delete();
 
-    records.removeAt(index);
+    if (records.length > 1) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('record')
+          .doc(id)
+          .delete();
+      records.removeAt(index);
+    }
+    if (currentEntries(records, indexx).length == 1) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('record')
+          .doc(id)
+          .delete();
+
+      currentEntries(records, indexx).clear();
+    }
 
     notifyListeners();
   }
@@ -191,8 +218,7 @@ class AccountData extends ChangeNotifier {
 
   List<Income> incomes = [];
 
-  List<Record> records = []
-    ..sort((v1, v2) => v2.dateTime.compareTo(v1.dateTime));
+  List<Record> records = [];
 
   q.UserInfo sumUser = q.UserInfo(amount: 0, name: '', email: '');
 
@@ -265,7 +291,7 @@ class AccountData extends ChangeNotifier {
     userInfo.updateName(newName);
 
     var id = snapshot.data!.docs[0].id;
-    print(id);
+
 // FirebaseFirestore.instance.collection('users').doc(uid).collection('userInfo').doc(id).se
 
     FirebaseFirestore.instance
@@ -278,6 +304,21 @@ class AccountData extends ChangeNotifier {
     });
 
     notifyListeners();
+  }
+
+  void updateIndex(
+    int index,
+    AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
+  ) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    var id = snapshot.data!.docs[index].id;
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('account')
+        .doc(id)
+        .update({'q': index + 1});
   }
 
   int? updateSum(
@@ -304,10 +345,12 @@ class AccountData extends ChangeNotifier {
   int? sumOfRecords(int index) {
     int sum = 0;
     for (int i = 0; i < currentEntries(records, index).length; i++) {
-      if (currentEntries(records, index)[i].action == 1) {
-        return sum -= currentEntries(records, index)[i].amount.toInt();
-      }
       sum += currentEntries(records, index)[i].amount.toInt();
+
+      if (currentEntries(records, index)[i].action == 1) {
+        sum -= currentEntries(records, index)[i].amount.toInt() * 2;
+      }
+
       if (currentEntries(records, index)[i].action == 3) {
         sum -= currentEntries(records, index)[i].amount.toInt();
       }
@@ -372,6 +415,10 @@ class AccountData extends ChangeNotifier {
       "amount": record.amount,
       "action": record.action,
       'dateTime': record.dateTime,
+      'icon': record.icon,
+      'color': record.color,
+      'subName': record.subName,
+      'icon2': record.icon2
     });
     FirebaseFirestore.instance
         .collection('users')
@@ -400,6 +447,7 @@ class AccountData extends ChangeNotifier {
     int index2,
     AsyncSnapshot<QuerySnapshot<Object?>> snapshot2,
   ) {
+    Account accountMoney = accounts[index];
     String uid = FirebaseAuth.instance.currentUser!.uid;
     accountMoney.minAmount(amount);
     records.insert(0, record);
@@ -440,6 +488,10 @@ class AccountData extends ChangeNotifier {
       "amount": record.amount,
       "action": record.action,
       'dateTime': record.dateTime,
+      'icon': record.icon,
+      'color': record.color,
+      'subName': record.subName,
+      'icon2': record.icon2
     });
 
     FirebaseFirestore.instance
@@ -452,25 +504,22 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void editAmountOnScreen(int newAmount, Account accountMoney,
+  void editAmountOnScreen(int newAmount,
       AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
+    Account accountMoney = accounts[index];
     String uid = FirebaseAuth.instance.currentUser!.uid;
     accountMoney.editAmount(newAmount);
     var id = snapshot.data!.docs[index].id;
     final data = {
       'money': accountMoney.money,
-      'color': accountMoney.colorValue,
-      'icon': accountMoney.icon,
-      'name': accountMoney.name,
-      'id': accountMoney.id,
-      'q': accountMoney.q,
     };
     FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
         .collection('account')
         .doc(id)
-        .set(data);
+        .update(data);
+
     notifyListeners();
   }
 
@@ -527,6 +576,10 @@ class AccountData extends ChangeNotifier {
       "amount": record.amount,
       "action": record.action,
       'dateTime': record.dateTime,
+      'icon': record.icon,
+      'color': record.color,
+      'subName': record.subName,
+      'icon2': record.icon2
     });
 
     notifyListeners();
@@ -601,6 +654,8 @@ class AccountData extends ChangeNotifier {
 
     // entries = Provider.of<AccountData>(context, listen: false).records;
     List<Record> currentEntries = [];
+    // ..sort(((a, b) => b.dateTime.compareTo(a.dateTime)));
+
     if (index == 0) {
       currentEntries = entries
           .where((entry) =>

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project2/widgets/num_pad2.dart';
 
 import 'package:provider/provider.dart';
 
@@ -223,40 +224,74 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                 ),
                 ListTile(
                   onTap: () {
-                    showModalBottomSheetMetod(
+                    showModalBottomSheetMetod(context,
+                        Builder(builder: (context) {
+                      var user;
+                      user = Provider.of<AccountData>(
                         context,
-                        AddAccountBalance(
-                          numPad: NumPad(
-                              delete: () {
-                                if (_myController.text.isEmpty) {
-                                } else {
-                                  _myController.text = _myController.text
-                                      .substring(
-                                          0, _myController.text.length - 1);
-                                }
-                              },
-                              onSubmit: () {
+                      ).userInput;
+                      return NumPad2(
+                          onSubmit: () {
+                            if (equal == false) {
+                              if (user.endsWith('-') ||
+                                  user.endsWith('/') ||
+                                  user.endsWith('+') ||
+                                  user.endsWith('x')) {
+                                Provider.of<AccountData>(context, listen: false)
+                                    .userDeleteInputs(false);
+                              }
+                              if (user == '/' ||
+                                  user == 'x' ||
+                                  user == '+' ||
+                                  user == '-') {
+                                Provider.of<AccountData>(context, listen: false)
+                                    .userDeleteInputs(true);
+                                equal = true;
+                              } else {
+                                Provider.of<AccountData>(context, listen: false)
+                                    .equalPressed();
+                                equal = true;
+                              }
+
+                              equal = true;
+                            } else {
+                              if (user == '') {
+                                Navigator.pop(context);
+                              } else {
                                 setState(() {
-                                  if (_myController.text.isEmpty) {
-                                    Navigator.pop(context);
-                                  } else {
-                                    money = int.parse(_myController.text);
-                                    Navigator.pop(context);
-                                  }
+                                  money = int.parse(user);
                                 });
-                              },
-                              controller: _myController),
-                          textField: TextField(
-                            controller: _myController,
-                            showCursor: false,
-                            autofocus: true,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            keyboardType: TextInputType.none,
-                            textAlign: TextAlign.center,
-                          ),
-                        ));
+
+                                if (Provider.of<AccountData>(context,
+                                            listen: false)
+                                        .userInput !=
+                                    '0') {
+                                  Provider.of<AccountData>(context,
+                                          listen: false)
+                                      .userDeleteInputs(true);
+                                }
+                                Navigator.pop(context);
+                              }
+                            }
+                            // setState(() {
+                            //   if (Provider.of<AccountData>(context,
+                            //           listen: false)
+                            //       .userInput
+                            //       .isEmpty) {
+                            //     Navigator.pop(context);
+                            //   } else {
+                            //     money = int.parse(Provider.of<AccountData>(
+                            //             context,
+                            //             listen: false)
+                            //         .userInput);
+                            //     Navigator.pop(context);
+                            //   }
+                            // });
+                          },
+                          userInput:
+                              Provider.of<AccountData>(context, listen: false)
+                                  .userInput);
+                    }));
                   },
                   leading: const Text(
                     'Account balance',
