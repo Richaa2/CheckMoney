@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:project2/control_amount/add_amount.dart';
+
 import 'package:project2/widgets/num_pad2.dart';
 import 'package:provider/provider.dart';
 
 import '../models/account_data.dart';
 
-import '../widgets/num_pad.dart';
+import '../widgets/container_for_numpad.dart';
 
 class EditAmount extends StatelessWidget {
   final int index;
@@ -38,21 +38,26 @@ class EditAmount extends StatelessWidget {
           if (Provider.of<AccountData>(
                 context,
               ).userInput ==
-              '') {}
-          user = Provider.of<AccountData>(
-            context,
-          ).accounts[index].money.toString();
+              '') {
+            Provider.of<AccountData>(
+              context,
+            ).userInput = init + user;
+          }
+          // user = init + user;
+          // user = Provider.of<AccountData>(
+          //   context,
+          // ).accounts[index].money.toString();
           if (user.length > init.length) {
             user = user +
                 Provider.of<AccountData>(
                   context,
                 ).userInput;
           }
-
+          print(user);
           return Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
                     flex: 1,
@@ -63,19 +68,7 @@ class EditAmount extends StatelessWidget {
                       name: Provider.of<AccountData>(context)
                           .accounts[index]
                           .name,
-                      rightOrLeft: false,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: ContainerForNumPad(
-                      icon: Provider.of<AccountData>(context)
-                          .accounts[index]
-                          .icon,
-                      name: Provider.of<AccountData>(context)
-                          .accounts[index]
-                          .name,
-                      rightOrLeft: true,
+                      editOrTransfer: true,
                     ),
                   ),
                 ],

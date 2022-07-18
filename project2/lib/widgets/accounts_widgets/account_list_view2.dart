@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -41,13 +42,12 @@ class AccountsListView2 extends StatelessWidget {
               account: filter[index2],
               onTap: () {
                 // ignore: avoid_print
-                print(accountssMoney);
 
                 showModalBottomSheetMetod(
                     context,
                     TransferAmount(
                       index1: index1,
-                      index2: index2,
+                      index2: filter[index2].q - 1,
                     ));
               },
             );

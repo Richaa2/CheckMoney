@@ -68,6 +68,7 @@ class AccountsListView extends StatelessWidget {
                   //           id: 'z',
                   //           q: 1));
                   // }
+
                   if (accountsList.isEmpty) {
                     if (accountsList.length < accounts.length) {
                       for (var account in accounts) {
@@ -107,6 +108,7 @@ class AccountsListView extends StatelessWidget {
                     if (accounts.length == accountsList.length) {
                       return ListView.separated(
                         itemBuilder: (context, index) {
+                          accountData.updateIndex(index, snapshot);
                           // final accountsName = accountData.accounts[index].name;
                           // final accountssMoney = accountData.accounts[index].money;
                           // final accountColor = accountData.accounts[index].colorValue;

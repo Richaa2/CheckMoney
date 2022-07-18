@@ -6,8 +6,9 @@ import 'package:provider/provider.dart';
 
 import 'package:project2/models/account_data.dart';
 import 'package:project2/models/history.dart';
-import 'package:project2/widgets/num_pad.dart';
 import 'package:project2/widgets/num_pad2.dart';
+
+import '../widgets/container_for_numpad.dart';
 
 class AddAmount extends StatelessWidget {
   final TextEditingController _myController = TextEditingController();
@@ -169,84 +170,5 @@ class AddAmount extends StatelessWidget {
                     });
               });
         });
-  }
-}
-
-class ContainerForNumPad extends StatelessWidget {
-  final bool rightOrLeft;
-  final String name;
-  final String icon;
-  const ContainerForNumPad({
-    Key? key,
-    required this.name,
-    required this.icon,
-    required this.rightOrLeft,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        height: 100,
-        color: rightOrLeft == false ? Colors.teal[700] : Colors.teal,
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                      flex: 2,
-                      child: rightOrLeft == false
-                          ? const Text(
-                              'From category',
-                            )
-                          : const Text('To account')),
-                  const Spacer(
-                    flex: 1,
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: Text(
-                      name,
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ],
-              ),
-              const Spacer(
-                flex: 1,
-              ),
-              Flexible(
-                flex: 5,
-                child: rightOrLeft == false
-                    ? CircleAvatar(
-                        minRadius: 17.0,
-                        maxRadius: 23.0,
-                        backgroundColor: Colors.white,
-                        child: Icon(
-                          IconData(int.parse(icon),
-                              fontFamily: 'MaterialIcons'),
-                          color: Colors.teal[600],
-                        ),
-                      )
-                    : Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: Colors.white,
-                        ),
-                        child: Icon(
-                          IconData(int.parse(icon),
-                              fontFamily: 'MaterialIcons'),
-                          color: Colors.teal[600],
-                        ),
-                      ),
-              ),
-            ],
-          ),
-        ));
   }
 }

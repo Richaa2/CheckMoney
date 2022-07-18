@@ -1,19 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'package:project2/widgets/num_pad.dart';
 import 'package:provider/provider.dart';
 
 import '../models/account_data.dart';
 import '../models/history.dart';
+import '../widgets/container_for_numpad.dart';
 import '../widgets/num_pad2.dart';
-import 'add_amount.dart';
 
 class TransferAmount extends StatelessWidget {
-  final TextEditingController _myController = TextEditingController();
-
   final int index1;
   final int index2;
   TransferAmount({
@@ -40,24 +36,26 @@ class TransferAmount extends StatelessWidget {
                     flex: 1,
                     child: ContainerForNumPad(
                       icon: Provider.of<AccountData>(context)
-                          .accounts[index2]
+                          .accounts[index1]
                           .icon,
                       name: Provider.of<AccountData>(context)
-                          .accounts[index2]
+                          .accounts[index1]
                           .name,
                       rightOrLeft: false,
+                      editOrTransfer: false,
                     ),
                   ),
                   Expanded(
                     flex: 1,
                     child: ContainerForNumPad(
                       icon: Provider.of<AccountData>(context)
-                          .accounts[index1]
+                          .accounts[index2]
                           .icon,
                       name: Provider.of<AccountData>(context)
-                          .accounts[index1]
+                          .accounts[index2]
                           .name,
                       rightOrLeft: true,
+                      editOrTransfer: false,
                     ),
                   ),
                 ],
@@ -97,7 +95,9 @@ class TransferAmount extends StatelessWidget {
                     } else {
                       Provider.of<AccountData>(context, listen: false)
                           .transferAmountOnScreen(
-                              int.parse(_myController.text),
+                              int.parse(Provider.of<AccountData>(context,
+                                      listen: false)
+                                  .userInput),
                               Provider.of<AccountData>(context, listen: false)
                                   .accounts[index1],
                               Provider.of<AccountData>(context, listen: false)
@@ -108,7 +108,10 @@ class TransferAmount extends StatelessWidget {
                                           listen: false)
                                       .accounts[index2]
                                       .name,
-                                  amount: int.parse(_myController.text),
+                                  amount: int.parse(Provider.of<AccountData>(
+                                          context,
+                                          listen: false)
+                                      .userInput),
                                   dateTime:
                                       DateTime.now().millisecondsSinceEpoch),
                               snapshot,

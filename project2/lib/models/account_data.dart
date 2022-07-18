@@ -15,17 +15,25 @@ class AccountData extends ChangeNotifier {
   var userInput = '';
 
   void userInputs(String inputs) {
-    userInput += inputs;
+    if (userInput == '0' || userInput == '') {
+      userInput = inputs;
+    } else {
+      userInput += inputs;
+    }
 
     notifyListeners();
   }
 
   void userDeleteInputs(bool allOrNot) {
     if (allOrNot == true) {
-      userInput = '';
+      userInput = '0';
     }
     if (allOrNot == false && userInput != '') {
       userInput = userInput.substring(0, userInput.length - 1);
+      if (userInput.length == 0 || userInput == '') {
+        userInput = '0';
+        print('glipse');
+      }
     }
 
     notifyListeners();
@@ -271,7 +279,7 @@ class AccountData extends ChangeNotifier {
     userInfo.updateName(newName);
 
     var id = snapshot.data!.docs[0].id;
-    print(id);
+
 // FirebaseFirestore.instance.collection('users').doc(uid).collection('userInfo').doc(id).se
 
     FirebaseFirestore.instance
@@ -284,6 +292,21 @@ class AccountData extends ChangeNotifier {
     });
 
     notifyListeners();
+  }
+
+  void updateIndex(
+    int index,
+    AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
+  ) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    var id = snapshot.data!.docs[index].id;
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('account')
+        .doc(id)
+        .update({'q': index + 1});
   }
 
   int? updateSum(
@@ -474,7 +497,7 @@ class AccountData extends ChangeNotifier {
         .collection('account')
         .doc(id)
         .update(data);
-    print(accountMoney.money);
+
     notifyListeners();
   }
 

@@ -9,7 +9,7 @@ class NumPad2 extends StatelessWidget {
   final double buttonSize;
   final Color buttonColor;
   final Color iconColor;
-  late final String userInput;
+  String userInput;
 
   final void Function()? onSubmit;
 
@@ -62,7 +62,7 @@ class NumPad2 extends StatelessWidget {
                 size: buttonSize,
                 color: fnColor,
                 onPressed: () {
-                  if (equal == true) {
+                  if (equal == true && userInput != '0') {
                     userInput += '/';
                     Provider.of<AccountData>(context, listen: false)
                         .userInputs('/');
@@ -73,7 +73,7 @@ class NumPad2 extends StatelessWidget {
                       userInput.endsWith('/') ||
                       userInput.endsWith('+') ||
                       userInput.endsWith('x')) {
-                  } else {
+                  } else if (userInput != '0') {
                     Provider.of<AccountData>(context, listen: false)
                         .equalPressed();
                     userInput += '/';
@@ -84,22 +84,26 @@ class NumPad2 extends StatelessWidget {
                 },
               ),
               FnButton(
+                // bug with enter in empty userinput
                 fn: 'x',
                 size: buttonSize,
                 color: fnColor,
                 onPressed: () {
-                  if (equal == true) {
+                  if (equal == false) {}
+
+                  if (equal == true && userInput != '0') {
                     userInput += 'x';
                     Provider.of<AccountData>(context, listen: false)
                         .userInputs('x');
                     equal = false;
+                    print('userInput != 0');
                   }
-                  if (equal == false) {}
+
                   if (userInput.endsWith('-') ||
                       userInput.endsWith('/') ||
                       userInput.endsWith('+') ||
                       userInput.endsWith('x')) {
-                  } else {
+                  } else if (userInput != '0') {
                     Provider.of<AccountData>(context, listen: false)
                         .equalPressed();
                     userInput += 'x';
@@ -114,7 +118,7 @@ class NumPad2 extends StatelessWidget {
                 size: buttonSize,
                 color: fnColor,
                 onPressed: () {
-                  if (equal == true) {
+                  if (equal == true && userInput != '0') {
                     userInput += '-';
                     Provider.of<AccountData>(context, listen: false)
                         .userInputs('-');
@@ -125,7 +129,7 @@ class NumPad2 extends StatelessWidget {
                       userInput.endsWith('/') ||
                       userInput.endsWith('+') ||
                       userInput.endsWith('x')) {
-                  } else {
+                  } else if (userInput != '0') {
                     Provider.of<AccountData>(context, listen: false)
                         .equalPressed();
                     userInput += '-';
@@ -140,7 +144,7 @@ class NumPad2 extends StatelessWidget {
                 size: buttonSize,
                 color: fnColor,
                 onPressed: () {
-                  if (equal == true) {
+                  if (equal == true && userInput != '0') {
                     userInput += '+';
                     Provider.of<AccountData>(context, listen: false)
                         .userInputs('+');
@@ -151,7 +155,7 @@ class NumPad2 extends StatelessWidget {
                       userInput.endsWith('/') ||
                       userInput.endsWith('+') ||
                       userInput.endsWith('x')) {
-                  } else {
+                  } else if (userInput != '0') {
                     Provider.of<AccountData>(context, listen: false)
                         .equalPressed();
                     userInput += '+';
