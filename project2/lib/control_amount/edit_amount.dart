@@ -104,7 +104,6 @@ class EditAmount extends StatelessWidget {
                     if (user == '') {
                       Navigator.popUntil(context, ModalRoute.withName('/'));
                     } else {
-                      print('123');
                       Provider.of<AccountData>(context, listen: false)
                           .editAmountOnScreen(
                               int.parse(Provider.of<AccountData>(context,

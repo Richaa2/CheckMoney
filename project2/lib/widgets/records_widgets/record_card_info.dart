@@ -6,11 +6,11 @@ import 'package:project2/models/history.dart';
 import 'package:provider/provider.dart';
 
 InkWell recordCardInfo(Record record, BuildContext context,
-    AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
+    AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index, int indexx) {
   return InkWell(
     onTap: () {
       return Provider.of<AccountData>(context, listen: false)
-          .removeRecord(snapshot, index);
+          .removeRecord(snapshot, index, indexx);
     },
     child: Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,

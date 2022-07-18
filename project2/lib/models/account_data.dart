@@ -186,17 +186,30 @@ class AccountData extends ChangeNotifier {
     if (accounts.length == 1) {}
   }
 
-  void removeRecord(AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
+  void removeRecord(
+      AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index, int indexx) {
     String uid = FirebaseAuth.instance.currentUser!.uid;
     var id = snapshot.data!.docs[index].id;
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('record')
-        .doc(id)
-        .delete();
 
-    records.removeAt(index);
+    if (records.length > 1) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('record')
+          .doc(id)
+          .delete();
+      records.removeAt(index);
+    }
+    if (currentEntries(records, indexx).length == 1) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('record')
+          .doc(id)
+          .delete();
+
+      currentEntries(records, indexx).clear();
+    }
 
     notifyListeners();
   }

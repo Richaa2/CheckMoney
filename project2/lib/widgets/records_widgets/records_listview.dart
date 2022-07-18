@@ -54,6 +54,10 @@ class RecordsListView extends StatelessWidget {
         }
       }
 
+      if (recordsList.length > records.length) {
+        recordsList.clear();
+      }
+
       String? prevDay;
       String today = DateFormat("EEE, MMM d, y").format(DateTime.now());
       String yesterday = DateFormat("EEE, MMM d, y")
@@ -113,7 +117,7 @@ class RecordsListView extends StatelessWidget {
                                         .textTheme
                                         .subtitle2!
                                         .copyWith(
-                                            color: sum! >= 0
+                                            color: sum >= 0
                                                 ? Colors.green
                                                 : Colors.red,
                                             fontWeight: FontWeight.bold,
@@ -171,11 +175,13 @@ class RecordsListView extends StatelessWidget {
                       )
                     : const Offstage(),
                 buildRecord(
-                    index,
-                    context,
-                    date,
-                    accountData.currentEntries(recordsList, indexx)[index],
-                    snapshot),
+                  indexx,
+                  index,
+                  context,
+                  date,
+                  accountData.currentEntries(recordsList, indexx)[index],
+                  snapshot,
+                ),
               ],
             );
           },
