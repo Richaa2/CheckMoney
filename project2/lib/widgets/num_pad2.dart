@@ -10,6 +10,7 @@ class NumPad2 extends StatelessWidget {
   final Color buttonColor;
   final Color iconColor;
   String userInput;
+  final bool editNum;
 
   final void Function()? onSubmit;
 
@@ -20,14 +21,19 @@ class NumPad2 extends StatelessWidget {
     this.iconColor = Colors.amber,
     required this.onSubmit,
     this.userInput = '',
+    this.editNum = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (userInput.contains('-') ||
-        userInput.contains('x') ||
-        userInput.contains('+') ||
-        userInput.contains('/')) {
+    if (editNum == true
+        ? userInput.contains('x') ||
+            userInput.contains('+') ||
+            userInput.contains('/')
+        : userInput.contains('-') ||
+            userInput.contains('x') ||
+            userInput.contains('+') ||
+            userInput.contains('/')) {
       equal = false;
     } else {
       equal = true;
