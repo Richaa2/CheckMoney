@@ -10,8 +10,6 @@ import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 
 import '../../widgets/accounts_widgets/app_bar_content.dart';
 import '../../widgets/accounts_widgets/list_tile_account_add.dart';
-import '../../widgets/num_pad.dart';
-import 'add_account_balance.dart';
 
 ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
   fixedSize: const Size.fromHeight(50),
@@ -63,13 +61,6 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
           decoration: BoxDecoration(color: valuee),
           child: AppBarContent(
             done: () {
-              // Provider.of<AccountData>(context, listen: false)
-              //     .addAccountFirebase(
-              //   name,
-              //   valuee!.value.toString(),
-              //   iconValue!.codePoint.toString(),
-              //   money,
-              // );
               Provider.of<AccountData>(context, listen: false)
                   .addAccountFirebase(Account(
                       colorValue: valuee!.value.toString(),
@@ -82,9 +73,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                               .last
                               .q +
                           1));
-              print(Provider.of<AccountData>(context, listen: false)
-                  .accounts
-                  .length);
+
               Navigator.popAndPushNamed(context, '/');
             },
             textField: TextField(

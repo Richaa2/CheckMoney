@@ -32,7 +32,6 @@ class AccountData extends ChangeNotifier {
       userInput = userInput.substring(0, userInput.length - 1);
       if (userInput.length == 0 || userInput == '') {
         userInput = '0';
-        print('glipse');
       }
     }
 
@@ -47,11 +46,7 @@ class AccountData extends ChangeNotifier {
     Expression exp = p.parse(finaluserinput);
     ContextModel cm = ContextModel();
     double eval = exp.evaluate(EvaluationType.REAL, cm);
-    // if (userInput.contains(RegExp('.'))) {
-    //   userInput = eval.toString();
-    // } else {
-    // userInput = eval.toInt().toString();
-    // }
+
     userInput = eval.toInt().toString();
     if (userInput == '0') {
       userInput = '';
@@ -66,34 +61,6 @@ class AccountData extends ChangeNotifier {
     incomes.clear();
     expenses.clear();
   }
-
-  // void getAccountStream() async {
-  //   await for (var snapshot
-  //       in FirebaseFirestore.instance.collection('account').snapshots()) {
-  //     for (int i = 0; i < snapshot.docs.length; i++) {
-  //       snapshot.docs[i].data();
-  //       String color = snapshot.docs[i].data()['color'];
-  //       String name = snapshot.docs[i].data()['name'];
-  //       num money = snapshot.docs[i].data()['money'];
-  //       String icon = snapshot.docs[i].data()['icon'];
-  //       String id;
-  //       int q = snapshot.docs[i].data()['q'];
-  //       if (snapshot.docs[i].data()['id'] != null) {
-  //         id = snapshot.docs[i].data()['id'];
-  //       } else {
-  //         id = 'nothing';
-  //       }
-  //       accounts.add(Account(
-  //           colorValue: color,
-  //           name: name,
-  //           money: money.toInt(),
-  //           icon: icon,
-  //           id: id,
-  //           q: q));
-  //     }
-  //     notifyListeners();
-  //   }
-  // }
 
   void addAccountFirebase(Account account) {
     String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -111,17 +78,6 @@ class AccountData extends ChangeNotifier {
       "q": account.q
     });
 
-    // FirebaseFirestore.instance.collection("account").add({});
-
-    // .then((value) {
-    //   accounts.add(Account(
-    //       name: account.name,
-    //       colorValue: account.colorValue,
-    //       icon: account.icon,
-    //       id: account.id,
-    //       money: account.money,
-    //       q: account.q));
-    // });
     notifyListeners();
   }
 
@@ -227,24 +183,8 @@ class AccountData extends ChangeNotifier {
   ) {
     var sum = 0;
 
-    if (accounts.isEmpty) {
-      print('HELLO');
-    }
-    // FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(FirebaseAuth.instance.currentUser!.uid)
-    //     .collection('account')
-    //     .get()
-    //     .whenComplete(() {
-    //   for (int i = 0; i < accounts.length; i++) {
-    //     final data = {
-    //       'money': accounts[i].money,
-    //     };
-    //     data.forEach((key, value) {
-    //       sum += value;
-    //     });
-    //   }
-    // });
+    if (accounts.isEmpty) {}
+
     if (accounts.isNotEmpty) {
       for (int i = 0; i < accounts.length; i++) {
         // final data = {

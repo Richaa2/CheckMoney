@@ -77,6 +77,7 @@ class EditAmount extends StatelessWidget {
                 height: 20,
               ),
               NumPad2(
+                editNum: true,
                 onSubmit: () {
                   if (equal == false) {
                     if (user.endsWith('-') ||

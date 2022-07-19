@@ -15,7 +15,7 @@ InkWell recordCardInfo(Record record, BuildContext context,
     child: ListTile(
       tileColor: Color.fromARGB(26, 96, 125, 139),
       trailing: Text(
-        '${record.amount}',
+        '\$${record.amount}',
         style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w600,
