@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:project2/models/account_data.dart';
-import 'package:provider/provider.dart';
 
 bool equal = true;
 
 class NumPad2 extends StatelessWidget {
   final double buttonSize;
+
   final Color buttonColor;
   final Color iconColor;
   String userInput;
@@ -16,12 +17,12 @@ class NumPad2 extends StatelessWidget {
 
   NumPad2({
     Key? key,
-    this.buttonSize = 80,
+    this.buttonSize = 70,
     this.buttonColor = const Color.fromARGB(0, 158, 158, 158),
     this.iconColor = Colors.amber,
-    required this.onSubmit,
     this.userInput = '',
     this.editNum = false,
+    required this.onSubmit,
   }) : super(key: key);
 
   @override
@@ -38,238 +39,263 @@ class NumPad2 extends StatelessWidget {
     } else {
       equal = true;
     }
+    var height;
 
-    Color? fnColor = Color.fromARGB(255, 66, 66, 66);
+    var width;
+    Size size;
+    size = MediaQuery.of(context).size;
+    height = size.height;
+    width = size.width;
+
+    Color? fnColor = const Color.fromARGB(255, 66, 66, 66);
     return Column(
       children: [
         Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(height / 40),
             alignment: Alignment.centerRight,
             child: Center(
               child: userInput.isEmpty
-                  ? Text(
+                  ? const Text(
                       '\$ 0',
                       style: TextStyle(fontSize: 30, color: Colors.teal),
                     )
                   : Text(
                       '\$ $userInput',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 30,
                         color: Colors.teal,
                       ),
                     ),
             )),
-        Container(
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Column(
-            children: [
-              FnButton(
-                fn: '/',
-                size: buttonSize,
-                color: fnColor,
-                onPressed: () {
-                  if (equal == true && userInput != '0') {
-                    userInput += '/';
-                    Provider.of<AccountData>(context, listen: false)
-                        .userInputs('/');
-                    equal = false;
-                  }
-                  if (equal == false) {}
-                  if (userInput.endsWith('-') ||
-                      userInput.endsWith('/') ||
-                      userInput.endsWith('+') ||
-                      userInput.endsWith('x')) {
-                  } else if (userInput != '0') {
-                    Provider.of<AccountData>(context, listen: false)
-                        .equalPressed();
-                    userInput += '/';
-                    Provider.of<AccountData>(context, listen: false)
-                        .userInputs('/');
-                    equal = true;
-                  }
-                },
-              ),
-              FnButton(
-                // bug with enter in empty userinput
-                fn: 'x',
-                size: buttonSize,
-                color: fnColor,
-                onPressed: () {
-                  if (equal == false) {}
+        Padding(
+          padding: const EdgeInsets.only(
+            bottom: 10,
+          ),
+          child: Container(
+            width: width,
+            child: Expanded(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Spacer(
+                    //   flex: 1,
+                    // ),
+                    Column(
+                      children: [
+                        FnButton(
+                          fn: '/',
+                          size: buttonSize,
+                          color: fnColor,
+                          onPressed: () {
+                            if (equal == true && userInput != '0') {
+                              userInput += '/';
+                              Provider.of<AccountData>(context, listen: false)
+                                  .userInputs('/');
+                              equal = false;
+                            }
+                            if (equal == false) {}
+                            if (userInput.endsWith('-') ||
+                                userInput.endsWith('/') ||
+                                userInput.endsWith('+') ||
+                                userInput.endsWith('x')) {
+                            } else if (userInput != '0') {
+                              Provider.of<AccountData>(context, listen: false)
+                                  .equalPressed();
+                              userInput += '/';
+                              Provider.of<AccountData>(context, listen: false)
+                                  .userInputs('/');
+                              equal = true;
+                            }
+                          },
+                        ),
+                        FnButton(
+                          // bug with enter in empty userinput
+                          fn: 'x',
+                          size: buttonSize,
+                          color: fnColor,
+                          onPressed: () {
+                            if (equal == false) {}
 
-                  if (equal == true && userInput != '0') {
-                    userInput += 'x';
-                    Provider.of<AccountData>(context, listen: false)
-                        .userInputs('x');
-                    equal = false;
-                    print('userInput != 0');
-                  }
+                            if (equal == true && userInput != '0') {
+                              userInput += 'x';
+                              Provider.of<AccountData>(context, listen: false)
+                                  .userInputs('x');
+                              equal = false;
+                            }
 
-                  if (userInput.endsWith('-') ||
-                      userInput.endsWith('/') ||
-                      userInput.endsWith('+') ||
-                      userInput.endsWith('x')) {
-                  } else if (userInput != '0') {
-                    Provider.of<AccountData>(context, listen: false)
-                        .equalPressed();
-                    userInput += 'x';
-                    Provider.of<AccountData>(context, listen: false)
-                        .userInputs('x');
-                    equal = true;
-                  }
-                },
-              ),
-              FnButton(
-                fn: '-',
-                size: buttonSize,
-                color: fnColor,
-                onPressed: () {
-                  if (equal == true && userInput != '0') {
-                    userInput += '-';
-                    Provider.of<AccountData>(context, listen: false)
-                        .userInputs('-');
-                    equal = false;
-                  }
-                  if (equal == false) {}
-                  if (userInput.endsWith('-') ||
-                      userInput.endsWith('/') ||
-                      userInput.endsWith('+') ||
-                      userInput.endsWith('x')) {
-                  } else if (userInput != '0') {
-                    Provider.of<AccountData>(context, listen: false)
-                        .equalPressed();
-                    userInput += '-';
-                    Provider.of<AccountData>(context, listen: false)
-                        .userInputs('-');
-                    equal = true;
-                  }
-                },
-              ),
-              FnButton(
-                fn: '+',
-                size: buttonSize,
-                color: fnColor,
-                onPressed: () {
-                  if (equal == true && userInput != '0') {
-                    userInput += '+';
-                    Provider.of<AccountData>(context, listen: false)
-                        .userInputs('+');
-                    equal = false;
-                  }
-                  if (equal == false) {}
-                  if (userInput.endsWith('-') ||
-                      userInput.endsWith('/') ||
-                      userInput.endsWith('+') ||
-                      userInput.endsWith('x')) {
-                  } else if (userInput != '0') {
-                    Provider.of<AccountData>(context, listen: false)
-                        .equalPressed();
-                    userInput += '+';
-                    Provider.of<AccountData>(context, listen: false)
-                        .userInputs('+');
-                    equal = true;
-                  }
-                },
-              ),
-            ],
+                            if (userInput.endsWith('-') ||
+                                userInput.endsWith('/') ||
+                                userInput.endsWith('+') ||
+                                userInput.endsWith('x')) {
+                            } else if (userInput != '0') {
+                              Provider.of<AccountData>(context, listen: false)
+                                  .equalPressed();
+                              userInput += 'x';
+                              Provider.of<AccountData>(context, listen: false)
+                                  .userInputs('x');
+                              equal = true;
+                            }
+                          },
+                        ),
+                        FnButton(
+                          fn: '-',
+                          size: buttonSize,
+                          color: fnColor,
+                          onPressed: () {
+                            if (equal == true && userInput != '0') {
+                              userInput += '-';
+                              Provider.of<AccountData>(context, listen: false)
+                                  .userInputs('-');
+                              equal = false;
+                            }
+                            if (equal == false) {}
+                            if (userInput.endsWith('-') ||
+                                userInput.endsWith('/') ||
+                                userInput.endsWith('+') ||
+                                userInput.endsWith('x')) {
+                            } else if (userInput != '0') {
+                              Provider.of<AccountData>(context, listen: false)
+                                  .equalPressed();
+                              userInput += '-';
+                              Provider.of<AccountData>(context, listen: false)
+                                  .userInputs('-');
+                              equal = true;
+                            }
+                          },
+                        ),
+                        FnButton(
+                          fn: '+',
+                          size: buttonSize,
+                          color: fnColor,
+                          onPressed: () {
+                            if (equal == true && userInput != '0') {
+                              userInput += '+';
+                              Provider.of<AccountData>(context, listen: false)
+                                  .userInputs('+');
+                              equal = false;
+                            }
+                            if (equal == false) {}
+                            if (userInput.endsWith('-') ||
+                                userInput.endsWith('/') ||
+                                userInput.endsWith('+') ||
+                                userInput.endsWith('x')) {
+                            } else if (userInput != '0') {
+                              Provider.of<AccountData>(context, listen: false)
+                                  .equalPressed();
+                              userInput += '+';
+                              Provider.of<AccountData>(context, listen: false)
+                                  .userInputs('+');
+                              equal = true;
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    // const SizedBox(height: 20),
+                    Column(
+                      children: [
+                        NumberButton(
+                          number: 7,
+                          size: buttonSize,
+                          color: buttonColor,
+                        ),
+                        NumberButton(
+                          number: 4,
+                          size: buttonSize,
+                          color: buttonColor,
+                        ),
+                        NumberButton(
+                          number: 1,
+                          size: buttonSize,
+                          color: buttonColor,
+                        ),
+                        FnButton(
+                          fn: '\$',
+                          size: buttonSize,
+                          color: buttonColor,
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        NumberButton(
+                          number: 8,
+                          size: buttonSize,
+                          color: buttonColor,
+                        ),
+                        NumberButton(
+                          number: 5,
+                          size: buttonSize,
+                          color: buttonColor,
+                        ),
+                        NumberButton(
+                          number: 2,
+                          size: buttonSize,
+                          color: buttonColor,
+                        ),
+                        NumberButton(
+                          number: 0,
+                          size: buttonSize,
+                          color: buttonColor,
+                        ),
+                      ],
+                    ),
+                    // const SizedBox(height: 20),
+                    Column(
+                      children: [
+                        NumberButton(
+                          number: 9,
+                          size: buttonSize,
+                          color: buttonColor,
+                        ),
+                        NumberButton(
+                          number: 6,
+                          size: buttonSize,
+                          color: buttonColor,
+                        ),
+                        NumberButton(
+                          number: 3,
+                          size: buttonSize,
+                          color: buttonColor,
+                        ),
+                        FnButton(
+                          onPressed: () {},
+                          fn: '',
+                          size: buttonSize,
+                          color: buttonColor,
+                        ),
+                      ],
+                    ),
+                    // SizedBox(
+                    //   width: 10,
+                    // ),
+                    Column(
+                      children: [
+                        DeleteButton(
+                          iconData: Icons.backspace_rounded,
+                          size: buttonSize,
+                          color: fnColor,
+                          sizeh: buttonSize,
+                          onPressed: () {
+                            Provider.of<AccountData>(context, listen: false)
+                                .userDeleteInputs(false);
+                          },
+                        ),
+                        DoneButton(
+                            sizeh: buttonSize,
+                            size: buttonSize,
+                            color: Colors.teal,
+                            onPressed: onSubmit),
+                      ],
+                    ),
+                    // Spacer(
+                    //   flex: 1,
+                    // ),
+                  ]),
+            ),
           ),
-          // const SizedBox(height: 20),
-          Column(
-            children: [
-              NumberButton(
-                number: 7,
-                size: buttonSize,
-                color: buttonColor,
-              ),
-              NumberButton(
-                number: 4,
-                size: buttonSize,
-                color: buttonColor,
-              ),
-              NumberButton(
-                number: 1,
-                size: buttonSize,
-                color: buttonColor,
-              ),
-              FnButton(
-                fn: '\$',
-                size: buttonSize,
-                color: buttonColor,
-                onPressed: () {},
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              NumberButton(
-                number: 8,
-                size: buttonSize,
-                color: buttonColor,
-              ),
-              NumberButton(
-                number: 5,
-                size: buttonSize,
-                color: buttonColor,
-              ),
-              NumberButton(
-                number: 2,
-                size: buttonSize,
-                color: buttonColor,
-              ),
-              NumberButton(
-                number: 0,
-                size: buttonSize,
-                color: buttonColor,
-              ),
-            ],
-          ),
-          // const SizedBox(height: 20),
-          Column(
-            children: [
-              NumberButton(
-                number: 9,
-                size: buttonSize,
-                color: buttonColor,
-              ),
-              NumberButton(
-                number: 6,
-                size: buttonSize,
-                color: buttonColor,
-              ),
-              NumberButton(
-                number: 3,
-                size: buttonSize,
-                color: buttonColor,
-              ),
-              FnButton(
-                onPressed: () {},
-                fn: '',
-                size: buttonSize,
-                color: buttonColor,
-              ),
-            ],
-          ),
-
-          Column(
-            children: [
-              DeleteButton(
-                iconData: Icons.backspace_rounded,
-                size: buttonSize,
-                color: fnColor,
-                sizeh: buttonSize - 5,
-                onPressed: () {
-                  Provider.of<AccountData>(context, listen: false)
-                      .userDeleteInputs(false);
-                },
-              ),
-              DoneButton(
-                  sizeh: buttonSize + 123,
-                  size: buttonSize,
-                  color: Colors.teal,
-                  onPressed: onSubmit)
-            ],
-          )
-        ])),
+        ),
       ],
     );
   }
@@ -290,8 +316,8 @@ class NumberButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: size,
-      height: size - 10,
+      width: size * 1.1,
+      height: size,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(backgroundColor: color),
         onPressed: () {
@@ -331,8 +357,8 @@ class FnButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: size,
-      height: size - 10,
+      width: size * 1.1,
+      height: size,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(backgroundColor: color),
         onPressed: onPressed,
@@ -356,10 +382,10 @@ class DoneButton extends StatelessWidget {
   final double sizeh;
   final Color color;
 
-  void Function()? onPressed;
+  final void Function()? onPressed;
   final IconData iconData;
 
-  DoneButton({
+  const DoneButton({
     Key? key,
     required this.size,
     required this.color,
@@ -371,8 +397,8 @@ class DoneButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: size,
-      height: sizeh,
+      width: size * 1.1,
+      height: sizeh * 3,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(backgroundColor: color),
         onPressed: onPressed,
@@ -382,7 +408,7 @@ class DoneButton extends StatelessWidget {
                   iconData,
                   color: Colors.white,
                 )
-              : Text(
+              : const Text(
                   '=',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
@@ -397,10 +423,10 @@ class DeleteButton extends StatelessWidget {
   final double sizeh;
   final Color color;
 
-  void Function()? onPressed;
+  final void Function()? onPressed;
   final IconData iconData;
 
-  DeleteButton({
+  const DeleteButton({
     Key? key,
     required this.size,
     required this.color,
@@ -412,7 +438,7 @@ class DeleteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: size,
+      width: size * 1.1,
       height: sizeh,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(backgroundColor: color),

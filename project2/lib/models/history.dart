@@ -7,9 +7,9 @@ class Record {
   int dateTime;
   String id;
   String color = colorr.value.toString();
-  String icon = icondataa!.codePoint.toString();
+  String icon = icondataa.codePoint.toString();
   String subName;
-  String icon2 = icondataa!.codePoint.toString();
+  String icon2 = icondataa.codePoint.toString();
   Record({
     required this.name,
     required this.amount,

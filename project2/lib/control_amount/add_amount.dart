@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:project2/models/account_data.dart';
@@ -11,11 +10,9 @@ import 'package:project2/widgets/num_pad2.dart';
 import '../widgets/container_for_numpad.dart';
 
 class AddAmount extends StatelessWidget {
-  final TextEditingController _myController = TextEditingController();
-
   final int index1;
   final int index2;
-  AddAmount({Key? key, required this.index1, required this.index2})
+  const AddAmount({Key? key, required this.index1, required this.index2})
       : super(key: key);
 
   @override

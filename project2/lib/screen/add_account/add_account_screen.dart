@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:project2/widgets/num_pad2.dart';
 
 import 'package:provider/provider.dart';
@@ -23,7 +23,6 @@ class AddAccountScreen extends StatefulWidget {
 }
 
 class _AddAccountScreenState extends State<AddAccountScreen> {
-  final TextEditingController _myController = TextEditingController();
   String name = 'without name';
 
   int money = 0;

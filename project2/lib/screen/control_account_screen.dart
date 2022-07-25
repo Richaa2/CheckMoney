@@ -1,27 +1,43 @@
 import 'package:flutter/material.dart';
 
 import 'package:project2/control_amount/edit_amount.dart';
-
 import 'package:project2/models/account.dart';
 import 'package:project2/screen/expense/select_expense_screen.dart';
-
-import 'package:project2/screen/select_account_screen.dart';
 import 'package:project2/screen/income/select_income_screen.dart';
+import 'package:project2/screen/select_account_screen.dart';
 
 import '../widgets/buttons/ink_controll_button.dart';
 
 class ControlAccountScreen extends StatelessWidget {
-  const ControlAccountScreen({Key? key, required this.index}) : super(key: key);
+  ControlAccountScreen({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
   final int index;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 30),
+    var height;
+
+    var width;
+    Size size;
+    size = MediaQuery.of(context).size;
+    height = size.height;
+    width = size.width;
+    return SizedBox(
+      height: height / 5,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Spacer(
+            flex: 1,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Spacer(
+                flex: 4,
+              ),
               IconButton(
                 index: index,
                 color: Colors.green,
@@ -31,8 +47,8 @@ class ControlAccountScreen extends StatelessWidget {
                 ),
                 title: 'Recharge',
               ),
-              const SizedBox(
-                width: 10,
+              Spacer(
+                flex: 2,
               ),
               IconButton(
                 index: index,
@@ -43,8 +59,8 @@ class ControlAccountScreen extends StatelessWidget {
                 ),
                 title: 'Withdraw',
               ),
-              const SizedBox(
-                width: 10,
+              Spacer(
+                flex: 2,
               ),
               IconButton(
                 index: index,
@@ -55,8 +71,8 @@ class ControlAccountScreen extends StatelessWidget {
                 ),
                 title: 'Edit',
               ),
-              const SizedBox(
-                width: 10,
+              Spacer(
+                flex: 2,
               ),
               IconButton(
                 index: index,
@@ -67,7 +83,13 @@ class ControlAccountScreen extends StatelessWidget {
                 ),
                 title: 'Transfer',
               ),
+              Spacer(
+                flex: 4,
+              ),
             ],
+          ),
+          Spacer(
+            flex: 1,
           ),
         ],
       ),

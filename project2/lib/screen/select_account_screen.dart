@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:project2/models/account_data.dart';
+
 import 'package:project2/widgets/accounts_widgets/account_list_view2.dart';
 
 class SelectAccount extends StatelessWidget {
@@ -20,8 +19,8 @@ class SelectAccount extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
+              children: const [
+                Text(
                   'Accounts',
                   style: TextStyle(
                       color: Colors.grey,

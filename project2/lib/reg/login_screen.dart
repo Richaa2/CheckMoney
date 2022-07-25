@@ -1,17 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:project2/widgets/rounded_button.dart';
 import 'package:project2/utils.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = '/login';
+
+  const LoginScreen({Key? key}) : super(key: key);
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   final _auth = FirebaseAuth.instance;
   late String email;
   late String password;
@@ -20,14 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(_auth.currentUser != null
-                ? '${_auth.currentUser!.email}'
-                : '123'),
+            Text(
+                _auth.currentUser != null ? '${_auth.currentUser!.email}' : ''),
             Hero(
               tag: 'logo',
               child: Container(
@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 // child: Image.asset('images/logo.png'),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 48.0,
             ),
             TextField(
@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Enter your email')),
-            SizedBox(
+            const SizedBox(
               height: 8.0,
             ),
             TextField(
@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Enter your password')),
-            SizedBox(
+            const SizedBox(
               height: 24.0,
             ),
             RoundedButton(

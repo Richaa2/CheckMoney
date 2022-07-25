@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,8 +33,6 @@ class AccountsListView2 extends StatelessWidget {
         return ListView.separated(
           itemBuilder: (context, index2) {
             // accountsList.where((x) => x.name < index1);
-
-            final accountssMoney = accountData.accounts[index2].money;
 
             return AccountsListTile(
               account: filter[index2],

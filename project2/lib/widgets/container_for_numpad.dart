@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ContainerForNumPad extends StatelessWidget {
-  bool? rightOrLeft;
+  final bool? rightOrLeft;
   final String name;
   final String icon;
-  bool? editOrTransfer;
-  ContainerForNumPad({
+  final bool? editOrTransfer;
+  const ContainerForNumPad({
     Key? key,
     this.rightOrLeft,
     required this.name,

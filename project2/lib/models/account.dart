@@ -7,7 +7,7 @@ class Account {
   late String name;
   late int money;
   String colorValue = colorr.value.toString();
-  String icon = icondataa!.codePoint.toString();
+  String icon = icondataa.codePoint.toString();
   String id;
   int q = 1;
 
@@ -40,17 +40,6 @@ class Account {
       q: data?['q'],
       id: data?['id'],
     );
-  }
-
-  Map<String, dynamic> toFirestore() {
-    return {
-      if (name != null) "name": name,
-      if (money != null) "state": money,
-      if (colorValue != null) "color": colorValue,
-      if (icon != null) "icon": icon,
-      if (q != null) "q": q,
-      if (id != null) "id": id,
-    };
   }
 
   void pickIcon(IconData? iconn) {

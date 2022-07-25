@@ -30,7 +30,7 @@ class AccountData extends ChangeNotifier {
     }
     if (allOrNot == false && userInput != '') {
       userInput = userInput.substring(0, userInput.length - 1);
-      if (userInput.length == 0 || userInput == '') {
+      if (userInput.isEmpty || userInput == '') {
         userInput = '0';
       }
     }
@@ -55,7 +55,7 @@ class AccountData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void ClearLists() {
+  void clearLists() {
     accounts.clear();
     records.clear();
     incomes.clear();
@@ -94,7 +94,6 @@ class AccountData extends ChangeNotifier {
           .doc(id)
           .delete();
       incomes.removeAt(index);
-      print('Income');
     }
 
     if (expenses.length > 1 || inOrEx == false) {
@@ -105,7 +104,6 @@ class AccountData extends ChangeNotifier {
           .doc(id)
           .delete();
       expenses.removeAt(index);
-      print('Expense');
     }
   }
 
@@ -198,7 +196,6 @@ class AccountData extends ChangeNotifier {
       }
     }
 
-    print(sum);
     // sumUser.amount = sum;
 
     return sum;
@@ -602,7 +599,7 @@ class AccountData extends ChangeNotifier {
               isToday(DateTime.fromMillisecondsSinceEpoch(entry.dateTime)))
           .toList();
     } else if (index == 1) {
-      Duration week = Duration(days: 7);
+      Duration week = const Duration(days: 7);
       currentEntries = entries
           .where((entry) =>
               today
@@ -612,7 +609,7 @@ class AccountData extends ChangeNotifier {
               1)
           .toList();
     } else if (index == 2) {
-      Duration month = Duration(days: 30);
+      Duration month = const Duration(days: 30);
       currentEntries = entries
           .where((entry) =>
               today
@@ -622,7 +619,7 @@ class AccountData extends ChangeNotifier {
               1)
           .toList();
     } else if (index == 3) {
-      Duration year = Duration(days: 365);
+      Duration year = const Duration(days: 365);
       currentEntries = entries
           .where((entry) =>
               today

@@ -39,7 +39,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               padding: EdgeInsets.zero,
               children: [
                 DrawerHeader(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 65, 175, 133),
                   ),
                   child: Column(
@@ -94,7 +94,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   onTap: () => {
                     FirebaseAuth.instance.signOut(),
                     Provider.of<AccountData>(context, listen: false)
-                        .ClearLists(),
+                        .clearLists(),
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute<void>(
                           builder: (BuildContext context) =>

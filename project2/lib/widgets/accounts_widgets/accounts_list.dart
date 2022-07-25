@@ -105,6 +105,13 @@ class AccountsListView extends StatelessWidget {
                   }
                   return Consumer<AccountData>(
                       builder: ((context, accountData, child) {
+                    var height;
+
+                    var width;
+                    Size size;
+                    size = MediaQuery.of(context).size;
+                    height = size.height;
+                    width = size.width;
                     if (accounts.length == accountsList.length) {
                       return ListView.separated(
                         itemBuilder: (context, index) {
@@ -195,13 +202,15 @@ class AccountsListView extends StatelessWidget {
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) =>
-                            const Divider(
+                            Divider(
+                          thickness: 2,
+                          indent: width / 5,
                           height: 5,
                         ),
                         itemCount: accountData.accounts.length,
                       );
                     }
-                    return Text('Error');
+                    return const Text('Error');
                   }));
                 }
                 if (snapshot.hasError) {
@@ -209,7 +218,7 @@ class AccountsListView extends StatelessWidget {
                   //! do any error handling here
                 }
 
-                return Center(child: Text('NoNO'));
+                return const Center(child: Text(''));
               });
         });
   }
