@@ -209,7 +209,7 @@ class AccountsListView extends StatelessWidget {
                   //! do any error handling here
                 }
 
-                return const Center(child: Text('NoNO'));
+                return const Center(child: Text(''));
               });
         });
   }

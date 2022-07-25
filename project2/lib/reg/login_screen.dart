@@ -65,8 +65,11 @@ class LoginScreenState extends State<LoginScreen> {
               nameOfButton: 'Log In',
               onPress: () async {
                 try {
-                  await _auth.signInWithEmailAndPassword(
+                  final existUser = await _auth.signInWithEmailAndPassword(
                       email: email, password: password);
+                  if (existUser != null) {
+                    Navigator.pushNamed(context, '/');
+                  }
                 } catch (e) {
                   print(e);
                 }

@@ -11,8 +11,15 @@ class _DialogWidgetState extends State<DialogWidget> {
   SingingAccount? _account;
   @override
   Widget build(BuildContext context) {
+    var height;
+    var width;
+    Size size;
+    size = MediaQuery.of(context).size;
+    height = size.height;
+    width = size.width;
     return AlertDialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 70, vertical: 260),
+      insetPadding:
+          EdgeInsets.symmetric(horizontal: width / 5, vertical: height / 3.3),
       title: const Text('What create'),
       content: Column(
         children: [
