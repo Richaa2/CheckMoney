@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'package:project2/screen/account_screen.dart';
 import 'package:project2/screen/history_screen.dart';
@@ -21,6 +22,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final _auth = FirebaseAuth.instance;
   User? loggedInUser = FirebaseAuth.instance.currentUser;
+  PersistentTabController _controller =
+      PersistentTabController(initialIndex: 0);
 
   void getCurrentUser() async {
     try {
@@ -63,6 +66,43 @@ class _MainPageState extends State<MainPage> {
               print('suka');
             }
             return Scaffold(
+              body: PersistentTabView(
+                context,
+                backgroundColor: Colors.black.withOpacity(0.0),
+                controller: _controller,
+                screens: _screens,
+                items: [
+                  PersistentBottomNavBarItem(
+                      icon: Icon(Icons.credit_card),
+                      title: 'Accounts',
+                      inactiveColorPrimary: Colors.grey,
+                      activeColorPrimary: Colors.teal),
+                  PersistentBottomNavBarItem(
+                      icon: Icon(Icons.receipt),
+                      title: 'History',
+                      inactiveColorPrimary: Colors.grey,
+                      activeColorPrimary: Colors.teal),
+                ],
+                confineInSafeArea: true,
+                decoration: NavBarDecoration(
+                  // borderRadius: BorderRadius.circular(10.0),
+                  colorBehindNavBar: Colors.blueGrey.withOpacity(0.1),
+                ),
+                popAllScreensOnTapOfSelectedTab: true,
+                popActionScreens: PopActionScreensType.all,
+                itemAnimationProperties: ItemAnimationProperties(
+                  // Navigation Bar's items animation properties.
+                  duration: Duration(milliseconds: 200),
+                  curve: Curves.ease,
+                ),
+                screenTransitionAnimation: ScreenTransitionAnimation(
+                  // Screen transition animation on change of selected tab.
+                  animateTabTransition: true,
+                  curve: Curves.ease,
+                  duration: Duration(milliseconds: 200),
+                ),
+                navBarStyle: NavBarStyle.style1,
+              ),
               drawer: const DrawerWidget(),
               appBar: AppBar(
                   title: Column(
@@ -97,22 +137,6 @@ class _MainPageState extends State<MainPage> {
                       },
                     ),
                   ]),
-              body: _screens.elementAt(_selectedIndex),
-              bottomNavigationBar: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                items: const [
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.credit_card),
-                      label: 'Accounts',
-                      backgroundColor: Colors.white),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.receipt),
-                      label: 'History',
-                      backgroundColor: Colors.white),
-                ],
-                currentIndex: _selectedIndex,
-                onTap: _onItemTapped,
-              ),
             );
           });
     }
