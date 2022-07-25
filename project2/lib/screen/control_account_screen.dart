@@ -15,11 +15,11 @@ class ControlAccountScreen extends StatelessWidget {
   }) : super(key: key);
   final int index;
 
-  var height;
-
-  var width;
   @override
   Widget build(BuildContext context) {
+    var height;
+
+    var width;
     Size size;
     size = MediaQuery.of(context).size;
     height = size.height;
