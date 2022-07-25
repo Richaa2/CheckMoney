@@ -12,11 +12,9 @@ import '../models/history.dart';
 import '../widgets/container_for_numpad.dart';
 
 class MinAmount extends StatelessWidget {
-  final TextEditingController _myController = TextEditingController();
-
   final int index1;
   final int index2;
-  MinAmount({
+  const MinAmount({
     Key? key,
     required this.index1,
     required this.index2,

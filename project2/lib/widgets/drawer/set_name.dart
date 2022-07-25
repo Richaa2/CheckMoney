@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project2/models/account_data.dart';
-import 'package:provider/provider.dart';
 
 class SetName extends StatelessWidget {
-  void Function(String)? onChanged;
-  void Function()? onPressed;
-  SetName({
+  final void Function(String)? onChanged;
+  final void Function()? onPressed;
+  const SetName({
     Key? key,
     this.onChanged,
     this.onPressed,
@@ -13,7 +11,6 @@ class SetName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late String name;
     return SingleChildScrollView(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -34,14 +31,14 @@ class SetName extends StatelessWidget {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text(
+                    child: const Text(
                       'CANCEL',
                       style: TextStyle(color: Colors.grey),
                     ),
                   ),
                   TextButton(
                     onPressed: onPressed,
-                    child: Text('CHANGE'),
+                    child: const Text('CHANGE'),
                   ),
                 ],
               )

@@ -12,7 +12,7 @@ import '../widgets/num_pad2.dart';
 class TransferAmount extends StatelessWidget {
   final int index1;
   final int index2;
-  TransferAmount({
+  const TransferAmount({
     Key? key,
     required this.index1,
     required this.index2,

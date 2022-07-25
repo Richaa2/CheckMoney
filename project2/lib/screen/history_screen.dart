@@ -1,14 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../models/account_data.dart';
-import '../models/history.dart';
 import '../widgets/records_widgets/records_listview.dart';
 
-Color _color = Colors.transparent;
-Color _selectedColor = Colors.white;
+Color color = Colors.transparent;
+Color selectedColor = Colors.white;
 int currentIndex = 0;
 
 class HistoryScreen extends StatefulWidget {

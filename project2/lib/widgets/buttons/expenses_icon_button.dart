@@ -11,7 +11,7 @@ class ExpensesIconButton extends StatelessWidget {
   final Expense expense;
   final void Function()? onLongPress;
 
-  ExpensesIconButton({
+  const ExpensesIconButton({
     Key? key,
     required this.index,
     this.onTap,

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/models/history.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +12,7 @@ InkWell recordCardInfo(Record record, BuildContext context,
           .removeRecord(snapshot, index, indexx);
     },
     child: ListTile(
-      tileColor: Color.fromARGB(26, 96, 125, 139),
+      tileColor: const Color.fromARGB(26, 96, 125, 139),
       trailing: Text(
         '\$${record.amount}',
         style: TextStyle(

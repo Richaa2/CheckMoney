@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:project2/reg/registration_screen.dart';
 import 'package:project2/widgets/rounded_button.dart';
 
@@ -18,28 +17,30 @@ class WelcomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text('Welcome'),
+          title: const Text('Welcome'),
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                const Text(
                   'Choose way',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 30),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 48,
                 ),
                 RoundedButton(
                   nameOfButton: 'Log in',
                   colorOfButton: Colors.lightBlueAccent,
                   onPress: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
                   },
                 ),
                 RoundedButton(
@@ -49,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RegistrationScreen()));
+                            builder: (context) => const RegistrationScreen()));
                   },
                 ),
               ]),

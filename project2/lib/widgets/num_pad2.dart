@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:project2/models/account_data.dart';
-import 'package:provider/provider.dart';
 
 bool equal = true;
 
@@ -19,9 +19,9 @@ class NumPad2 extends StatelessWidget {
     this.buttonSize = 80,
     this.buttonColor = const Color.fromARGB(0, 158, 158, 158),
     this.iconColor = Colors.amber,
-    required this.onSubmit,
     this.userInput = '',
     this.editNum = false,
+    required this.onSubmit,
   }) : super(key: key);
 
   @override
@@ -39,28 +39,27 @@ class NumPad2 extends StatelessWidget {
       equal = true;
     }
 
-    Color? fnColor = Color.fromARGB(255, 66, 66, 66);
+    Color? fnColor = const Color.fromARGB(255, 66, 66, 66);
     return Column(
       children: [
         Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             alignment: Alignment.centerRight,
             child: Center(
               child: userInput.isEmpty
-                  ? Text(
+                  ? const Text(
                       '\$ 0',
                       style: TextStyle(fontSize: 30, color: Colors.teal),
                     )
                   : Text(
                       '\$ $userInput',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 30,
                         color: Colors.teal,
                       ),
                     ),
             )),
-        Container(
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Column(
             children: [
               FnButton(
@@ -102,7 +101,6 @@ class NumPad2 extends StatelessWidget {
                     Provider.of<AccountData>(context, listen: false)
                         .userInputs('x');
                     equal = false;
-                    print('userInput != 0');
                   }
 
                   if (userInput.endsWith('-') ||
@@ -269,7 +267,7 @@ class NumPad2 extends StatelessWidget {
                   onPressed: onSubmit)
             ],
           )
-        ])),
+        ]),
       ],
     );
   }
@@ -356,10 +354,10 @@ class DoneButton extends StatelessWidget {
   final double sizeh;
   final Color color;
 
-  void Function()? onPressed;
+  final void Function()? onPressed;
   final IconData iconData;
 
-  DoneButton({
+  const DoneButton({
     Key? key,
     required this.size,
     required this.color,
@@ -382,7 +380,7 @@ class DoneButton extends StatelessWidget {
                   iconData,
                   color: Colors.white,
                 )
-              : Text(
+              : const Text(
                   '=',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
@@ -397,10 +395,10 @@ class DeleteButton extends StatelessWidget {
   final double sizeh;
   final Color color;
 
-  void Function()? onPressed;
+  final void Function()? onPressed;
   final IconData iconData;
 
-  DeleteButton({
+  const DeleteButton({
     Key? key,
     required this.size,
     required this.color,

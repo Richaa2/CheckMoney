@@ -1,16 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:project2/reg/login_screen.dart';
 
 import 'package:project2/models/account_data.dart';
-import 'package:project2/screen/account_screen.dart';
 
 import 'package:project2/screen/add_account/add_account_screen.dart';
 import 'package:project2/screen/add_ex_in/add_expense.dart';
 import 'package:project2/screen/add_ex_in/add_income.dart';
-import 'package:project2/screen/history_screen.dart';
+
 import 'package:project2/reg/welcome_screen.dart';
 
 import 'package:provider/provider.dart';
@@ -20,7 +17,7 @@ import 'screen/main_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -42,11 +39,12 @@ class _MyAppState extends State<MyApp> {
           // Provider.of<AccountData>(context, listen: false).ClearLists();
 
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             initialRoute:
                 FirebaseAuth.instance.currentUser == null ? '/m' : '/',
             routes: {
-              '/m': (context) => WelcomeScreen(),
-              '/': (context) => MainPage(),
+              '/m': (context) => const WelcomeScreen(),
+              '/': (context) => const MainPage(),
               '/addAcc': ((context) => const AddAccountScreen()),
               '/addExp': ((context) => const AddExpenseScreen()),
               '/addInc': ((context) => const AddIncomeScreen()),

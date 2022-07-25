@@ -201,7 +201,7 @@ class AccountsListView extends StatelessWidget {
                         itemCount: accountData.accounts.length,
                       );
                     }
-                    return Text('Error');
+                    return const Text('Error');
                   }));
                 }
                 if (snapshot.hasError) {
@@ -209,7 +209,7 @@ class AccountsListView extends StatelessWidget {
                   //! do any error handling here
                 }
 
-                return Center(child: Text('NoNO'));
+                return const Center(child: Text('NoNO'));
               });
         });
   }

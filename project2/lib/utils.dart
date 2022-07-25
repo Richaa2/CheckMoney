@@ -31,7 +31,7 @@ class Utils {
 }
 
 const Color colorr = Colors.green;
-const IconData? icondataa = IconData(0xe737, fontFamily: 'MaterialIcons');
+const IconData icondataa = IconData(0xe737, fontFamily: 'MaterialIcons');
 
 const kSendButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,

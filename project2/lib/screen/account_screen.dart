@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project2/widgets/accounts_widgets/accounts_list.dart';
 
 class AccountScreen extends StatelessWidget {
-  AccountScreen({
+  const AccountScreen({
     Key? key,
   }) : super(key: key);
 

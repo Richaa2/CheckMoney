@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-
 import '../utils.dart';
 
 class Income {
   String color = colorr.value.toString();
-  String icon = icondataa!.codePoint.toString();
+  String icon = icondataa.codePoint.toString();
   String name;
   num amount;
   int dateTime = DateTime.now().millisecondsSinceEpoch;

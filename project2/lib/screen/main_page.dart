@@ -3,17 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
-import 'package:project2/models/account_data.dart';
 import 'package:project2/screen/account_screen.dart';
 import 'package:project2/screen/history_screen.dart';
-
-import 'package:provider/provider.dart';
 
 import '../widgets/dialog_widget.dart';
 import '../widgets/drawer/drawer.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({
+  const MainPage({
     Key? key,
   }) : super(key: key);
 
@@ -27,11 +24,9 @@ class _MainPageState extends State<MainPage> {
 
   void getCurrentUser() async {
     try {
-      final user = await _auth.currentUser;
+      final user = _auth.currentUser;
       if (user != null) {
         loggedInUser = user;
-
-        print(loggedInUser!.email);
       }
     } catch (e) {
       print(e);
@@ -41,8 +36,8 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    AccountScreen(),
-    HistoryScreen(),
+    const AccountScreen(),
+    const HistoryScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -54,8 +49,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     if (loggedInUser != null) {
-      print(Provider.of<AccountData>(context).sumUser.name);
-
       return StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('users')
@@ -74,7 +67,7 @@ class _MainPageState extends State<MainPage> {
               appBar: AppBar(
                   title: Column(
                     children: [
-                      Text(
+                      const Text(
                         'All account ',
                         style: TextStyle(fontSize: 15),
                       ),
