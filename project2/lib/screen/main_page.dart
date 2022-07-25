@@ -92,8 +92,8 @@ class _MainPageState extends State<MainPage> {
                 ],
                 confineInSafeArea: true,
                 decoration: NavBarDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  colorBehindNavBar: Colors.grey.withOpacity(0.1),
+                  // borderRadius: BorderRadius.circular(10.0),
+                  colorBehindNavBar: Colors.blueGrey.withOpacity(0.1),
                 ),
                 popAllScreensOnTapOfSelectedTab: true,
                 popActionScreens: PopActionScreensType.all,
