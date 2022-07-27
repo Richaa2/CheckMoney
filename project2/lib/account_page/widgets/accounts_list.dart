@@ -6,11 +6,10 @@ import 'package:project2/models/account.dart';
 
 import 'package:project2/models/account_data.dart';
 
-import 'package:project2/screen/control_account_screen.dart';
-
 import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 import 'package:provider/provider.dart';
 
+import '../../control_amount/control_account_screen.dart';
 import 'accounts_tile.dart';
 
 class AccountsListView extends StatelessWidget {
@@ -105,13 +104,13 @@ class AccountsListView extends StatelessWidget {
                   }
                   return Consumer<AccountData>(
                       builder: ((context, accountData, child) {
-                    var height;
+                    // var height;
 
-                    var width;
+                    // var width;
                     Size size;
                     size = MediaQuery.of(context).size;
-                    height = size.height;
-                    width = size.width;
+                    var height = size.height;
+                    var width = size.width;
                     if (accounts.length == accountsList.length) {
                       return ListView.separated(
                         itemBuilder: (context, index) {

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'package:project2/widgets/income_grid_view.dart';
+import 'widgets/account_list_view2.dart';
 
-class SelectIncome extends StatelessWidget {
+class SelectAccount extends StatelessWidget {
   final int index1;
-  const SelectIncome({
+  const SelectAccount({
     Key? key,
     required this.index1,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // var sum = Provider.of<AccountData>(context).sumOfAccounts();
     return SizedBox(
       height: 500,
       child: Padding(
@@ -20,19 +21,26 @@ class SelectIncome extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
                 Text(
-                  'Incomes',
+                  'Accounts',
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 20,
                       fontWeight: FontWeight.w700),
                 ),
+                // Text(
+                //   '$sum ',
+                //   style: const TextStyle(
+                //       color: Colors.green,
+                //       fontSize: 20,
+                //       fontWeight: FontWeight.w500),
+                // ),
               ],
             ),
             const SizedBox(
               height: 5,
             ),
             Expanded(
-              child: IncomeGridView(
+              child: AccountsListView2(
                 index1: index1,
               ),
             ),

@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../models/account_data.dart';
 import '../models/history.dart';
-import '../widgets/container_for_numpad.dart';
-import '../widgets/num_pad2.dart';
+import 'container_for_numpad.dart';
+import 'num_pad.dart';
 
 class TransferAmount extends StatelessWidget {
   final int index1;

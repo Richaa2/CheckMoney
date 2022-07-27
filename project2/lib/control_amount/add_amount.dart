@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 
 import 'package:project2/models/account_data.dart';
 import 'package:project2/models/history.dart';
-import 'package:project2/widgets/num_pad2.dart';
+import 'package:project2/control_amount/num_pad.dart';
 
-import '../widgets/container_for_numpad.dart';
+import 'container_for_numpad.dart';
 
 class AddAmount extends StatelessWidget {
   final int index1;

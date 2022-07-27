@@ -5,11 +5,13 @@ class AppBarContent extends StatelessWidget {
   // String inputName = 'without name';
   // int inputMoney = 0;
   final Widget textField;
+  int acExIn;
 
-  const AppBarContent({
+  AppBarContent({
     Key? key,
     required this.done,
     required this.textField,
+    required this.acExIn,
   }) : super(key: key);
 
   @override
@@ -31,8 +33,12 @@ class AppBarContent extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-              const Text(
-                'New account',
+              Text(
+                acExIn == 1
+                    ? 'New account'
+                    : acExIn == 2
+                        ? 'New Expense'
+                        : 'New Income',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

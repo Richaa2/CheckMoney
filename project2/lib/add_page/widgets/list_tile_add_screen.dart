@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ListTileAccountAdd extends StatelessWidget {
+class ListTileAddScreen extends StatelessWidget {
   final String title;
   final String subtitle;
   final DropdownButton? trailing;
 
-  const ListTileAccountAdd({
+  const ListTileAddScreen({
     Key? key,
     required this.title,
     required this.subtitle,

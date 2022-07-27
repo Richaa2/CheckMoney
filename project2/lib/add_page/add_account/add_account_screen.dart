@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:project2/widgets/num_pad2.dart';
+import 'package:project2/control_amount/num_pad.dart';
 
 import 'package:provider/provider.dart';
 
@@ -9,7 +9,7 @@ import 'package:project2/models/account_data.dart';
 import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 
 import '../../widgets/accounts_widgets/app_bar_content.dart';
-import '../../widgets/accounts_widgets/list_tile_account_add.dart';
+import '../../widgets/list_tile_add_screen.dart';
 
 ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
   fixedSize: const Size.fromHeight(50),
@@ -82,6 +82,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
               decoration: const InputDecoration(
                   hintText: 'Name', focusColor: Colors.white),
             ),
+            acExIn: 1,
           ),
         ),
       ),
@@ -119,7 +120,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                     ),
                   ),
                 ),
-                ListTileAccountAdd(
+                ListTileAddScreen(
                   title: 'Type',
                   subtitle: 'Regular',
                   trailing: DropdownButton<Color>(
@@ -143,7 +144,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                 const Divider(
                   height: 2,
                 ),
-                ListTileAccountAdd(
+                ListTileAddScreen(
                   title: 'Account currency',
                   subtitle: 'Ukranian hryvnian - \$',
                   trailing: DropdownButton<IconData>(
@@ -168,7 +169,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                 const Divider(
                   height: 3,
                 ),
-                const ListTileAccountAdd(
+                const ListTileAddScreen(
                   title: 'Description',
                   subtitle: 'none',
                 ),

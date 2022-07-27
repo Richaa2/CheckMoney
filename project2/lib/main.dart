@@ -4,15 +4,12 @@ import 'package:flutter/material.dart';
 
 import 'package:project2/models/account_data.dart';
 
-import 'package:project2/screen/add_account/add_account_screen.dart';
-import 'package:project2/screen/add_ex_in/add_expense.dart';
-import 'package:project2/screen/add_ex_in/add_income.dart';
-
 import 'package:project2/reg/welcome_screen.dart';
 
 import 'package:provider/provider.dart';
 
-import 'screen/main_page.dart';
+import 'add_page/add_account/add_account_screen.dart';
+import 'main_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,9 +32,6 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider(
         create: (BuildContext context) => AccountData(),
         builder: (context, child) {
-          // FirebaseAuth.instance.signOut();
-          // Provider.of<AccountData>(context, listen: false).ClearLists();
-
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute:
@@ -46,29 +40,14 @@ class _MyAppState extends State<MyApp> {
               '/m': (context) => const WelcomeScreen(),
               '/': (context) => const MainPage(),
               '/addAcc': ((context) => const AddAccountScreen()),
-              '/addExp': ((context) => const AddExpenseScreen()),
-              '/addInc': ((context) => const AddIncomeScreen()),
+              // '/addExp': ((context) =>  AddExpenseScreen()),
+              // '/addInc': ((context) => const AddIncomeScreen()),
             },
             title: 'Project',
             theme: ThemeData(
               brightness: Brightness.dark,
             ),
           );
-        }
-
-        // child: MaterialApp(
-        //   initialRoute: '/',
-        //   routes: {
-        //     '/': (context) => const MainPage(),
-        //     '/addAcc': (context) => const AddAccountScreen(),
-        //     '/addExp': ((context) => const AddExpenseScreen()),
-        //     '/addInc': ((context) => const AddIncomeScreen()),
-        //   },
-        //   title: 'Project',
-        //   theme: ThemeData(
-        //     brightness: Brightness.dark,
-        //   ),
-        // ),
-        );
+        });
   }
 }

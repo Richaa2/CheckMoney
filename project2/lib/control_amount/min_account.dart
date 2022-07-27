@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:project2/widgets/num_pad2.dart';
+import 'package:project2/control_amount/num_pad.dart';
 
 import 'package:provider/provider.dart';
 
 import '../models/account_data.dart';
 import '../models/history.dart';
 
-import '../widgets/container_for_numpad.dart';
+import 'container_for_numpad.dart';
 
 class MinAmount extends StatelessWidget {
   final int index1;

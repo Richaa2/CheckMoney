@@ -16,6 +16,10 @@ class AccountsListView2 extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Size size;
+    size = MediaQuery.of(context).size;
+    var height = size.height;
+    var width = size.width;
     List<Account> accountsList =
         Provider.of<AccountData>(context, listen: false).accounts;
 
@@ -48,9 +52,10 @@ class AccountsListView2 extends StatelessWidget {
               },
             );
           },
-          separatorBuilder: (BuildContext context, int index) => const Divider(
-            color: Colors.white,
-            height: 3,
+          separatorBuilder: (BuildContext context, int index) => Divider(
+            thickness: 2,
+            indent: width / 5,
+            height: 5,
           ),
           itemCount: filter.length,
         );

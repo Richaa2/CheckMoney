@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project2/add_page/add_ex_in/add_expense_income.dart';
 
 class DialogWidget extends StatefulWidget {
   const DialogWidget({Key? key}) : super(key: key);
@@ -49,10 +50,21 @@ class _DialogWidgetState extends State<DialogWidget> {
               onChanged: (SingingAccount? value) {
                 setState(() {
                   if (value == _account) {
-                    Navigator.pushNamed(context, '/addExp');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddExpenseIncomeScreen(
+                                  isExpense: true,
+                                )));
                   } else {
                     _account = value;
-                    Navigator.pushNamed(context, '/addExp');
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddExpenseIncomeScreen(
+                                  isExpense: true,
+                                )));
                   }
                 });
               },
@@ -67,10 +79,20 @@ class _DialogWidgetState extends State<DialogWidget> {
               onChanged: (SingingAccount? value) {
                 setState(() {
                   if (value == _account) {
-                    Navigator.pushNamed(context, '/addInc');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddExpenseIncomeScreen(
+                                  isExpense: false,
+                                )));
                   } else {
                     _account = value;
-                    Navigator.pushNamed(context, '/addInc');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddExpenseIncomeScreen(
+                                  isExpense: false,
+                                )));
                   }
                 });
               },

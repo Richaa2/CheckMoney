@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:project2/account_page/gridview/income_grid_view.dart';
 
-import 'package:project2/widgets/accounts_widgets/account_list_view2.dart';
+import '../gridview/expense_grid_view.dart';
 
-class SelectAccount extends StatelessWidget {
+class SelectExpenseIncome extends StatelessWidget {
+  bool isExpense;
   final int index1;
-  const SelectAccount({
+  SelectExpenseIncome({
     Key? key,
+    this.isExpense = false,
     required this.index1,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // var sum = Provider.of<AccountData>(context).sumOfAccounts();
     return SizedBox(
       height: 500,
       child: Padding(
@@ -19,30 +21,25 @@ class SelectAccount extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
-                  'Accounts',
+                  isExpense ? 'Expenses' : 'Incomes',
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 20,
                       fontWeight: FontWeight.w700),
                 ),
-                // Text(
-                //   '$sum ',
-                //   style: const TextStyle(
-                //       color: Colors.green,
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.w500),
-                // ),
               ],
             ),
             const SizedBox(
               height: 5,
             ),
             Expanded(
-              child: AccountsListView2(
-                index1: index1,
-              ),
+              child: isExpense
+                  ? ExpenseGridView(
+                      index1: index1,
+                    )
+                  : IncomeGridView(index1: index1),
             ),
           ],
         ),

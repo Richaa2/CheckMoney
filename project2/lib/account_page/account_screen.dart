@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:project2/widgets/accounts_widgets/accounts_list.dart';
+import 'package:project2/account_page/widgets/accounts_list.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({

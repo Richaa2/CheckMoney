@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../widgets/records_widgets/records_listview.dart';
+import 'package:project2/history_page/records_widgets/records_listview.dart';
 
 Color color = Colors.transparent;
 Color selectedColor = Colors.white;
@@ -89,35 +88,3 @@ class RecordTabs extends StatelessWidget {
     );
   }
 }
-
-// class RecordTabs extends StatelessWidget {
-//   final int index;
-//   const RecordTabs({
-//     Key? key,
-//     required this.index,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamBuilder<QuerySnapshot>(
-//         stream: FirebaseFirestore.instance
-//             .collection('users')
-//             .doc(FirebaseAuth.instance.currentUser!.uid)
-//             .collection('record')
-//             .orderBy('dateTime')
-//             .snapshots(),
-//         builder: (context, snapshot) {
-//           return Expanded(
-//             child: Column(
-//               children: [
-//                 // Expanded(
-//                 //   child: RecordsListView(
-//                 //     indexx: index,
-//                 //   ),
-//                 // ),
-//               ],
-//             ),
-//           );
-//         });
-//   }
-// }

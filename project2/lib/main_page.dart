@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-import 'package:project2/screen/account_screen.dart';
-import 'package:project2/screen/history_screen.dart';
+import 'package:project2/history_page/history_screen.dart';
 
-import '../widgets/dialog_widget.dart';
-import '../widgets/drawer/drawer.dart';
+import 'account_page/account_screen.dart';
+import 'widgets/dialog_widget.dart';
+import 'widgets/drawer/drawer.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({

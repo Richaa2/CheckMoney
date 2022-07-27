@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:project2/models/expense.dart';
-
 import 'package:provider/provider.dart';
 
 import 'package:project2/models/account_data.dart';
+import 'package:project2/models/expense.dart';
 
+import '../../models/income.dart';
 import '../../widgets/accounts_widgets/app_bar_content.dart';
-import '../../widgets/accounts_widgets/list_tile_account_add.dart';
+import '../../widgets/list_tile_add_screen.dart';
 
-ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-  fixedSize: const Size.fromHeight(50),
-);
+// ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
+//   fixedSize: const Size.fromHeight(50),
+// );
 
-class AddExpenseScreen extends StatefulWidget {
-  const AddExpenseScreen({Key? key}) : super(key: key);
+class AddExpenseIncomeScreen extends StatefulWidget {
+  bool isExpense;
+  AddExpenseIncomeScreen({
+    Key? key,
+    this.isExpense = false,
+  }) : super(key: key);
 
   @override
-  State<AddExpenseScreen> createState() => _AddExpenseScreenState();
+  State<AddExpenseIncomeScreen> createState() => _AddExpenseIncomeScreenState();
 }
 
-class _AddExpenseScreenState extends State<AddExpenseScreen> {
+class _AddExpenseIncomeScreenState extends State<AddExpenseIncomeScreen> {
   String name = 'without name';
 
   int money = 0;
@@ -57,14 +61,26 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           decoration: BoxDecoration(color: valuee),
           child: AppBarContent(
             done: () {
-              Provider.of<AccountData>(context, listen: false).addExpense(
-                  Expense(
-                      name: name,
-                      color: valuee!.value.toString(),
-                      icon: iconValue!.codePoint.toString(),
-                      amount: money,
-                      dateTime: DateTime.now().millisecondsSinceEpoch,
-                      id: 'UK'));
+              if (widget.isExpense == true) {
+                Provider.of<AccountData>(context, listen: false).addExpense(
+                    Expense(
+                        name: name,
+                        color: valuee!.value.toString(),
+                        icon: iconValue!.codePoint.toString(),
+                        amount: money,
+                        dateTime: DateTime.now().millisecondsSinceEpoch,
+                        id: 'UK'));
+              } else {
+                Provider.of<AccountData>(context, listen: false).addIncome(
+                    Income(
+                        name: name,
+                        color: valuee!.value.toString(),
+                        icon: iconValue!.codePoint.toString(),
+                        amount: money,
+                        dateTime: DateTime.now().millisecondsSinceEpoch,
+                        id: 'UK'));
+              }
+
               Navigator.popAndPushNamed(context, '/');
             },
             textField: TextField(
@@ -74,6 +90,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               decoration: const InputDecoration(
                   hintText: 'Name', focusColor: Colors.white),
             ),
+            acExIn: widget.isExpense == true ? 2 : 3,
           ),
         ),
       ),
@@ -111,7 +128,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     ),
                   ),
                 ),
-                ListTileAccountAdd(
+                ListTileAddScreen(
                   title: 'Color',
                   subtitle: '',
                   trailing: DropdownButton<Color>(
@@ -135,7 +152,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 const Divider(
                   height: 2,
                 ),
-                ListTileAccountAdd(
+                ListTileAddScreen(
                   title: 'Icon',
                   subtitle: '',
                   trailing: DropdownButton<IconData>(

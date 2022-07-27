@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:project2/account_page/buttons/ink_controll_button.dart';
+import 'package:project2/account_page/select_account_screen.dart';
+import 'package:project2/account_page/select_ex_inc/select_expense_income_screen.dart';
 
 import 'package:project2/control_amount/edit_amount.dart';
 import 'package:project2/models/account.dart';
-import 'package:project2/screen/expense/select_expense_screen.dart';
-import 'package:project2/screen/income/select_income_screen.dart';
-import 'package:project2/screen/select_account_screen.dart';
-
-import '../widgets/buttons/ink_controll_button.dart';
 
 class ControlAccountScreen extends StatelessWidget {
   ControlAccountScreen({
@@ -17,13 +15,10 @@ class ControlAccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var height;
-
-    var width;
     Size size;
     size = MediaQuery.of(context).size;
-    height = size.height;
-    width = size.width;
+    var height = size.height;
+    var width = size.width;
     return SizedBox(
       height: height / 5,
       child: Column(
@@ -42,8 +37,9 @@ class ControlAccountScreen extends StatelessWidget {
                 index: index,
                 color: Colors.green,
                 icon: Icons.add,
-                screen: SelectIncome(
+                screen: SelectExpenseIncome(
                   index1: index,
+                  isExpense: false,
                 ),
                 title: 'Recharge',
               ),
@@ -54,8 +50,9 @@ class ControlAccountScreen extends StatelessWidget {
                 index: index,
                 color: Colors.red,
                 icon: Icons.remove,
-                screen: SelectExpense(
+                screen: SelectExpenseIncome(
                   index1: index,
+                  isExpense: true,
                 ),
                 title: 'Withdraw',
               ),
