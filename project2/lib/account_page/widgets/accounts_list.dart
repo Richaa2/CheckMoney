@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:project2/bloc/account_bloc.dart';
 import 'package:project2/bloc/account_event.dart';
 import 'package:project2/bloc/account_state.dart';
@@ -82,6 +83,12 @@ class AccountsListView extends StatelessWidget {
                       if (snapshot.hasData) {}
                       if (state is AccountEmptyState) {
                         accountBloc.add(AccountLoadEvent());
+                        return const Center(
+                          child: Text(
+                            'No data received. Please button "Load"',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        );
                       }
                       if (state is AccountLoadingState) {
                         return Center(
@@ -92,9 +99,8 @@ class AccountsListView extends StatelessWidget {
                           // &&
                           //     accounts.length == accountsList.length
                           ) {
-                        List<Account> accountsList = Provider.of<AccountData>(
-                          context,
-                        ).accounts;
+                        FlutterNativeSplash.remove();
+                        List<Account> accountsList = state.loadedAccount;
 
                         final accounts = snapshot.data!.docs;
                         final accountsLast = snapshot.data!.docs.last;
@@ -135,12 +141,6 @@ class AccountsListView extends StatelessWidget {
                         return ListView.separated(
                           itemBuilder: (context, index) {
                             accountData.updateIndex(index, snapshot);
-                            // final accountsName = accountData.accounts[index].name;
-                            // final accountssMoney = accountData.accounts[index].money;
-                            // final accountColor = accountData.accounts[index].colorValue;
-                            // final accountsIcon = accountData.accounts[index].icon;
-
-                            // AccountFirebase account = accountss[index];
 
                             if (index == 0) {
                               return Padding(
@@ -227,7 +227,7 @@ class AccountsListView extends StatelessWidget {
                             indent: width / 5,
                             height: 5,
                           ),
-                          itemCount: accountData.accounts.length,
+                          itemCount: state.loadedAccount.length,
                         );
                       }
                       if (state is AccountErrorState) {
