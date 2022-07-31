@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project2/bloc/account_bloc.dart';
+import 'package:project2/bloc/account_event.dart';
 
 import 'package:project2/models/account_data.dart';
 
@@ -32,20 +35,24 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider(
         create: (BuildContext context) => AccountData(),
         builder: (context, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            initialRoute:
-                FirebaseAuth.instance.currentUser == null ? '/m' : '/',
-            routes: {
-              '/m': (context) => const WelcomeScreen(),
-              '/': (context) => const MainPage(),
-              '/addAcc': ((context) => const AddAccountScreen()),
-              // '/addExp': ((context) =>  AddExpenseScreen()),
-              // '/addInc': ((context) => const AddIncomeScreen()),
-            },
-            title: 'Project',
-            theme: ThemeData(
-              brightness: Brightness.dark,
+          return BlocProvider(
+            create: (context) =>
+                AccountBloc(accountData: context.read<AccountData>()),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              initialRoute:
+                  FirebaseAuth.instance.currentUser == null ? '/m' : '/',
+              routes: {
+                '/m': (context) => const WelcomeScreen(),
+                '/': (context) => const MainPage(),
+                '/addAcc': ((context) => const AddAccountScreen()),
+                // '/addExp': ((context) =>  AddExpenseScreen()),
+                // '/addInc': ((context) => const AddIncomeScreen()),
+              },
+              title: 'Project',
+              theme: ThemeData(
+                brightness: Brightness.dark,
+              ),
             ),
           );
         });
