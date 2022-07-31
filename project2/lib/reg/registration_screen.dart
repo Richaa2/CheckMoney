@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
-import 'package:project2/widgets/rounded_button.dart';
+import 'package:project2/reg/button/rounded_button.dart';
 import 'package:project2/utils.dart';
 import 'package:provider/provider.dart';
 

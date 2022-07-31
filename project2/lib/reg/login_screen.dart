@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:project2/widgets/rounded_button.dart';
+import 'package:project2/reg/button/rounded_button.dart';
 import 'package:project2/utils.dart';
 
 class LoginScreen extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:project2/reg/registration_screen.dart';
-import 'package:project2/widgets/rounded_button.dart';
+import 'package:project2/reg/button/rounded_button.dart';
 
 import 'login_screen.dart';
 

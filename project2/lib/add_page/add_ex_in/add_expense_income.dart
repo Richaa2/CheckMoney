@@ -5,8 +5,8 @@ import 'package:project2/models/account_data.dart';
 import 'package:project2/models/expense.dart';
 
 import '../../models/income.dart';
-import '../../widgets/accounts_widgets/app_bar_content.dart';
-import '../../widgets/list_tile_add_screen.dart';
+import '../widgets/app_bar_content.dart';
+import '../widgets/list_tile_add_screen.dart';
 
 // ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
 //   fixedSize: const Size.fromHeight(50),
