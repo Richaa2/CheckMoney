@@ -80,7 +80,6 @@ class AccountsListView extends StatelessWidget {
                       final AccountBloc accountBloc =
                           context.read<AccountBloc>();
 
-                      if (snapshot.hasData) {}
                       if (state is AccountEmptyState) {
                         accountBloc.add(AccountLoadEvent());
                         return const Center(
@@ -95,6 +94,7 @@ class AccountsListView extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         );
                       }
+
                       if (state is AccountLoadedState && snapshot.hasData
                           // &&
                           //     accounts.length == accountsList.length
