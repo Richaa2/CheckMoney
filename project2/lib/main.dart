@@ -39,8 +39,9 @@ class _MyAppState extends State<MyApp> {
         create: (BuildContext context) => AccountData(),
         builder: (context, child) {
           return BlocProvider(
-            create: (context) =>
-                AccountBloc(accountData: context.read<AccountData>()),
+            create: (context) => AccountBloc(
+              accountData: context.read<AccountData>(),
+            ),
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               initialRoute:
