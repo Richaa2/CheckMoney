@@ -111,8 +111,8 @@ class AddAmount extends StatelessWidget {
                                               listen: false)
                                           .userInput ==
                                       '') {
-                                    Navigator.popUntil(
-                                        context, ModalRoute.withName('/'));
+                                    Navigator.pushReplacementNamed(
+                                        context, '/');
                                   } else {
                                     Provider.of<AccountData>(context,
                                             listen: false)
@@ -172,8 +172,10 @@ class AddAmount extends StatelessWidget {
                                               listen: false)
                                           .userDeleteInputs(true);
                                     }
-                                    Navigator.popUntil(
-                                        context, ModalRoute.withName('/'));
+                                    Navigator.pushReplacementNamed(
+                                        context, '/');
+                                    // Navigator.popUntil(
+                                    //     context, ModalRoute.withName('/'));
                                   }
                                 }
                               },

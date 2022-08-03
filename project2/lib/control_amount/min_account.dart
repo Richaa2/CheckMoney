@@ -97,7 +97,7 @@ class MinAmount extends StatelessWidget {
                         equal = true;
                       } else {
                         if (userInput == '') {
-                          Navigator.popUntil(context, ModalRoute.withName('/'));
+                          Navigator.pushReplacementNamed(context, '/');
                         } else {
                           Provider.of<AccountData>(context, listen: false)
                               .minAmountOnScreen(
@@ -140,7 +140,7 @@ class MinAmount extends StatelessWidget {
                             Provider.of<AccountData>(context, listen: false)
                                 .userDeleteInputs(true);
                           }
-                          Navigator.popUntil(context, ModalRoute.withName('/'));
+                          Navigator.pushReplacementNamed(context, '/');
                         }
                       }
                     },

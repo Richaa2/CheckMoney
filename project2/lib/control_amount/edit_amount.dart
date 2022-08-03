@@ -102,7 +102,7 @@ class EditAmount extends StatelessWidget {
                     equal = true;
                   } else {
                     if (user == '') {
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                      Navigator.pushReplacementNamed(context, '/');
                     } else {
                       Provider.of<AccountData>(context, listen: false)
                           .editAmountOnScreen(
@@ -117,7 +117,7 @@ class EditAmount extends StatelessWidget {
                         Provider.of<AccountData>(context, listen: false)
                             .userDeleteInputs(true);
                       }
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                      Navigator.pushReplacementNamed(context, '/');
                     }
                   }
                 },

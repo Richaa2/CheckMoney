@@ -91,7 +91,7 @@ class TransferAmount extends StatelessWidget {
                     if (Provider.of<AccountData>(context, listen: false)
                             .userInput ==
                         '') {
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                      Navigator.pushReplacementNamed(context, '/');
                     } else {
                       Provider.of<AccountData>(context, listen: false)
                           .transferAmountOnScreen(
@@ -139,7 +139,7 @@ class TransferAmount extends StatelessWidget {
                         Provider.of<AccountData>(context, listen: false)
                             .userDeleteInputs(true);
                       }
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                      Navigator.pushReplacementNamed(context, '/');
                     }
                   }
                 },
