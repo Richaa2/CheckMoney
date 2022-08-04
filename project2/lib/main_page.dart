@@ -51,6 +51,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.signOut();
     if (loggedInUser != null) {
       return StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance

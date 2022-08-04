@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:project2/bloc/account_bloc.dart';
-import 'package:project2/bloc/account_event.dart';
+import 'package:project2/firebase_options.dart';
 
 import 'package:project2/models/account_data.dart';
 
@@ -16,10 +18,15 @@ import 'add_page/add_account/add_account_screen.dart';
 import 'main_page.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    name: 'CheckMoney3',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -34,6 +41,11 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print(Firebase.apps.length);
+    print(Firebase.apps);
+    print(FirebaseFirestore.instanceFor(app: Firebase.app('CheckMoney3')));
+    print(FirebaseAuth.instance.app.options);
+    print(FirebaseAuth.instance.currentUser);
     // final FirestoreServices _db = FirestoreServices();
     return ChangeNotifierProvider(
         create: (BuildContext context) => AccountData(),

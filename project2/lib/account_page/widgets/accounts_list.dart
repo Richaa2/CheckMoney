@@ -46,7 +46,7 @@ class AccountsListView extends StatelessWidget {
                   .orderBy("q")
                   .snapshots(),
               builder: (context, snapshot) {
-                print('1');
+                print('12');
 
                 // if (accounts.isEmpty) {
                 //   Provider.of<AccountData>(context, listen: false)

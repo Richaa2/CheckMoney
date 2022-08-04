@@ -27,6 +27,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(FirebaseAuth.instance.currentUser);
     return Scaffold(
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,

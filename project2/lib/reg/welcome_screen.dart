@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:project2/reg/registration_screen.dart';
 import 'package:project2/reg/button/rounded_button.dart';
@@ -10,6 +12,8 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
+    print('hello');
     return WillPopScope(
       onWillPop: () async {
         return false;

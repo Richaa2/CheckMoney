@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "223857321944",
-    "project_id": "money-check-ad318",
-    "storage_bucket": "money-check-ad318.appspot.com"
+    "project_number": "754669779937",
+    "project_id": "moneycheck3-56298",
+    "storage_bucket": "moneycheck3-56298.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:223857321944:android:31c6ab265f3944ec87f4ad",
+        "mobilesdk_app_id": "1:754669779937:android:04f2c4fc1823748a8fb0a0",
         "android_client_info": {
           "package_name": "com.example.project2"
         }
       },
       "oauth_client": [
         {
-          "client_id": "223857321944-ig169s09iak7nhncch6mgs6ntcdjigg9.apps.googleusercontent.com",
+          "client_id": "754669779937-i30am50hk1f2g17lun8875ed20rj4hkr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyARmchYHWwOFN2xDsxwFdFd963fw8tvD74"
+          "current_key": "AIzaSyDQ4SubNR_cK1WRh_DDlnNgPvfwkRNmHJU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "223857321944-ig169s09iak7nhncch6mgs6ntcdjigg9.apps.googleusercontent.com",
+              "client_id": "754669779937-i30am50hk1f2g17lun8875ed20rj4hkr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
