@@ -1,16 +1,20 @@
-# project2
+# CheckMoney
 
-A new Flutter project.
+### Account screen and  Control Account
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+<img src="https://i.postimg.cc/tgqyxrWw/Screenshot-2.png" width = "250" > <img src= "https://i.postimg.cc/qRQG770W/2022-08-05-100542.png)" width = "250">
 
-A few resources to get you started if this is your first Flutter project:
+### Create Your Account and Expense/Income
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img src="https://i.postimg.cc/h4fypHng/2022-08-05-100753.png" width = "250"> <img src="https://i.postimg.cc/QtnWPKjN/2022-08-05-100701.png" width = "250">
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Choose Expense or Income
+<img src="https://i.postimg.cc/N0v87z4s/Screenshot-3.png" width = "250">  <img src="https://i.postimg.cc/3JZvpxqw/2022-08-05-101658.png" width = "250">
+
+## Transfer to other account
+<img src="https://i.postimg.cc/6pj4j1tJ/2022-08-05-102026.png" width = "250">
+
+## Calculate amount
+<img src="https://i.postimg.cc/CKZykdcT/Screenshot-1.png" width = "250">
