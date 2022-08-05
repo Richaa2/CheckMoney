@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:project2/main_page.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/expense.dart';
 import 'package:project2/models/income.dart';
@@ -63,9 +65,12 @@ class AccountData extends ChangeNotifier {
   }
 
   void addAccountFirebase(Account account) {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    FirebaseApp _secondaryApp = Firebase.app('CheckMoney3');
+    FirebaseFirestore _db = FirebaseFirestore.instanceFor(app: _secondaryApp);
+    FirebaseAuth.instanceFor(app: _secondaryApp);
+    String uid = FirebaseAuth.instanceFor(app: _secondaryApp).currentUser!.uid;
 
-    FirebaseFirestore.instance
+    FirebaseFirestore.instanceFor(app: _secondaryApp)
         .collection('users')
         .doc(uid)
         .collection('account')
@@ -83,41 +88,26 @@ class AccountData extends ChangeNotifier {
 
   void removeIncomeExpense(
       bool inOrEx, AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
     var id = snapshot.data!.docs[index].id;
 
     if (incomes.length > 1 || inOrEx == true) {
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('income')
-          .doc(id)
-          .delete();
+      db.collection('users').doc(uid).collection('income').doc(id).delete();
       incomes.removeAt(index);
     }
 
     if (expenses.length > 1 || inOrEx == false) {
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('expense')
-          .doc(id)
-          .delete();
+      db.collection('users').doc(uid).collection('expense').doc(id).delete();
       expenses.removeAt(index);
     }
   }
 
   void removeEx(AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
     var id = snapshot.data!.docs[index].id;
 
     if (expenses.length > 1) {
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('expense')
-          .doc(id)
-          .delete();
+      db.collection('users').doc(uid).collection('expense').doc(id).delete();
       expenses.removeAt(index);
     }
     if (expenses.length == 1) {}
@@ -125,16 +115,11 @@ class AccountData extends ChangeNotifier {
 
   void removeAccount(
       AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
     var id = snapshot.data!.docs[index].id;
 
     if (accounts.length > 1) {
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('account')
-          .doc(id)
-          .delete();
+      db.collection('users').doc(uid).collection('account').doc(id).delete();
       accounts.removeAt(index);
     }
     if (accounts.length == 1) {}
@@ -142,25 +127,15 @@ class AccountData extends ChangeNotifier {
 
   void removeRecord(
       AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index, int indexx) {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
     var id = snapshot.data!.docs[index].id;
 
     if (records.length > 1) {
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('record')
-          .doc(id)
-          .delete();
+      db.collection('users').doc(uid).collection('record').doc(id).delete();
       records.removeAt(index);
     }
     if (currentEntries(records, indexx).length == 1) {
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('record')
-          .doc(id)
-          .delete();
+      db.collection('users').doc(uid).collection('record').doc(id).delete();
 
       currentEntries(records, indexx).clear();
     }
@@ -204,13 +179,9 @@ class AccountData extends ChangeNotifier {
   void regUser(
     String email,
   ) {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('userInfo')
-        .add({
+    db.collection('users').doc(uid).collection('userInfo').add({
       "name": 'name',
       "sum": 0,
       "email": email,
@@ -224,19 +195,14 @@ class AccountData extends ChangeNotifier {
     AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
     q.UserInfo userInfo,
   ) {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
     userInfo.updateName(newName);
 
     var id = snapshot.data!.docs[0].id;
 
 // FirebaseFirestore.instance.collection('users').doc(uid).collection('userInfo').doc(id).se
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('userInfo')
-        .doc(id)
-        .update({
+    db.collection('users').doc(uid).collection('userInfo').doc(id).update({
       'name': userInfo.name,
     });
 
@@ -247,10 +213,10 @@ class AccountData extends ChangeNotifier {
     int index,
     AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
   ) {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
 
     var id = snapshot.data!.docs[index].id;
-    FirebaseFirestore.instance
+    db
         .collection('users')
         .doc(uid)
         .collection('account')
@@ -261,18 +227,13 @@ class AccountData extends ChangeNotifier {
   int? updateSum(
     AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
   ) {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
 
     int? suma = sumOfAccounts(snapshot);
 
     var id = snapshot.data!.docs[0].id;
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('userInfo')
-        .doc(id)
-        .update({
+    db.collection('users').doc(uid).collection('userInfo').doc(id).update({
       'sum': suma,
     });
 
@@ -310,7 +271,7 @@ class AccountData extends ChangeNotifier {
     // sumUser.plusSum(amount);
     Account accountMoney = accounts[index];
     Income income = incomes[index2];
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
     records.insert(0, record);
     record.action = 2;
     accountMoney.addAmount(amount);
@@ -336,17 +297,8 @@ class AccountData extends ChangeNotifier {
       'icon': income.icon,
       'id': income.id,
     };
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('account')
-        .doc(id)
-        .set(data);
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('record')
-        .add({
+    db.collection('users').doc(uid).collection('account').doc(id).set(data);
+    db.collection('users').doc(uid).collection('record').add({
       "name": record.name,
       "id": record.id,
       "amount": record.amount,
@@ -357,14 +309,14 @@ class AccountData extends ChangeNotifier {
       'subName': record.subName,
       'icon2': record.icon2
     });
-    FirebaseFirestore.instance
+    db
         .collection('users')
         .doc(uid)
         .collection('income')
         .doc(id2)
         .set(dataIncome);
 
-    FirebaseFirestore.instance
+    db
         .collection('users')
         .doc(uid)
         .collection('userInfo')
@@ -385,7 +337,7 @@ class AccountData extends ChangeNotifier {
     AsyncSnapshot<QuerySnapshot<Object?>> snapshot2,
   ) {
     Account accountMoney = accounts[index];
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
     accountMoney.minAmount(amount);
     records.insert(0, record);
     record.action = 1;
@@ -409,17 +361,8 @@ class AccountData extends ChangeNotifier {
       'icon': expense.icon,
       'id': expense.id,
     };
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('account')
-        .doc(id)
-        .set(data);
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('record')
-        .add({
+    db.collection('users').doc(uid).collection('account').doc(id).set(data);
+    db.collection('users').doc(uid).collection('record').add({
       "name": record.name,
       "id": record.id,
       "amount": record.amount,
@@ -431,7 +374,7 @@ class AccountData extends ChangeNotifier {
       'icon2': record.icon2
     });
 
-    FirebaseFirestore.instance
+    db
         .collection('users')
         .doc(uid)
         .collection('expense')
@@ -444,18 +387,13 @@ class AccountData extends ChangeNotifier {
   void editAmountOnScreen(int newAmount,
       AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
     Account accountMoney = accounts[index];
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
     accountMoney.editAmount(newAmount);
     var id = snapshot.data!.docs[index].id;
     final data = {
       'money': accountMoney.money,
     };
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('account')
-        .doc(id)
-        .update(data);
+    db.collection('users').doc(uid).collection('account').doc(id).update(data);
 
     notifyListeners();
   }
@@ -468,7 +406,7 @@ class AccountData extends ChangeNotifier {
       AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
       int index1,
       int index2) {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String uid = auth.currentUser!.uid;
     accountMoney1.transferAmount(accountMoney1, accountMoney2, amount);
     records.insert(0, record);
     record.action = 3;
@@ -490,24 +428,10 @@ class AccountData extends ChangeNotifier {
       'id': accountMoney2.id,
       'q': accountMoney2.q,
     };
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('account')
-        .doc(id1)
-        .set(data1);
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('account')
-        .doc(id2)
-        .set(data2);
+    db.collection('users').doc(uid).collection('account').doc(id1).set(data1);
+    db.collection('users').doc(uid).collection('account').doc(id2).set(data2);
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('record')
-        .add({
+    db.collection('users').doc(uid).collection('record').add({
       "name": record.name,
       "id": record.id,
       "amount": record.amount,
@@ -533,12 +457,8 @@ class AccountData extends ChangeNotifier {
   }
 
   void addExpense(Expense expense) {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection("expense")
-        .add({
+    String uid = auth.currentUser!.uid;
+    db.collection('users').doc(uid).collection("expense").add({
       "name": expense.name,
       "color": expense.color,
       "id": expense.id,
@@ -553,12 +473,8 @@ class AccountData extends ChangeNotifier {
   }
 
   void addIncome(Income income) {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection("income")
-        .add({
+    String uid = auth.currentUser!.uid;
+    db.collection('users').doc(uid).collection("income").add({
       "name": income.name,
       "color": income.color,
       "id": income.id,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project2/main_page.dart';
 import 'package:provider/provider.dart';
 
 import 'package:project2/models/account_data.dart';
@@ -18,23 +19,23 @@ class AddAmount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
+        stream: db
             .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .doc(auth.currentUser!.uid)
             .collection('userInfo')
             .snapshots(),
         builder: (context, snapshotInfo) {
           return StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
+              stream: db
                   .collection('users')
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .doc(auth.currentUser!.uid)
                   .collection('income')
                   .snapshots(),
               builder: (context, snapshot) {
                 return StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
+                    stream: db
                         .collection('users')
-                        .doc(FirebaseAuth.instance.currentUser!.uid)
+                        .doc(auth.currentUser!.uid)
                         .collection('account')
                         .orderBy("q")
                         .snapshots(),
@@ -174,8 +175,6 @@ class AddAmount extends StatelessWidget {
                                     }
                                     Navigator.pushReplacementNamed(
                                         context, '/');
-                                    // Navigator.popUntil(
-                                    //     context, ModalRoute.withName('/'));
                                   }
                                 }
                               },

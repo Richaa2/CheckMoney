@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project2/main_page.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/reg/welcome_screen.dart';
 import 'package:project2/widgets/drawer/set_name.dart';
@@ -21,9 +22,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     String name = 'name';
     String inputName = '';
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
+        stream: db
             .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .doc(auth.currentUser!.uid)
             .collection('userInfo')
             .snapshots(),
         builder: (context, snapshot) {
@@ -45,7 +46,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('${FirebaseAuth.instance.currentUser!.email}'),
+                      Text('${auth.currentUser!.email}'),
                       Text(name),
                     ],
                   ),
@@ -92,7 +93,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   leading: const Icon(Icons.exit_to_app),
                   title: const Text('Sign out'),
                   onTap: () => {
-                    FirebaseAuth.instance.signOut(),
+                    auth.signOut(),
                     Provider.of<AccountData>(context, listen: false)
                         .clearLists(),
                     Navigator.of(context).pushAndRemoveUntil(
