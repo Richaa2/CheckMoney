@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
@@ -10,6 +11,9 @@ import 'account_page/account_screen.dart';
 import 'widgets/dialog_widget.dart';
 import 'widgets/drawer/drawer.dart';
 
+FirebaseApp secondaryApp = Firebase.app('CheckMoney3');
+FirebaseFirestore db = FirebaseFirestore.instanceFor(app: secondaryApp);
+
 class MainPage extends StatefulWidget {
   const MainPage({
     Key? key,
@@ -19,15 +23,16 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
+final auth = FirebaseAuth.instanceFor(app: secondaryApp);
+
 class _MainPageState extends State<MainPage> {
-  final _auth = FirebaseAuth.instance;
-  User? loggedInUser = FirebaseAuth.instance.currentUser;
+  User? loggedInUser = FirebaseAuth.instanceFor(app: secondaryApp).currentUser;
   PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
 
   void getCurrentUser() async {
     try {
-      final user = _auth.currentUser;
+      final user = auth.currentUser;
       if (user != null) {
         loggedInUser = user;
       }
@@ -51,12 +56,12 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseAuth.instance.signOut();
+    // auth.signOut();
     if (loggedInUser != null) {
       return StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance
+          stream: db
               .collection('users')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .doc(auth.currentUser!.uid)
               .collection('userInfo')
               .snapshots(),
           builder: (context, snapshot) {

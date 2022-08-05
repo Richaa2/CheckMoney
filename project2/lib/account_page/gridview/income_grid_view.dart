@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/control_amount/add_amount.dart';
+import 'package:project2/main_page.dart';
 import 'package:project2/models/income.dart';
 import 'package:provider/provider.dart';
 
@@ -19,9 +20,9 @@ class IncomeGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
+        stream: db
             .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .doc(auth.currentUser!.uid)
             .collection('income')
             .orderBy("dateTime")
             .snapshots(),

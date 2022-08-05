@@ -41,10 +41,10 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print(Firebase.apps.length);
-    print(Firebase.apps);
-    print(FirebaseFirestore.instanceFor(app: Firebase.app('CheckMoney3')));
-    print(FirebaseAuth.instance.app.options);
+    // print(Firebase.apps.length);
+    // print(Firebase.apps);
+    // print(FirebaseFirestore.instanceFor(app: Firebase.app('CheckMoney3')));
+    // print(FirebaseAuth.instance.app.options);
     print(FirebaseAuth.instance.currentUser);
     // final FirestoreServices _db = FirestoreServices();
     return ChangeNotifierProvider(
@@ -57,7 +57,11 @@ class _MyAppState extends State<MyApp> {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               initialRoute:
-                  FirebaseAuth.instance.currentUser == null ? '/m' : '/',
+                  FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3'))
+                              .currentUser ==
+                          null
+                      ? '/m'
+                      : '/',
               routes: {
                 '/m': (context) => const WelcomeScreen(),
                 '/': (context) => const MainPage(),

@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 
+import '../../main_page.dart';
+
 class ExpenseGridView extends StatelessWidget {
   final int index1;
   const ExpenseGridView({
@@ -19,9 +21,9 @@ class ExpenseGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
+        stream: db
             .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .doc(auth.currentUser!.uid)
             .collection('expense')
             .orderBy("dateTime")
             .snapshots(),

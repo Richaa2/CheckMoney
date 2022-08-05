@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:project2/main_page.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/reg/button/rounded_button.dart';
@@ -18,7 +19,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class RegistrationScreenState extends State<RegistrationScreen> {
-  final _auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instanceFor(app: secondaryApp);
 
   bool showSpinner = false;
 

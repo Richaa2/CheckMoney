@@ -8,6 +8,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:project2/bloc/account_bloc.dart';
 import 'package:project2/bloc/account_event.dart';
 import 'package:project2/bloc/account_state.dart';
+import 'package:project2/main_page.dart';
 
 import 'package:project2/models/account.dart';
 
@@ -32,16 +33,16 @@ class AccountsListView extends StatelessWidget {
     // }
 
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
+        stream: db
             .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .doc(auth.currentUser!.uid)
             .collection('userInfo')
             .snapshots(),
         builder: (context, snapshotInfo) {
           return StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
+              stream: db
                   .collection('users')
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .doc(auth.currentUser!.uid)
                   .collection('account')
                   .orderBy("q")
                   .snapshots(),

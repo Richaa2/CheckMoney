@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project2/main_page.dart';
 
 import 'package:provider/provider.dart';
 
@@ -20,9 +21,9 @@ class TransferAmount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
+        stream: db
             .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .doc(auth.currentUser!.uid)
             .collection('account')
             .snapshots(),
         builder: (context, snapshot) {
@@ -91,7 +92,7 @@ class TransferAmount extends StatelessWidget {
                     if (Provider.of<AccountData>(context, listen: false)
                             .userInput ==
                         '') {
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                      Navigator.pushReplacementNamed(context, '/');
                     } else {
                       Provider.of<AccountData>(context, listen: false)
                           .transferAmountOnScreen(
@@ -139,7 +140,7 @@ class TransferAmount extends StatelessWidget {
                         Provider.of<AccountData>(context, listen: false)
                             .userDeleteInputs(true);
                       }
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                      Navigator.pushReplacementNamed(context, '/');
                     }
                   }
                 },

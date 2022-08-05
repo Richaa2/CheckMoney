@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:project2/main_page.dart';
 
 import 'package:project2/reg/button/rounded_button.dart';
 import 'package:project2/utils.dart';
@@ -13,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  final _auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instanceFor(app: secondaryApp);
   late String email;
   late String password;
 
