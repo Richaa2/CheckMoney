@@ -5,6 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:project2/auth/auth_repository.dart';
+import 'package:project2/auth/login/bloc/auth_bloc.dart';
 import 'package:project2/bloc/account_bloc.dart';
 import 'package:project2/firebase_options.dart';
 
@@ -47,34 +49,43 @@ class _MyAppState extends State<MyApp> {
     // print(FirebaseAuth.instance.app.options);
     print(FirebaseAuth.instance.currentUser);
     // final FirestoreServices _db = FirestoreServices();
-    return ChangeNotifierProvider(
-        create: (BuildContext context) => AccountData(),
-        builder: (context, child) {
-          return BlocProvider(
-            create: (context) => AccountBloc(
-              accountData: context.read<AccountData>(),
-            ),
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              initialRoute:
-                  FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3'))
-                              .currentUser ==
-                          null
-                      ? '/m'
-                      : '/',
-              routes: {
-                '/m': (context) => const WelcomeScreen(),
-                '/': (context) => const MainPage(),
-                '/addAcc': ((context) => const AddAccountScreen()),
-                // '/addExp': ((context) =>  AddExpenseScreen()),
-                // '/addInc': ((context) => const AddIncomeScreen()),
-              },
-              title: 'Project',
-              theme: ThemeData(
-                brightness: Brightness.dark,
-              ),
-            ),
-          );
-        });
+    return RepositoryProvider(
+      create: (context) => AuthRepository(),
+      child: BlocProvider(
+        create: (context) => AuthBloc(
+          authRepository: RepositoryProvider.of<AuthRepository>(context),
+        ),
+        child: ChangeNotifierProvider(
+            create: (BuildContext context) => AccountData(),
+            builder: (context, child) {
+              return BlocProvider(
+                create: (context) => AccountBloc(
+                  accountData: context.read<AccountData>(),
+                ),
+                child: MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  home: WelcomeScreen(),
+                  // initialRoute:
+                  //     FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3'))
+                  //                 .currentUser ==
+                  //             null
+                  //         ? '/m'
+                  //         : '/',
+                  // routes: {
+                  //   '/m': (context) => const WelcomeScreen(),
+                  //   '/': (context) => const MainPage(),
+                  //   '/addAcc': ((context) => const AddAccountScreen()),
+                  //   // '/addExp': ((context) =>  AddExpenseScreen()),
+                  //   // '/addInc': ((context) => const AddIncomeScreen()),
+                  // },
+                  title: 'Project',
+                  theme: ThemeData(
+                    brightness: Brightness.dark,
+                  ),
+                ),
+              );
+            }),
+      ),
+    );
   }
 }
