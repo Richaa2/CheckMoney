@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import 'package:project2/history_page/history_screen.dart';
+import 'package:project2/reg/welcome_screen.dart';
 
 import 'account_page/account_screen.dart';
 import 'widgets/dialog_widget.dart';
@@ -30,16 +31,16 @@ class _MainPageState extends State<MainPage> {
   PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
 
-  void getCurrentUser() async {
-    try {
-      final user = auth.currentUser;
-      if (user != null) {
-        loggedInUser = user;
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  // void getCurrentUser() async {
+  //   try {
+  //     final user  = auth.currentUser;
+  //     if (user != null) {
+  //       loggedInUser = user;
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   int _selectedIndex = 0;
 
@@ -57,20 +58,15 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     // auth.signOut();
+    if (loggedInUser == null) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+    }
     if (loggedInUser != null) {
-      // StreamBuilder<QuerySnapshot>(
-      //     stream: db
-      //         .collection('users')
-      //         .doc(auth.currentUser!.uid)
-      //         .collection('userInfo')
-      //         .snapshots(),
-      //     builder: (context, snapshot) {
-      var sum = 0;
+      print(loggedInUser!.email);
+      String uid = loggedInUser!.uid;
 
-      // if (snapshot.hasData) {
-      //   sum = snapshot.data!.docs.single['sum'];
-      //   print('suka');
-      // }
+      print('snapshot');
 
       return Scaffold(
         body: PersistentTabView(
@@ -112,20 +108,33 @@ class _MainPageState extends State<MainPage> {
         ),
         drawer: const DrawerWidget(),
         appBar: AppBar(
-            title: Column(
-              children: [
-                const Text(
-                  'All account ',
-                  style: TextStyle(fontSize: 15),
-                ),
-                Text(
-                  '\$$sum',
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                )
-              ],
-            ),
+            title: StreamBuilder<QuerySnapshot>(
+                stream: db
+                    .collection('users')
+                    .doc(uid)
+                    .collection('userInfo')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  var sum = 0;
+                  if (snapshot.hasData) {
+                    sum = snapshot.data!.docs.single['sum'];
+                    print('suka');
+                  }
+                  return Column(
+                    children: [
+                      const Text(
+                        'All account ',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      Text(
+                        '\$$sum',
+                        style: const TextStyle(
+                          fontSize: 20,
+                        ),
+                      )
+                    ],
+                  );
+                }),
             centerTitle: true,
             backgroundColor: Colors.blueGrey,
 
@@ -145,6 +154,7 @@ class _MainPageState extends State<MainPage> {
               ),
             ]),
       );
+      // });
     }
     return Container();
   }

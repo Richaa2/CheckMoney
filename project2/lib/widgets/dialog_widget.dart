@@ -19,6 +19,7 @@ class _DialogWidgetState extends State<DialogWidget> {
     height = size.height;
     width = size.width;
     return AlertDialog(
+      scrollable: true,
       insetPadding:
           EdgeInsets.symmetric(horizontal: width / 5, vertical: height / 3.3),
       title: const Text('What create'),

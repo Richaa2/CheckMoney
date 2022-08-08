@@ -5,9 +5,7 @@ import 'package:project2/main_page.dart';
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instanceFor(app: secondaryApp);
 
-  void regUser(
-    String email,
-  ) {
+  void regUser(String email) {
     String uid = FirebaseAuth.instanceFor(app: secondaryApp).currentUser!.uid;
 
     db.collection('users').doc(uid).collection('userInfo').add({
