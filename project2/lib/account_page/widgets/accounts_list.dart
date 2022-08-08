@@ -77,13 +77,14 @@ class AccountsListView extends StatelessWidget {
                       //   );
                       // }
                     })), builder: (context, state) {
+                      print(snapshot.data.toString() + '123123123');
                       log(state.toString());
                       final AccountBloc accountBloc =
                           context.read<AccountBloc>();
 
                       if (state is AccountEmptyState) {
                         FlutterNativeSplash.remove();
-                        // accountBloc.add(AccountLoadEvent());
+                        accountBloc.add(AccountLoadEvent());
                         return const Center(
                           child: Text(
                             'Account list is empty. Please create account ',
@@ -97,16 +98,18 @@ class AccountsListView extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         );
                       }
-                      // if (state is AccountLoadedState && !snapshot.hasData) {
-                      //   return const Center(
-                      //     child: Text(
-                      //       'Account list is empty. Please create account ',
-                      //       style: TextStyle(fontSize: 20),
-                      //     ),
-                      //   );
-                      // }
+                      if (state is AccountLoadedState && !snapshot.hasData) {
+                        return const Center(
+                          child: Text(
+                            'Account list is empty. Please create account ',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        );
+                      }
 
-                      if (state is AccountLoadedState && snapshot.hasData
+                      if (state is AccountLoadedState &&
+                              snapshot.hasData &&
+                              snapshot.data!.size > 0
                           // &&
                           //     accounts.length == accountsList.length
                           ) {
@@ -183,8 +186,7 @@ class AccountsListView extends StatelessWidget {
                                       height: 5,
                                     ),
                                     AccountsListTile(
-                                      onDismissible: snapshot.hasData ||
-                                              snapshot.data!.docs.length > 1
+                                      onDismissible: snapshot.hasData
                                           ? (direction) => accountData
                                               .removeAccount(snapshot, index)
                                           : null,
@@ -212,8 +214,7 @@ class AccountsListView extends StatelessWidget {
                               padding:
                                   const EdgeInsets.only(left: 15, right: 15),
                               child: AccountsListTile(
-                                onDismissible: snapshot.hasData ||
-                                        snapshot.data!.docs.length > 1
+                                onDismissible: snapshot.hasData
                                     ? (direction) => accountData.removeAccount(
                                           snapshot,
                                           index,
@@ -239,6 +240,13 @@ class AccountsListView extends StatelessWidget {
                             height: 5,
                           ),
                           itemCount: state.loadedAccount.length,
+                        );
+                      } else if (snapshot.data!.size == 0) {
+                        return const Center(
+                          child: Text(
+                            'Account list is empty. Please create account',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
                         );
                       }
                       if (state is AccountErrorState) {

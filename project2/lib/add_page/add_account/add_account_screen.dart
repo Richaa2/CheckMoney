@@ -69,9 +69,13 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                       id: 'f',
                       q: Provider.of<AccountData>(context, listen: false)
                               .accounts
-                              .last
-                              .q +
-                          1));
+                              .isNotEmpty
+                          ? Provider.of<AccountData>(context, listen: false)
+                                  .accounts
+                                  .last
+                                  .q +
+                              1
+                          : 1));
 
               Navigator.popAndPushNamed(context, '/');
             },
