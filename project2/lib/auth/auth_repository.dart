@@ -5,10 +5,25 @@ import 'package:project2/main_page.dart';
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instanceFor(app: secondaryApp);
 
+  void regUser(
+    String email,
+  ) {
+    String uid = FirebaseAuth.instanceFor(app: secondaryApp).currentUser!.uid;
+
+    db.collection('users').doc(uid).collection('userInfo').add({
+      "name": 'name',
+      "sum": 0,
+      "email": email,
+    });
+    print(email);
+  }
+
   Future<void> signUp({required String email, required String password}) async {
     try {
       await FirebaseAuth.instanceFor(app: secondaryApp)
           .createUserWithEmailAndPassword(email: email, password: password);
+
+      regUser(email);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw Exception('The password provided is too weak.');

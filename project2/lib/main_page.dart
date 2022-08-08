@@ -58,93 +58,93 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     // auth.signOut();
     if (loggedInUser != null) {
-      return StreamBuilder<QuerySnapshot>(
-          stream: db
-              .collection('users')
-              .doc(auth.currentUser!.uid)
-              .collection('userInfo')
-              .snapshots(),
-          builder: (context, snapshot) {
-            var sum = 0;
+      // StreamBuilder<QuerySnapshot>(
+      //     stream: db
+      //         .collection('users')
+      //         .doc(auth.currentUser!.uid)
+      //         .collection('userInfo')
+      //         .snapshots(),
+      //     builder: (context, snapshot) {
+      var sum = 0;
 
-            if (snapshot.hasData) {
-              sum = snapshot.data!.docs.single['sum'];
-              print('suka');
-            }
-            return Scaffold(
-              body: PersistentTabView(
-                context,
-                backgroundColor: Colors.black.withOpacity(0.0),
-                controller: _controller,
-                screens: _screens,
-                items: [
-                  PersistentBottomNavBarItem(
-                      icon: Icon(Icons.credit_card),
-                      title: 'Accounts',
-                      inactiveColorPrimary: Colors.grey,
-                      activeColorPrimary: Colors.teal),
-                  PersistentBottomNavBarItem(
-                      icon: Icon(Icons.receipt),
-                      title: 'History',
-                      inactiveColorPrimary: Colors.grey,
-                      activeColorPrimary: Colors.teal),
-                ],
-                confineInSafeArea: true,
-                decoration: NavBarDecoration(
-                  // borderRadius: BorderRadius.circular(10.0),
-                  colorBehindNavBar: Colors.blueGrey.withOpacity(0.1),
+      // if (snapshot.hasData) {
+      //   sum = snapshot.data!.docs.single['sum'];
+      //   print('suka');
+      // }
+
+      return Scaffold(
+        body: PersistentTabView(
+          context,
+          backgroundColor: Colors.black.withOpacity(0.0),
+          controller: _controller,
+          screens: _screens,
+          items: [
+            PersistentBottomNavBarItem(
+                icon: Icon(Icons.credit_card),
+                title: 'Accounts',
+                inactiveColorPrimary: Colors.grey,
+                activeColorPrimary: Colors.teal),
+            PersistentBottomNavBarItem(
+                icon: Icon(Icons.receipt),
+                title: 'History',
+                inactiveColorPrimary: Colors.grey,
+                activeColorPrimary: Colors.teal),
+          ],
+          confineInSafeArea: true,
+          decoration: NavBarDecoration(
+            // borderRadius: BorderRadius.circular(10.0),
+            colorBehindNavBar: Colors.blueGrey.withOpacity(0.1),
+          ),
+          popAllScreensOnTapOfSelectedTab: true,
+          popActionScreens: PopActionScreensType.all,
+          itemAnimationProperties: ItemAnimationProperties(
+            // Navigation Bar's items animation properties.
+            duration: Duration(milliseconds: 200),
+            curve: Curves.ease,
+          ),
+          screenTransitionAnimation: ScreenTransitionAnimation(
+            // Screen transition animation on change of selected tab.
+            animateTabTransition: true,
+            curve: Curves.ease,
+            duration: Duration(milliseconds: 200),
+          ),
+          navBarStyle: NavBarStyle.style1,
+        ),
+        drawer: const DrawerWidget(),
+        appBar: AppBar(
+            title: Column(
+              children: [
+                const Text(
+                  'All account ',
+                  style: TextStyle(fontSize: 15),
                 ),
-                popAllScreensOnTapOfSelectedTab: true,
-                popActionScreens: PopActionScreensType.all,
-                itemAnimationProperties: ItemAnimationProperties(
-                  // Navigation Bar's items animation properties.
-                  duration: Duration(milliseconds: 200),
-                  curve: Curves.ease,
-                ),
-                screenTransitionAnimation: ScreenTransitionAnimation(
-                  // Screen transition animation on change of selected tab.
-                  animateTabTransition: true,
-                  curve: Curves.ease,
-                  duration: Duration(milliseconds: 200),
-                ),
-                navBarStyle: NavBarStyle.style1,
-              ),
-              drawer: const DrawerWidget(),
-              appBar: AppBar(
-                  title: Column(
-                    children: [
-                      const Text(
-                        'All account ',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      Text(
-                        '\$$sum',
-                        style: const TextStyle(
-                          fontSize: 20,
-                        ),
-                      )
-                    ],
+                Text(
+                  '\$$sum',
+                  style: const TextStyle(
+                    fontSize: 20,
                   ),
-                  centerTitle: true,
-                  backgroundColor: Colors.blueGrey,
+                )
+              ],
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.blueGrey,
 
-                  // leading: IconButton(
-                  //   icon: Icon(Icons.menu),
-                  //   onPressed: () {},
-                  // ),
-                  actions: [
-                    IconButton(
-                      icon: const Icon(Icons.add),
-                      onPressed: () {
-                        // Navigator.pushNamed(context, '/addAcc');
-                        showDialog(
-                            context: context,
-                            builder: (context) => const DialogWidget());
-                      },
-                    ),
-                  ]),
-            );
-          });
+            // leading: IconButton(
+            //   icon: Icon(Icons.menu),
+            //   onPressed: () {},
+            // ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: () {
+                  // Navigator.pushNamed(context, '/addAcc');
+                  showDialog(
+                      context: context,
+                      builder: (context) => const DialogWidget());
+                },
+              ),
+            ]),
+      );
     }
     return Container();
   }

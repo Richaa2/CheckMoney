@@ -8,6 +8,7 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('suka');
     return Scaffold(
       body: Column(
         children: [

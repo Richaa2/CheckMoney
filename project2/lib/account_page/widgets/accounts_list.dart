@@ -69,7 +69,6 @@ class AccountsListView extends StatelessWidget {
 
                     return BlocConsumer<AccountBloc, AccountState>(
                         listener: (((context, state) {
-                      log(state.toString());
                       // if (state is AccountLoadedState) {
                       //   ScaffoldMessenger.of(context).showSnackBar(
                       //     const SnackBar(
@@ -78,23 +77,34 @@ class AccountsListView extends StatelessWidget {
                       //   );
                       // }
                     })), builder: (context, state) {
+                      log(state.toString());
                       final AccountBloc accountBloc =
                           context.read<AccountBloc>();
 
                       if (state is AccountEmptyState) {
-                        accountBloc.add(AccountLoadEvent());
+                        FlutterNativeSplash.remove();
+                        // accountBloc.add(AccountLoadEvent());
                         return const Center(
                           child: Text(
-                            'No data received. Please button "Load"',
+                            'Account list is empty. Please create account ',
                             style: TextStyle(fontSize: 20),
                           ),
                         );
                       }
+
                       if (state is AccountLoadingState) {
                         return Center(
                           child: CircularProgressIndicator(),
                         );
                       }
+                      // if (state is AccountLoadedState && !snapshot.hasData) {
+                      //   return const Center(
+                      //     child: Text(
+                      //       'Account list is empty. Please create account ',
+                      //       style: TextStyle(fontSize: 20),
+                      //     ),
+                      //   );
+                      // }
 
                       if (state is AccountLoadedState && snapshot.hasData
                           // &&

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,6 +9,7 @@ import 'package:project2/auth/login/bloc/auth_bloc.dart';
 import 'package:project2/main_page.dart';
 
 import 'package:project2/reg/button/rounded_button.dart';
+import 'package:project2/reg/registration_screen.dart';
 import 'package:project2/utils.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -30,8 +33,8 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   final _auth = FirebaseAuth.instanceFor(app: secondaryApp);
-  late String email;
-  late String password;
+  // late String email;
+  // late String password;
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +71,6 @@ class LoginScreenState extends State<LoginScreen> {
                   Text(_auth.currentUser != null
                       ? '${_auth.currentUser!.email}'
                       : ''),
-                  Hero(
-                    tag: 'logo',
-                    child: Container(
-                      height: 200.0,
-                      // child: Image.asset('images/logo.png'),
-                    ),
-                  ),
                   const SizedBox(
                     height: 48.0,
                   ),
@@ -94,20 +90,28 @@ class LoginScreenState extends State<LoginScreen> {
                             controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
                             textAlign: TextAlign.center,
-                            onChanged: (value) {
-                              email = value;
-                            },
+                            // onChanged: (value) {
+                            //   email = value;
+                            // },
                             decoration: kTextFieldDecoration.copyWith(
                                 hintText: 'Enter your email')),
                         const SizedBox(
                           height: 8.0,
                         ),
                         TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          keyboardType: TextInputType.text,
+                          controller: _passwordController,
                           obscureText: true,
                           textAlign: TextAlign.center,
-                          onChanged: (value) {
-                            password = value;
+                          validator: (value) {
+                            return value != null && value.length < 6
+                                ? "Enter min. 6 characters"
+                                : null;
                           },
+                          // onChanged: (value) {
+                          //   password = value;
+                          // },
                           decoration: kTextFieldDecoration.copyWith(
                               hintText: 'Enter your password'),
                         ),
@@ -121,18 +125,34 @@ class LoginScreenState extends State<LoginScreen> {
                     colorOfButton: Colors.lightBlueAccent,
                     nameOfButton: 'Log In',
                     onPress: () async {
-                      try {
-                        final existUser =
-                            await _auth.signInWithEmailAndPassword(
-                                email: email, password: password);
-                        if (existUser != null) {
-                          Navigator.pushNamed(context, '/');
-                        }
-                      } catch (e) {
-                        print(e);
-                      }
+                      _authenticateWithEmailAndPassword(context);
+                      // try {
+                      //   final existUser =
+                      //       await _auth.signInWithEmailAndPassword(
+                      //           email: email, password: password);
+                      // if (existUser != null) {
+                      //   Navigator.pushNamed(context, '/');
+                      // }
+                      // } catch (e) {
+                      //   print(e);
+                      // }
                     },
                   ),
+                  const Text("Don't have an account?",
+                      style: TextStyle(fontWeight: FontWeight.w400)),
+                  Flexible(
+                    flex: 2,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegistrationScreen()),
+                        );
+                      },
+                      child: const Text("Sign Up"),
+                    ),
+                  )
                 ],
               ),
             );
@@ -143,20 +163,11 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _createAccountWithEmailAndPassword(BuildContext context) {
+  void _authenticateWithEmailAndPassword(context) {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<AuthBloc>(context).add(
-        SignUpRequested(
-          _emailController.text,
-          _passwordController.text,
-        ),
+        SignInRequested(_emailController.text, _passwordController.text),
       );
     }
-  }
-
-  void _authenticateWithGoogle(context) {
-    BlocProvider.of<AuthBloc>(context).add(
-      GoogleSignInRequested(),
-    );
   }
 }

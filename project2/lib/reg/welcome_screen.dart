@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:project2/reg/registration_screen.dart';
 import 'package:project2/reg/button/rounded_button.dart';
 
+import '../auth/login/bloc/auth_bloc.dart';
 import 'login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -57,9 +59,25 @@ class WelcomeScreen extends StatelessWidget {
                             builder: (context) => const RegistrationScreen()));
                   },
                 ),
+                IconButton(
+                  onPressed: () {
+                    _authenticateWithGoogle(context);
+                  },
+                  icon: Image.network(
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png",
+                    height: 30,
+                    width: 30,
+                  ),
+                )
               ]),
         ),
       ),
+    );
+  }
+
+  void _authenticateWithGoogle(context) {
+    BlocProvider.of<AuthBloc>(context).add(
+      GoogleSignInRequested(),
     );
   }
 }

@@ -29,20 +29,14 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3')).signOut();
     // print(Firebase.apps.length);
     // print(Firebase.apps);
     // print(FirebaseFirestore.instanceFor(app: Firebase.app('CheckMoney3')));
@@ -50,42 +44,53 @@ class _MyAppState extends State<MyApp> {
     print(FirebaseAuth.instance.currentUser);
     // final FirestoreServices _db = FirestoreServices();
     return RepositoryProvider(
-      create: (context) => AuthRepository(),
-      child: BlocProvider(
-        create: (context) => AuthBloc(
-          authRepository: RepositoryProvider.of<AuthRepository>(context),
-        ),
+        create: (context) => AuthRepository(),
         child: ChangeNotifierProvider(
             create: (BuildContext context) => AccountData(),
             builder: (context, child) {
-              return BlocProvider(
-                create: (context) => AccountBloc(
-                  accountData: context.read<AccountData>(),
-                ),
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => AccountBloc(
+                      accountData: context.read<AccountData>(),
+                    ),
+                  ),
+                  BlocProvider(
+                    create: (context) => AuthBloc(
+                      authRepository:
+                          RepositoryProvider.of<AuthRepository>(context),
+                    ),
+                  ),
+                ],
                 child: MaterialApp(
                   debugShowCheckedModeBanner: false,
-                  home: WelcomeScreen(),
+
+                  home:
+                      FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3'))
+                                  .currentUser ==
+                              null
+                          ? WelcomeScreen()
+                          : MainPage(),
+
                   // initialRoute:
-                  //     FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3'))
-                  //                 .currentUser ==
-                  //             null
+                  // FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3'))
+                  //             .currentUser ==
+                  //         null
                   //         ? '/m'
                   //         : '/',
-                  // routes: {
-                  //   '/m': (context) => const WelcomeScreen(),
-                  //   '/': (context) => const MainPage(),
-                  //   '/addAcc': ((context) => const AddAccountScreen()),
-                  //   // '/addExp': ((context) =>  AddExpenseScreen()),
-                  //   // '/addInc': ((context) => const AddIncomeScreen()),
-                  // },
+                  routes: {
+                    // '/m': (context) => const WelcomeScreen(),
+                    // '/': (context) => const MainPage(),
+                    '/addAcc': ((context) => const AddAccountScreen()),
+                    // '/addExp': ((context) =>  AddExpenseScreen()),
+                    // '/addInc': ((context) => const AddIncomeScreen()),
+                  },
                   title: 'Project',
                   theme: ThemeData(
                     brightness: Brightness.dark,
                   ),
                 ),
               );
-            }),
-      ),
-    );
+            }));
   }
 }

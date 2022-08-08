@@ -66,7 +66,7 @@ class AccountData extends ChangeNotifier {
 
   void addAccountFirebase(Account account) {
     FirebaseApp _secondaryApp = Firebase.app('CheckMoney3');
-    FirebaseFirestore _db = FirebaseFirestore.instanceFor(app: _secondaryApp);
+    // FirebaseFirestore _db = FirebaseFirestore.instanceFor(app: _secondaryApp);
     FirebaseAuth.instanceFor(app: _secondaryApp);
     String uid = FirebaseAuth.instanceFor(app: _secondaryApp).currentUser!.uid;
 
