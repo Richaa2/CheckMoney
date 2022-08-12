@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:project2/auth/login/bloc/auth_bloc.dart';
+
 import 'package:project2/main_page.dart';
 import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
@@ -14,6 +14,8 @@ import 'package:project2/reg/button/rounded_button.dart';
 import 'package:project2/reg/login_screen.dart';
 import 'package:project2/utils.dart';
 import 'package:provider/provider.dart';
+
+import '../auth/bloc/auth_bloc.dart';
 
 @override
 class RegistrationScreen extends StatefulWidget {

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:project2/auth/auth_repository.dart';
-import 'package:project2/auth/login/bloc/auth_bloc.dart';
 import 'package:project2/bloc/account_bloc.dart';
 import 'package:project2/firebase_options.dart';
 
@@ -17,6 +16,7 @@ import 'package:project2/reg/welcome_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'add_page/add_account/add_account_screen.dart';
+import 'auth/bloc/auth_bloc.dart';
 import 'main_page.dart';
 
 void main() async {

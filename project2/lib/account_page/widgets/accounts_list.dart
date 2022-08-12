@@ -47,8 +47,6 @@ class AccountsListView extends StatelessWidget {
                   .orderBy("q")
                   .snapshots(),
               builder: (context, snapshot) {
-                print('12');
-
                 // if (accounts.isEmpty) {
                 //   Provider.of<AccountData>(context, listen: false)
                 //       .addAccountFirebase(Account(
@@ -60,207 +58,220 @@ class AccountsListView extends StatelessWidget {
                 //           q: 1));
                 // }
 
-                return Consumer<AccountData>(
-                  builder: ((context, accountData, child) {
-                    Size size;
-                    size = MediaQuery.of(context).size;
-                    var height = size.height;
-                    var width = size.width;
+                if (snapshotInfo.hasData && snapshot.hasData) {
+                  return Consumer<AccountData>(
+                    builder: ((context, accountData, child) {
+                      List<Account> accountsList = accountData.accounts;
+                      final accounts = snapshot.data!.docs;
+                      final accountsLast = snapshot.data!.docs.last;
 
-                    return BlocConsumer<AccountBloc, AccountState>(
-                        listener: (((context, state) {
-                      // if (state is AccountLoadedState) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     const SnackBar(
-                      //       content: Text('Users is Loaded'),
-                      //     ),
-                      //   );
-                      // }
-                    })), builder: (context, state) {
-                      print(snapshot.data.toString() + '123123123');
-                      log(state.toString());
-                      final AccountBloc accountBloc =
-                          context.read<AccountBloc>();
-
-                      if (state is AccountEmptyState) {
-                        FlutterNativeSplash.remove();
-                        accountBloc.add(AccountLoadEvent());
-                        return const Center(
-                          child: Text(
-                            'Account list is empty. Please create account ',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        );
-                      }
-
-                      if (state is AccountLoadingState) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      if (state is AccountLoadedState && !snapshot.hasData) {
-                        return const Center(
-                          child: Text(
-                            'Account list is empty. Please create account ',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        );
-                      }
-
-                      if (state is AccountLoadedState &&
-                              snapshot.hasData &&
-                              snapshot.data!.size > 0
-                          // &&
-                          //     accounts.length == accountsList.length
-                          ) {
-                        FlutterNativeSplash.remove();
-                        List<Account> accountsList = state.loadedAccount;
-
-                        final accounts = snapshot.data!.docs;
-                        final accountsLast = snapshot.data!.docs.last;
-
-                        if (accountsList.isEmpty) {
-                          if (accountsList.length < accounts.length) {
-                            for (var account in accounts) {
-                              final accountRow = Account(
-                                  colorValue: account['color'],
-                                  name: account['name'],
-                                  money: account['money'],
-                                  icon: account['icon'],
-                                  id: account['id'] ?? 'nothing',
-                                  q: account['q']);
-                              accountsList.add(accountRow);
-                            }
+                      if (accountsList.isEmpty) {
+                        if (accountsList.length < accounts.length) {
+                          for (var account in accounts) {
+                            final accountRow = Account(
+                                colorValue: account['color'],
+                                name: account['name'],
+                                money: account['money'],
+                                icon: account['icon'],
+                                id: account['id'] ?? 'nothing',
+                                q: account['q']);
+                            accountsList.add(accountRow);
                           }
                         }
-                        if (accounts.length > accountsList.length) {
-                          accountsList.insert(
-                              accounts.length - 1,
-                              Account(
-                                colorValue: accountsLast['color'],
-                                icon: accountsLast['icon'],
-                                id: accountsLast['id'],
-                                money: accountsLast['money'],
-                                name: accountsLast['name'],
-                                q: accountsLast['q'],
-                              ));
+                      }
+                      if (accounts.length > accountsList.length) {
+                        accountsList.insert(
+                            accounts.length - 1,
+                            Account(
+                              colorValue: accountsLast['color'],
+                              icon: accountsLast['icon'],
+                              id: accountsLast['id'],
+                              money: accountsLast['money'],
+                              name: accountsLast['name'],
+                              q: accountsLast['q'],
+                            ));
+                      }
+
+                      if (accounts.length == accountsList.length) {
+                        sum = Provider.of<AccountData>(context).updateSum(
+                          snapshotInfo,
+                        );
+                      }
+                      Size size;
+                      size = MediaQuery.of(context).size;
+                      var height = size.height;
+                      var width = size.width;
+
+                      return BlocConsumer<AccountBloc, AccountState>(
+                          listener: (((context, state) {
+                        log(state.toString());
+
+                        // if (state is AccountLoadedState) {
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     const SnackBar(
+                        //       content: Text('Users is Loaded'),
+                        //     ),
+                        //   );
+                        // }
+                      })), buildWhen: (previous, current) {
+                        print(previous);
+                        print(current);
+
+                        return accountsList.length == accounts.length &&
+                            previous != AccountLoadedState;
+                      }, builder: (context, state) {
+                        print(snapshot.data.toString() + '123123123');
+
+                        final AccountBloc accountBloc =
+                            context.read<AccountBloc>();
+
+                        if (state is AccountEmptyState) {
+                          FlutterNativeSplash.remove();
+                          accountBloc.add(AccountLoadEvent());
+                          return Center(
+                              // child: Text(
+                              //   'Account list is empty. Please create account ',
+                              //   style: TextStyle(fontSize: 20),
+                              // ),
+                              );
                         }
 
-                        if (accounts.length == accountsList.length) {
-                          sum = Provider.of<AccountData>(context).updateSum(
-                            snapshotInfo,
+                        if (state is AccountLoadingState) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (state is AccountLoadedState && !snapshot.hasData) {
+                          return const Center(
+                            child: Text(
+                              'Account list is empty. Please create account ',
+                              style: TextStyle(fontSize: 20),
+                            ),
                           );
                         }
 
-                        return ListView.separated(
-                          itemBuilder: (context, index) {
-                            accountData.updateIndex(index, snapshot);
+                        if (state is AccountLoadedState &&
+                                snapshot.hasData &&
+                                snapshot.data!.size > 0
+                            // &&
+                            //     accounts.length == accountsList.length
+                            ) {
+                          print(133);
+                          FlutterNativeSplash.remove();
+                          List<Account> accountsListState = state.loadedAccount;
 
-                            if (index == 0) {
+                          return ListView.separated(
+                            itemBuilder: (context, index) {
+                              accountData.updateIndex(index, snapshot);
+
+                              if (index == 0) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 15, right: 15, left: 15),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            'Accounts',
+                                            style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          Text(
+                                            '\$$sum',
+                                            style: const TextStyle(
+                                                color: Colors.green,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      AccountsListTile(
+                                        onDismissible: snapshot.hasData
+                                            ? (direction) => accountData
+                                                .removeAccount(snapshot, index)
+                                            : null,
+                                        account: accountsListState[index],
+                                        onTap: () {
+                                          print(accountsListState[index].money);
+
+                                          showModalBottomSheetMetod(
+                                              context,
+                                              ControlAccountScreen(
+                                                index: index,
+                                              ));
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+
+                              // if (index > accountData.accounts.length - 2) {
+                              //   accountData.load();
+                              // }
+
                               return Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 15, right: 15, left: 15),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text(
-                                          'Accounts',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                        Text(
-                                          '\$$sum',
-                                          style: const TextStyle(
-                                              color: Colors.green,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    AccountsListTile(
-                                      onDismissible: snapshot.hasData
-                                          ? (direction) => accountData
-                                              .removeAccount(snapshot, index)
-                                          : null,
-                                      account: accountsList[index],
-                                      onTap: () {
-                                        print(accountsList[index].money);
+                                padding:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                child: AccountsListTile(
+                                  onDismissible: snapshot.hasData
+                                      ? (direction) =>
+                                          accountData.removeAccount(
+                                            snapshot,
+                                            index,
+                                          )
+                                      : null,
+                                  account: accountsListState[index],
+                                  onTap: () {
+                                    print(accountsListState[index].money);
 
-                                        showModalBottomSheetMetod(
-                                            context,
-                                            ControlAccountScreen(
-                                              index: index,
-                                            ));
-                                      },
-                                    ),
-                                  ],
+                                    showModalBottomSheetMetod(
+                                        context,
+                                        ControlAccountScreen(
+                                          index: index,
+                                        ));
+                                  },
                                 ),
                               );
-                            }
-
-                            // if (index > accountData.accounts.length - 2) {
-                            //   accountData.load();
-                            // }
-
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 15, right: 15),
-                              child: AccountsListTile(
-                                onDismissible: snapshot.hasData
-                                    ? (direction) => accountData.removeAccount(
-                                          snapshot,
-                                          index,
-                                        )
-                                    : null,
-                                account: accountsList[index],
-                                onTap: () {
-                                  print(accountsList[index].money);
-
-                                  showModalBottomSheetMetod(
-                                      context,
-                                      ControlAccountScreen(
-                                        index: index,
-                                      ));
-                                },
-                              ),
-                            );
-                          },
-                          separatorBuilder: (BuildContext context, int index) =>
-                              Divider(
-                            thickness: 2,
-                            indent: width / 5,
-                            height: 5,
-                          ),
-                          itemCount: state.loadedAccount.length,
-                        );
-                      } else if (snapshot.data!.size == 0) {
-                        return const Center(
-                          child: Text(
-                            'Account list is empty. Please create account',
-                            style: TextStyle(fontSize: 20.0),
-                          ),
-                        );
-                      }
-                      if (state is AccountErrorState) {
-                        return const Center(
-                          child: Text(
-                            'Error fetching users',
-                            style: TextStyle(fontSize: 20.0),
-                          ),
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    });
-                  }),
-                );
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) => Divider(
+                              thickness: 2,
+                              indent: width / 5,
+                              height: 5,
+                            ),
+                            itemCount: state.loadedAccount.length,
+                          );
+                        } else if (snapshot.data!.size == 0) {
+                          return const Center(
+                            child: Text(
+                              'Account list is empty. Please create account',
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                          );
+                        }
+                        if (state is AccountErrorState) {
+                          return const Center(
+                            child: Text(
+                              'Error fetching users',
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      });
+                    }),
+                  );
+                }
+                return Container();
               });
         });
   }

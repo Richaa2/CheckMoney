@@ -118,7 +118,6 @@ class _MainPageState extends State<MainPage> {
                   var sum = 0;
                   if (snapshot.hasData) {
                     sum = snapshot.data!.docs.single['sum'];
-                    print('suka');
                   }
                   return Column(
                     children: [

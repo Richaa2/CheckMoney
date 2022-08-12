@@ -5,12 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project2/auth/login/bloc/auth_bloc.dart';
 import 'package:project2/main_page.dart';
 
 import 'package:project2/reg/button/rounded_button.dart';
 import 'package:project2/reg/registration_screen.dart';
 import 'package:project2/utils.dart';
+
+import '../auth/bloc/auth_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = '/login';

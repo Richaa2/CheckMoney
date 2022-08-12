@@ -6,7 +6,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:project2/reg/registration_screen.dart';
 import 'package:project2/reg/button/rounded_button.dart';
 
-import '../auth/login/bloc/auth_bloc.dart';
+import '../auth/bloc/auth_bloc.dart';
 import 'login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {

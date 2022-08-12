@@ -8,7 +8,7 @@ import 'package:project2/reg/welcome_screen.dart';
 import 'package:project2/widgets/drawer/set_name.dart';
 import 'package:provider/provider.dart';
 
-import '../../auth/login/bloc/auth_bloc.dart';
+import '../../auth/bloc/auth_bloc.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({
