@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project2/main_page.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/reg/welcome_screen.dart';
 import 'package:project2/widgets/drawer/set_name.dart';
 import 'package:provider/provider.dart';
+
+import '../../auth/bloc/auth_bloc.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({
@@ -93,7 +96,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   leading: const Icon(Icons.exit_to_app),
                   title: const Text('Sign out'),
                   onTap: () => {
-                    auth.signOut(),
+                    BlocProvider.of<AuthBloc>(context).add(SignOutRequested()),
                     Provider.of<AccountData>(context, listen: false)
                         .clearLists(),
                     Navigator.of(context).pushAndRemoveUntil(

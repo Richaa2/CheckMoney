@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import 'package:project2/history_page/history_screen.dart';
+import 'package:project2/reg/welcome_screen.dart';
 
 import 'account_page/account_screen.dart';
 import 'widgets/dialog_widget.dart';
@@ -30,16 +31,16 @@ class _MainPageState extends State<MainPage> {
   PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
 
-  void getCurrentUser() async {
-    try {
-      final user = auth.currentUser;
-      if (user != null) {
-        loggedInUser = user;
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  // void getCurrentUser() async {
+  //   try {
+  //     final user  = auth.currentUser;
+  //     if (user != null) {
+  //       loggedInUser = user;
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   int _selectedIndex = 0;
 
@@ -57,61 +58,68 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     // auth.signOut();
+    if (loggedInUser == null) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+    }
     if (loggedInUser != null) {
-      return StreamBuilder<QuerySnapshot>(
-          stream: db
-              .collection('users')
-              .doc(auth.currentUser!.uid)
-              .collection('userInfo')
-              .snapshots(),
-          builder: (context, snapshot) {
-            var sum = 0;
+      print(loggedInUser!.email);
+      String uid = loggedInUser!.uid;
 
-            if (snapshot.hasData) {
-              sum = snapshot.data!.docs.single['sum'];
-              print('suka');
-            }
-            return Scaffold(
-              body: PersistentTabView(
-                context,
-                backgroundColor: Colors.black.withOpacity(0.0),
-                controller: _controller,
-                screens: _screens,
-                items: [
-                  PersistentBottomNavBarItem(
-                      icon: Icon(Icons.credit_card),
-                      title: 'Accounts',
-                      inactiveColorPrimary: Colors.grey,
-                      activeColorPrimary: Colors.teal),
-                  PersistentBottomNavBarItem(
-                      icon: Icon(Icons.receipt),
-                      title: 'History',
-                      inactiveColorPrimary: Colors.grey,
-                      activeColorPrimary: Colors.teal),
-                ],
-                confineInSafeArea: true,
-                decoration: NavBarDecoration(
-                  // borderRadius: BorderRadius.circular(10.0),
-                  colorBehindNavBar: Colors.blueGrey.withOpacity(0.1),
-                ),
-                popAllScreensOnTapOfSelectedTab: true,
-                popActionScreens: PopActionScreensType.all,
-                itemAnimationProperties: ItemAnimationProperties(
-                  // Navigation Bar's items animation properties.
-                  duration: Duration(milliseconds: 200),
-                  curve: Curves.ease,
-                ),
-                screenTransitionAnimation: ScreenTransitionAnimation(
-                  // Screen transition animation on change of selected tab.
-                  animateTabTransition: true,
-                  curve: Curves.ease,
-                  duration: Duration(milliseconds: 200),
-                ),
-                navBarStyle: NavBarStyle.style1,
-              ),
-              drawer: const DrawerWidget(),
-              appBar: AppBar(
-                  title: Column(
+      print('snapshot');
+
+      return Scaffold(
+        body: PersistentTabView(
+          context,
+          backgroundColor: Colors.black.withOpacity(0.0),
+          controller: _controller,
+          screens: _screens,
+          items: [
+            PersistentBottomNavBarItem(
+                icon: Icon(Icons.credit_card),
+                title: 'Accounts',
+                inactiveColorPrimary: Colors.grey,
+                activeColorPrimary: Colors.teal),
+            PersistentBottomNavBarItem(
+                icon: Icon(Icons.receipt),
+                title: 'History',
+                inactiveColorPrimary: Colors.grey,
+                activeColorPrimary: Colors.teal),
+          ],
+          confineInSafeArea: true,
+          decoration: NavBarDecoration(
+            // borderRadius: BorderRadius.circular(10.0),
+            colorBehindNavBar: Colors.blueGrey.withOpacity(0.1),
+          ),
+          popAllScreensOnTapOfSelectedTab: true,
+          popActionScreens: PopActionScreensType.all,
+          itemAnimationProperties: ItemAnimationProperties(
+            // Navigation Bar's items animation properties.
+            duration: Duration(milliseconds: 200),
+            curve: Curves.ease,
+          ),
+          screenTransitionAnimation: ScreenTransitionAnimation(
+            // Screen transition animation on change of selected tab.
+            animateTabTransition: true,
+            curve: Curves.ease,
+            duration: Duration(milliseconds: 200),
+          ),
+          navBarStyle: NavBarStyle.style1,
+        ),
+        drawer: const DrawerWidget(),
+        appBar: AppBar(
+            title: StreamBuilder<QuerySnapshot>(
+                stream: db
+                    .collection('users')
+                    .doc(uid)
+                    .collection('userInfo')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  var sum = 0;
+                  if (snapshot.hasData) {
+                    sum = snapshot.data!.docs.single['sum'];
+                  }
+                  return Column(
                     children: [
                       const Text(
                         'All account ',
@@ -124,27 +132,28 @@ class _MainPageState extends State<MainPage> {
                         ),
                       )
                     ],
-                  ),
-                  centerTitle: true,
-                  backgroundColor: Colors.blueGrey,
+                  );
+                }),
+            centerTitle: true,
+            backgroundColor: Colors.blueGrey,
 
-                  // leading: IconButton(
-                  //   icon: Icon(Icons.menu),
-                  //   onPressed: () {},
-                  // ),
-                  actions: [
-                    IconButton(
-                      icon: const Icon(Icons.add),
-                      onPressed: () {
-                        // Navigator.pushNamed(context, '/addAcc');
-                        showDialog(
-                            context: context,
-                            builder: (context) => const DialogWidget());
-                      },
-                    ),
-                  ]),
-            );
-          });
+            // leading: IconButton(
+            //   icon: Icon(Icons.menu),
+            //   onPressed: () {},
+            // ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: () {
+                  // Navigator.pushNamed(context, '/addAcc');
+                  showDialog(
+                      context: context,
+                      builder: (context) => const DialogWidget());
+                },
+              ),
+            ]),
+      );
+      // });
     }
     return Container();
   }

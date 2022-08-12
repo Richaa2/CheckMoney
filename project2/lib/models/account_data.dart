@@ -66,8 +66,8 @@ class AccountData extends ChangeNotifier {
 
   void addAccountFirebase(Account account) {
     FirebaseApp _secondaryApp = Firebase.app('CheckMoney3');
-    FirebaseFirestore _db = FirebaseFirestore.instanceFor(app: _secondaryApp);
-    FirebaseAuth.instanceFor(app: _secondaryApp);
+    // FirebaseFirestore _db = FirebaseFirestore.instanceFor(app: _secondaryApp);
+    // FirebaseAuth.instanceFor(app: _secondaryApp);
     String uid = FirebaseAuth.instanceFor(app: _secondaryApp).currentUser!.uid;
 
     FirebaseFirestore.instanceFor(app: _secondaryApp)
@@ -82,6 +82,8 @@ class AccountData extends ChangeNotifier {
       "money": account.money,
       "q": account.q
     });
+
+    print('addAccount');
 
     notifyListeners();
   }
@@ -118,11 +120,8 @@ class AccountData extends ChangeNotifier {
     String uid = auth.currentUser!.uid;
     var id = snapshot.data!.docs[index].id;
 
-    if (accounts.length > 1) {
-      db.collection('users').doc(uid).collection('account').doc(id).delete();
-      accounts.removeAt(index);
-    }
-    if (accounts.length == 1) {}
+    db.collection('users').doc(uid).collection('account').doc(id).delete();
+    accounts.removeAt(index);
   }
 
   void removeRecord(
