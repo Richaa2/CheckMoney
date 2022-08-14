@@ -4,8 +4,6 @@ import '../models/account.dart';
 
 abstract class AccountState {}
 
-class AccountEmptyState extends AccountState {}
-
 class AccountLoadingState extends AccountState {}
 
 class AccountLoadedState extends AccountState {

@@ -33,16 +33,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3')).signOut();
-    // print(Firebase.apps.length);
-    // print(Firebase.apps);
-    // print(FirebaseFirestore.instanceFor(app: Firebase.app('CheckMoney3')));
-    // print(FirebaseAuth.instance.app.options);
-    // print(FirebaseAuth.instance.currentUser);
-    // final FirestoreServices _db = FirestoreServices();
     return RepositoryProvider(
         create: (context) => AuthRepository(),
         child: ChangeNotifierProvider(

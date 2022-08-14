@@ -15,14 +15,9 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       final List<Account> loadedAccountList = accountData.accounts;
       try {
         emit(AccountLoadedState(loadedAccount: loadedAccountList));
-        print(loadedAccountList.length);
       } catch (e) {
         emit(AccountErrorState());
       }
     });
-
-    on<AccountEmptyLoadEvent>(((event, emit) {
-      emit(AccountEmptyState());
-    }));
   }
 }

@@ -107,14 +107,18 @@ class AccountsListView extends StatelessWidget {
                             //     ),
                             //   );
                             // }
+                            List<Account> accountsList = accountData.accounts;
+                            final accounts = snapshot.data!.docs;
+                            final accountsLast = snapshot.data!.docs.last;
 
                             if (state is AccountLoadedState &&
                                 snapshot.hasData &&
-                                snapshot.data!.size > 0) {
+                                snapshot.data!.size > 0 &&
+                                accountsList.length != accounts.length) {
                               print('snapshot has data');
-                              List<Account> accountsList = accountData.accounts;
-                              final accounts = snapshot.data!.docs;
-                              final accountsLast = snapshot.data!.docs.last;
+                              // List<Account> accountsList = accountData.accounts;
+                              // final accounts = snapshot.data!.docs;
+                              // final accountsLast = snapshot.data!.docs.last;
 
                               if (accountsList.isEmpty) {
                                 if (accountsList.length < accounts.length) {
@@ -153,7 +157,24 @@ class AccountsListView extends StatelessWidget {
                               FlutterNativeSplash.remove();
                               List<Account> accountsListState =
                                   state.loadedAccount;
-
+                              if (accounts.length == accountsList.length) {}
+                            } else if (!snapshot.hasData ||
+                                snapshot.hasData && snapshot.data!.size == 0) {
+                              return const Center(
+                                child: Text(
+                                  'Account list is empty. Please create account ',
+                                  style: TextStyle(fontSize: 20.0),
+                                ),
+                              );
+                            }
+                            if (state is AccountLoadedState &&
+                                snapshot.hasData &&
+                                snapshot.data!.size > 0 &&
+                                accountsList.length == accounts.length) {
+                              print('list');
+                              FlutterNativeSplash.remove();
+                              List<Account> accountsListState =
+                                  state.loadedAccount;
                               return ListView.separated(
                                 itemBuilder: (context, index) {
                                   accountData.updateIndex(index, snapshot);
@@ -249,15 +270,8 @@ class AccountsListView extends StatelessWidget {
                                 ),
                                 itemCount: state.loadedAccount.length,
                               );
-                            } else if (!snapshot.hasData ||
-                                snapshot.hasData && snapshot.data!.size == 0) {
-                              return const Center(
-                                child: Text(
-                                  'Account list is empty. Please create account ',
-                                  style: TextStyle(fontSize: 20.0),
-                                ),
-                              );
                             }
+
                             if (state is AccountErrorState) {
                               return const Center(
                                 child: Text(
