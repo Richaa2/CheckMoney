@@ -8,16 +8,21 @@ import 'package:project2/models/account_data.dart';
 
 class AccountBloc extends Bloc<AccountEvent, AccountState> {
   final AccountData accountData;
-  AccountBloc({required this.accountData}) : super(AccountEmptyState()) {
+  AccountBloc({required this.accountData}) : super(AccountLoadingState()) {
     on<AccountLoadEvent>((event, emit) {
       emit(AccountLoadingState());
 
       final List<Account> loadedAccountList = accountData.accounts;
       try {
         emit(AccountLoadedState(loadedAccount: loadedAccountList));
+        print(loadedAccountList.length);
       } catch (e) {
         emit(AccountErrorState());
       }
     });
+
+    on<AccountEmptyLoadEvent>(((event, emit) {
+      emit(AccountEmptyState());
+    }));
   }
 }

@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
     // print(Firebase.apps);
     // print(FirebaseFirestore.instanceFor(app: Firebase.app('CheckMoney3')));
     // print(FirebaseAuth.instance.app.options);
-    print(FirebaseAuth.instance.currentUser);
+    // print(FirebaseAuth.instance.currentUser);
     // final FirestoreServices _db = FirestoreServices();
     return RepositoryProvider(
         create: (context) => AuthRepository(),
