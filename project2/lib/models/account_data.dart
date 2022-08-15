@@ -105,7 +105,9 @@ class AccountData extends ChangeNotifier {
   }
 
   void removeEx(AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index) {
-    String uid = auth.currentUser!.uid;
+    FirebaseApp _secondaryApp = Firebase.app('CheckMoney3');
+
+    String uid = FirebaseAuth.instanceFor(app: _secondaryApp).currentUser!.uid;
     var id = snapshot.data!.docs[index].id;
 
     if (expenses.length > 1) {

@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:should_rebuild/should_rebuild.dart' as re;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -147,17 +147,9 @@ class AccountsListView extends StatelessWidget {
                                     ));
                               }
 
-                              if (accounts.length == accountsList.length) {
-                                sum =
-                                    Provider.of<AccountData>(context).updateSum(
-                                  snapshotInfo,
-                                );
-                              }
-
                               FlutterNativeSplash.remove();
                               List<Account> accountsListState =
                                   state.loadedAccount;
-                              if (accounts.length == accountsList.length) {}
                             } else if (!snapshot.hasData ||
                                 snapshot.hasData && snapshot.data!.size == 0) {
                               return const Center(
@@ -167,108 +159,29 @@ class AccountsListView extends StatelessWidget {
                                 ),
                               );
                             }
+
                             if (state is AccountLoadedState &&
-                                snapshot.hasData &&
-                                snapshot.data!.size > 0 &&
                                 accountsList.length == accounts.length) {
-                              print('list');
+                              if (accounts.length == accountsList.length) {
+                                sum =
+                                    Provider.of<AccountData>(context).updateSum(
+                                  snapshotInfo,
+                                );
+                              }
                               FlutterNativeSplash.remove();
                               List<Account> accountsListState =
                                   state.loadedAccount;
-                              return ListView.separated(
-                                itemBuilder: (context, index) {
-                                  accountData.updateIndex(index, snapshot);
-
-                                  if (index == 0) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 15, right: 15, left: 15),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              const Text(
-                                                'Accounts',
-                                                style: TextStyle(
-                                                    color: Colors.grey,
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.w700),
-                                              ),
-                                              Text(
-                                                '\$$sum',
-                                                style: const TextStyle(
-                                                    color: Colors.green,
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          AccountsListTile(
-                                            onDismissible: snapshot.hasData
-                                                ? (direction) =>
-                                                    accountData.removeAccount(
-                                                        snapshot, index)
-                                                : null,
-                                            account: accountsListState[index],
-                                            onTap: () {
-                                              print(accountsListState[index]
-                                                  .money);
-
-                                              showModalBottomSheetMetod(
-                                                  context,
-                                                  ControlAccountScreen(
-                                                    index: index,
-                                                  ));
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }
-
-                                  // if (index > accountData.accounts.length - 2) {
-                                  //   accountData.load();
-                                  // }
-
-                                  return Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 15, right: 15),
-                                    child: AccountsListTile(
-                                      onDismissible: snapshot.hasData
-                                          ? (direction) =>
-                                              accountData.removeAccount(
-                                                snapshot,
-                                                index,
-                                              )
-                                          : null,
-                                      account: accountsListState[index],
-                                      onTap: () {
-                                        print(accountsListState[index].money);
-
-                                        showModalBottomSheetMetod(
-                                            context,
-                                            ControlAccountScreen(
-                                              index: index,
-                                            ));
-                                      },
-                                    ),
-                                  );
-                                },
-                                separatorBuilder:
-                                    (BuildContext context, int index) =>
-                                        Divider(
-                                  thickness: 2,
-                                  indent: width / 5,
-                                  height: 5,
+                              return re.ShouldRebuild<listViewBuild>(
+                                shouldRebuild: ((oldWidget, newWidget) =>
+                                    oldWidget.accountsListState.last.q !=
+                                    newWidget.accountsListState.length),
+                                child: listViewBuild(
+                                  sum: sum,
+                                  accountsListState: accountData.accounts,
+                                  width: width,
+                                  snapshot: snapshot,
+                                  accountData: accountData,
                                 ),
-                                itemCount: state.loadedAccount.length,
                               );
                             }
 
@@ -288,5 +201,111 @@ class AccountsListView extends StatelessWidget {
                 return Container();
               });
         });
+  }
+}
+
+class listViewBuild extends StatelessWidget {
+  const listViewBuild({
+    Key? key,
+    required this.sum,
+    required this.accountsListState,
+    required this.width,
+    required this.snapshot,
+    required this.accountData,
+  }) : super(key: key);
+  final AsyncSnapshot<QuerySnapshot<Object?>> snapshot;
+  final AccountData accountData;
+  final int? sum;
+  final List<Account> accountsListState;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      itemBuilder: (context, index) {
+        print('Listview');
+        accountData.updateIndex(index, snapshot);
+
+        if (index == 0) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 15, right: 15, left: 15),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Accounts',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    Text(
+                      '\$$sum',
+                      style: const TextStyle(
+                          color: Colors.green,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                AccountsListTile(
+                  onDismissible: snapshot.hasData
+                      ? (direction) =>
+                          accountData.removeAccount(snapshot, index)
+                      : null,
+                  account: accountsListState[index],
+                  onTap: () {
+                    print(accountsListState[index].money);
+
+                    showModalBottomSheetMetod(
+                        context,
+                        ControlAccountScreen(
+                          index: index,
+                        ));
+                  },
+                ),
+              ],
+            ),
+          );
+        }
+
+        // if (index > accountData.accounts.length - 2) {
+        //   accountData.load();
+        // }
+
+        return Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15),
+          child: AccountsListTile(
+            onDismissible: snapshot.hasData
+                ? (direction) => accountData.removeAccount(
+                      snapshot,
+                      index,
+                    )
+                : null,
+            account: accountsListState[index],
+            onTap: () {
+              print(accountsListState[index].money);
+
+              showModalBottomSheetMetod(
+                  context,
+                  ControlAccountScreen(
+                    index: index,
+                  ));
+            },
+          ),
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) => Divider(
+        thickness: 2,
+        indent: width / 5,
+        height: 5,
+      ),
+      itemCount: accountsListState.length,
+    );
   }
 }

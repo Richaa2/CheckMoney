@@ -30,7 +30,7 @@ class AccountsListTile extends StatelessWidget {
           onDismissed: onDismissible,
           direction: DismissDirection.startToEnd,
           child: ListTile(
-            trailing: Text('${account.q}'),
+            // trailing: Text('${account.q}'),
             onTap: onTap,
             leading: Container(
               width: 40,

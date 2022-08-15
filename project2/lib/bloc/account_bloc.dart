@@ -13,6 +13,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       emit(AccountLoadingState());
 
       final List<Account> loadedAccountList = accountData.accounts;
+
       try {
         emit(AccountLoadedState(loadedAccount: loadedAccountList));
       } catch (e) {
