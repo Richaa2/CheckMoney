@@ -1,5 +1,19 @@
 # CheckMoney
 
+
+My First pet project
+## Involved Technologies:
+
+#### Dart
+#### Flutter
+#### provider
+#### firebase frestore,
+#### firebase authentcaton
+
+
+
+## Screens 
+
 ### Account screen and  Control Account
 
 
