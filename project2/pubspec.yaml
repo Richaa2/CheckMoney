@@ -49,6 +49,7 @@ dependencies:
   google_sign_in: ^5.2.1
   email_validator: ^2.0.1
   should_rebuild: ^1.0.1
+  
  
   
 

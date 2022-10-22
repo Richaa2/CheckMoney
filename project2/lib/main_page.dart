@@ -30,7 +30,7 @@ final auth = FirebaseAuth.instanceFor(app: secondaryApp);
 
 class _MainPageState extends State<MainPage> {
   User? loggedInUser = FirebaseAuth.instanceFor(app: secondaryApp).currentUser;
-  PersistentTabController _controller =
+  final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
 
   // void getCurrentUser() async {
@@ -44,16 +44,16 @@ class _MainPageState extends State<MainPage> {
   //   }
   // }
 
-  int _selectedIndex = 0;
+  int selectedIndex = 0;
 
   final List<Widget> _screens = [
     const AccountScreen(),
     const HistoryScreen(),
   ];
 
-  void _onItemTapped(int index) {
+  void onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
@@ -61,14 +61,11 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     // auth.signOut();
     if (loggedInUser == null) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const WelcomeScreen()));
     }
     if (loggedInUser != null) {
-      print(loggedInUser!.email);
       String uid = loggedInUser!.uid;
-
-      print('snapshot');
 
       return WillPopScope(
         onWillPop: () async {
@@ -83,12 +80,12 @@ class _MainPageState extends State<MainPage> {
             screens: _screens,
             items: [
               PersistentBottomNavBarItem(
-                  icon: Icon(Icons.credit_card),
+                  icon: const Icon(Icons.credit_card),
                   title: 'Accounts',
                   inactiveColorPrimary: Colors.grey,
                   activeColorPrimary: Colors.teal),
               PersistentBottomNavBarItem(
-                  icon: Icon(Icons.receipt),
+                  icon: const Icon(Icons.receipt),
                   title: 'History',
                   inactiveColorPrimary: Colors.grey,
                   activeColorPrimary: Colors.teal),
@@ -100,12 +97,12 @@ class _MainPageState extends State<MainPage> {
             ),
             popAllScreensOnTapOfSelectedTab: true,
             popActionScreens: PopActionScreensType.all,
-            itemAnimationProperties: ItemAnimationProperties(
+            itemAnimationProperties: const ItemAnimationProperties(
               // Navigation Bar's items animation properties.
               duration: Duration(milliseconds: 200),
               curve: Curves.ease,
             ),
-            screenTransitionAnimation: ScreenTransitionAnimation(
+            screenTransitionAnimation: const ScreenTransitionAnimation(
               // Screen transition animation on change of selected tab.
               animateTabTransition: true,
               curve: Curves.ease,

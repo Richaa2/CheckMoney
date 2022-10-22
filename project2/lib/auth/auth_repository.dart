@@ -4,6 +4,7 @@ import 'package:project2/main_page.dart';
 
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instanceFor(app: secondaryApp);
+  late final GoogleSignIn _googleSignIn;
 
   void regUser(String email) {
     String uid = FirebaseAuth.instanceFor(app: secondaryApp).currentUser!.uid;
@@ -13,7 +14,6 @@ class AuthRepository {
       "sum": 0,
       "email": email,
     });
-    print(email);
   }
 
   Future<void> signUp({required String email, required String password}) async {
@@ -63,6 +63,8 @@ class AuthRepository {
 
       await FirebaseAuth.instanceFor(app: secondaryApp)
           .signInWithCredential(credential);
+
+      regUser(googleUser!.email);
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -71,6 +73,7 @@ class AuthRepository {
   Future<void> signOut() async {
     try {
       await _firebaseAuth.signOut();
+      await _googleSignIn.signOut();
     } catch (e) {
       throw Exception(e);
     }

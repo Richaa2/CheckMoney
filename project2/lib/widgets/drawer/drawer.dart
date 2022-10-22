@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project2/main_page.dart';
@@ -92,7 +91,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 //   title: const Text('Feedback'),
                 //   onTap: () => {Navigator.of(context).pop()},
                 // ),
+
                 ListTile(
+                  //   void signOutGoogle() async{
+                  //   await _googleSignIn.signOut();
+                  //   print("User Sign Out");
+                  // }
                   leading: const Icon(Icons.exit_to_app),
                   title: const Text('Sign out'),
                   onTap: () => {

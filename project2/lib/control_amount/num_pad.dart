@@ -39,9 +39,9 @@ class NumPad2 extends StatelessWidget {
     } else {
       equal = true;
     }
-    var height;
+    double height;
 
-    var width;
+    double width;
     Size size;
     size = MediaQuery.of(context).size;
     height = size.height;

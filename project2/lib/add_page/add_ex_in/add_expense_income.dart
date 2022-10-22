@@ -13,7 +13,7 @@ import '../widgets/list_tile_add_screen.dart';
 // );
 
 class AddExpenseIncomeScreen extends StatefulWidget {
-  bool isExpense;
+  final bool isExpense;
   AddExpenseIncomeScreen({
     Key? key,
     this.isExpense = false,

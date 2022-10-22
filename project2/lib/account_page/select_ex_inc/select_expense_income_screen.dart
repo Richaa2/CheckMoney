@@ -4,9 +4,9 @@ import 'package:project2/account_page/gridview/income_grid_view.dart';
 import '../gridview/expense_grid_view.dart';
 
 class SelectExpenseIncome extends StatelessWidget {
-  bool isExpense;
+  final bool isExpense;
   final int index1;
-  SelectExpenseIncome({
+  const SelectExpenseIncome({
     Key? key,
     this.isExpense = false,
     required this.index1,
@@ -24,7 +24,7 @@ class SelectExpenseIncome extends StatelessWidget {
               children: [
                 Text(
                   isExpense ? 'Expenses' : 'Incomes',
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 20,
                       fontWeight: FontWeight.w700),

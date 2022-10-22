@@ -5,10 +5,11 @@ class RoundedButton extends StatelessWidget {
   final Color colorOfButton;
   final void Function() onPress;
   const RoundedButton({
+    Key? key,
     required this.nameOfButton,
     required this.colorOfButton,
     required this.onPress,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

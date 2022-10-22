@@ -18,7 +18,6 @@ class AccountsListView2 extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size;
     size = MediaQuery.of(context).size;
-    var height = size.height;
     var width = size.width;
     List<Account> accountsList =
         Provider.of<AccountData>(context, listen: false).accounts;

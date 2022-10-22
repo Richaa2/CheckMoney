@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:project2/account_page/buttons/expenses_icon_button.dart';
 
@@ -83,9 +83,7 @@ class ExpenseGridView extends StatelessWidget {
                   ),
                 );
               }
-              if (snapshot1.hasError) {
-                print(snapshot1.error);
-              }
+              if (snapshot1.hasError) {}
               return const Center(child: Text('Please add some expense kind'));
             }),
           );

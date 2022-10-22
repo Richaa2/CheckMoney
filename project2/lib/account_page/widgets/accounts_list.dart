@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:should_rebuild/should_rebuild.dart' as re;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -22,7 +21,8 @@ import 'accounts_tile.dart';
 
 class AccountsListView extends StatelessWidget {
   int? sum;
-  AccountsListView({Key? key, this.sum}) : super(key: key);
+
+  AccountsListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,6 @@ class AccountsListView extends StatelessWidget {
 
                       Size size;
                       size = MediaQuery.of(context).size;
-                      var height = size.height;
                       var width = size.width;
 
                       return BlocConsumer<AccountBloc, AccountState>(
@@ -73,7 +72,6 @@ class AccountsListView extends StatelessWidget {
                             log(state.toString());
 
                             if (state is AccountLoadedState) {
-                              print(99);
                               // ScaffoldMessenger.of(context).showSnackBar(
                               //   const SnackBar(
                               //     content: Text('Users is Loaded'),
@@ -94,7 +92,7 @@ class AccountsListView extends StatelessWidget {
 
                               accountBloc.add(AccountLoadEvent());
 
-                              return Center(
+                              return const Center(
                                 child: CircularProgressIndicator(),
                               );
                             }
@@ -115,7 +113,6 @@ class AccountsListView extends StatelessWidget {
                                 snapshot.hasData &&
                                 snapshot.data!.size > 0 &&
                                 accountsList.length != accounts.length) {
-                              print('snapshot has data');
                               // List<Account> accountsList = accountData.accounts;
                               // final accounts = snapshot.data!.docs;
                               // final accountsLast = snapshot.data!.docs.last;
@@ -148,8 +145,6 @@ class AccountsListView extends StatelessWidget {
                               }
 
                               FlutterNativeSplash.remove();
-                              List<Account> accountsListState =
-                                  state.loadedAccount;
                             } else if (!snapshot.hasData ||
                                 snapshot.hasData && snapshot.data!.size == 0) {
                               return const Center(
@@ -169,13 +164,11 @@ class AccountsListView extends StatelessWidget {
                                 );
                               }
                               FlutterNativeSplash.remove();
-                              List<Account> accountsListState =
-                                  state.loadedAccount;
-                              return re.ShouldRebuild<listViewBuild>(
+                              return re.ShouldRebuild<ListViewBuild>(
                                 shouldRebuild: ((oldWidget, newWidget) =>
                                     oldWidget.accountsListState.last.q !=
                                     newWidget.accountsListState.length),
-                                child: listViewBuild(
+                                child: ListViewBuild(
                                   sum: sum,
                                   accountsListState: accountData.accounts,
                                   width: width,
@@ -204,8 +197,8 @@ class AccountsListView extends StatelessWidget {
   }
 }
 
-class listViewBuild extends StatelessWidget {
-  const listViewBuild({
+class ListViewBuild extends StatelessWidget {
+  const ListViewBuild({
     Key? key,
     required this.sum,
     required this.accountsListState,
@@ -223,7 +216,6 @@ class listViewBuild extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       itemBuilder: (context, index) {
-        print('Listview');
         accountData.updateIndex(index, snapshot);
 
         if (index == 0) {
@@ -260,8 +252,6 @@ class listViewBuild extends StatelessWidget {
                       : null,
                   account: accountsListState[index],
                   onTap: () {
-                    print(accountsListState[index].money);
-
                     showModalBottomSheetMetod(
                         context,
                         ControlAccountScreen(
@@ -289,8 +279,6 @@ class listViewBuild extends StatelessWidget {
                 : null,
             account: accountsListState[index],
             onTap: () {
-              print(accountsListState[index].money);
-
               showModalBottomSheetMetod(
                   context,
                   ControlAccountScreen(

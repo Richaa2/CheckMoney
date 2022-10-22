@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project2/bloc/account_bloc.dart';
-import 'package:project2/bloc/account_event.dart';
 
 import 'package:project2/control_amount/num_pad.dart';
 
@@ -11,7 +8,6 @@ import 'package:project2/models/account.dart';
 import 'package:project2/models/account_data.dart';
 import 'package:project2/widgets/show_modal_buttom_sheet_metod.dart';
 
-import '../../auth/bloc/auth_bloc.dart';
 import '../widgets/app_bar_content.dart';
 import '../widgets/list_tile_add_screen.dart';
 
@@ -223,7 +219,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                   onTap: () {
                     showModalBottomSheetMetod(context,
                         Builder(builder: (context) {
-                      var user;
+                      String user;
                       user = Provider.of<AccountData>(
                         context,
                       ).userInput;

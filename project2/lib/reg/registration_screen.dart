@@ -1,19 +1,15 @@
 import 'dart:developer';
 
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
 import 'package:project2/main_page.dart';
-import 'package:project2/models/account.dart';
-import 'package:project2/models/account_data.dart';
+
 import 'package:project2/reg/button/rounded_button.dart';
 import 'package:project2/reg/login_screen.dart';
 import 'package:project2/utils.dart';
-import 'package:provider/provider.dart';
 
 import '../auth/bloc/auth_bloc.dart';
 
@@ -31,8 +27,6 @@ class RegistrationScreenState extends State<RegistrationScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  final _auth = FirebaseAuth.instanceFor(app: secondaryApp);
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -45,7 +39,6 @@ class RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(FirebaseAuth.instance.currentUser);
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {

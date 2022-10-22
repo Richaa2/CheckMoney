@@ -5,9 +5,9 @@ class AppBarContent extends StatelessWidget {
   // String inputName = 'without name';
   // int inputMoney = 0;
   final Widget textField;
-  int acExIn;
+  final int acExIn;
 
-  AppBarContent({
+  const AppBarContent({
     Key? key,
     required this.done,
     required this.textField,
@@ -39,7 +39,7 @@ class AppBarContent extends StatelessWidget {
                     : acExIn == 2
                         ? 'New Expense'
                         : 'New Income',
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 18),

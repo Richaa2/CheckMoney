@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:project2/main_page.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +46,6 @@ class AddAmount extends StatelessWidget {
 
                       return WillPopScope(
                         onWillPop: () async {
-                          print(123);
                           Provider.of<AccountData>(context, listen: false)
                               .userInput = '';
                           // Navigator.popAndPushNamed(context, '/');

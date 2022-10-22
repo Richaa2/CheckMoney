@@ -12,8 +12,8 @@ class _DialogWidgetState extends State<DialogWidget> {
   SingingAccount? _account;
   @override
   Widget build(BuildContext context) {
-    var height;
-    var width;
+    double height;
+    double width;
     Size size;
     size = MediaQuery.of(context).size;
     height = size.height;

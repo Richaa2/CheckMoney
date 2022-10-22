@@ -7,7 +7,7 @@ import 'package:project2/control_amount/edit_amount.dart';
 import 'package:project2/models/account.dart';
 
 class ControlAccountScreen extends StatelessWidget {
-  ControlAccountScreen({
+  const ControlAccountScreen({
     Key? key,
     required this.index,
   }) : super(key: key);
@@ -18,19 +18,19 @@ class ControlAccountScreen extends StatelessWidget {
     Size size;
     size = MediaQuery.of(context).size;
     var height = size.height;
-    var width = size.width;
+
     return SizedBox(
       height: height / 5,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Spacer(
+          const Spacer(
             flex: 1,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Spacer(
+              const Spacer(
                 flex: 4,
               ),
               IconButton(
@@ -43,7 +43,7 @@ class ControlAccountScreen extends StatelessWidget {
                 ),
                 title: 'Recharge',
               ),
-              Spacer(
+              const Spacer(
                 flex: 2,
               ),
               IconButton(
@@ -56,7 +56,7 @@ class ControlAccountScreen extends StatelessWidget {
                 ),
                 title: 'Withdraw',
               ),
-              Spacer(
+              const Spacer(
                 flex: 2,
               ),
               IconButton(
@@ -68,7 +68,7 @@ class ControlAccountScreen extends StatelessWidget {
                 ),
                 title: 'Edit',
               ),
-              Spacer(
+              const Spacer(
                 flex: 2,
               ),
               IconButton(
@@ -80,12 +80,12 @@ class ControlAccountScreen extends StatelessWidget {
                 ),
                 title: 'Transfer',
               ),
-              Spacer(
+              const Spacer(
                 flex: 4,
               ),
             ],
           ),
-          Spacer(
+          const Spacer(
             flex: 1,
           ),
         ],

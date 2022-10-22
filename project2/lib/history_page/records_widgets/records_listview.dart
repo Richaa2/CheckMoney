@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:project2/main_page.dart';
@@ -197,8 +196,8 @@ class RecordsListView extends StatelessWidget {
       );
     }
     if (snapshot.hasError) {
+      // ignore: avoid_print
       print(snapshot.error);
-      //! do any error handling here
     }
     return ListView();
   }

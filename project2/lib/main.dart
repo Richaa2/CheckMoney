@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -29,10 +28,12 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
@@ -61,8 +62,8 @@ class MyApp extends StatelessWidget {
                       FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3'))
                                   .currentUser ==
                               null
-                          ? WelcomeScreen()
-                          : MainPage(),
+                          ? const WelcomeScreen()
+                          : const MainPage(),
 
                   // initialRoute:
                   // FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3'))
