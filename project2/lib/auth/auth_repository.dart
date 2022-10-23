@@ -4,7 +4,7 @@ import 'package:project2/main_page.dart';
 
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instanceFor(app: secondaryApp);
-  late final GoogleSignIn _googleSignIn;
+  // late final GoogleSignIn _googleSignIn;
 
   void regUser(String email) {
     String uid = FirebaseAuth.instanceFor(app: secondaryApp).currentUser!.uid;
@@ -73,7 +73,7 @@ class AuthRepository {
   Future<void> signOut() async {
     try {
       await _firebaseAuth.signOut();
-      await _googleSignIn.signOut();
+      // await _googleSignIn.signOut();
     } catch (e) {
       throw Exception(e);
     }

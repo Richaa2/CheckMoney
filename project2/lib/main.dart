@@ -36,6 +36,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3')).signOut();
+    print(
+        FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3')).currentUser);
+
     return RepositoryProvider(
         create: (context) => AuthRepository(),
         child: ChangeNotifierProvider(

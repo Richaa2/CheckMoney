@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project2/main_page.dart';
@@ -48,7 +50,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('${auth.currentUser!.email}'),
+                      Text(auth.currentUser != null
+                          ? '${auth.currentUser!.email}'
+                          : ''),
                       Text(name),
                     ],
                   ),
@@ -100,15 +104,17 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   leading: const Icon(Icons.exit_to_app),
                   title: const Text('Sign out'),
                   onTap: () => {
-                    BlocProvider.of<AuthBloc>(context).add(SignOutRequested()),
-                    Provider.of<AccountData>(context, listen: false)
-                        .clearLists(),
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute<void>(
                           builder: (BuildContext context) =>
                               const WelcomeScreen()),
                       ModalRoute.withName('/'),
-                    )
+                    ),
+                    // FirebaseAuth.instanceFor(app: Firebase.app('CheckMoney3'))
+                    //     .signOut(),
+                    BlocProvider.of<AuthBloc>(context).add(SignOutRequested()),
+                    Provider.of<AccountData>(context, listen: false)
+                        .clearLists(),
                   },
                 ),
               ],

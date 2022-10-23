@@ -32,8 +32,6 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   final _auth = FirebaseAuth.instanceFor(app: secondaryApp);
-  // late String email;
-  // late String password;
 
   @override
   Widget build(BuildContext context) {
