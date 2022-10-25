@@ -34,4 +34,4 @@ My First pet project
 <img src="https://i.postimg.cc/CKZykdcT/Screenshot-1.png" width = "250">
 
 ## History
-<img src="https://i.postimg.cc/fyjrPL8m/Screenshot-1666694130.png" width = "250">
+<img src="https://i.postimg.cc/Pq2dvwN7/2022-08-05-102103.png" width = "250">
