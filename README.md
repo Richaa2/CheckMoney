@@ -32,3 +32,6 @@ My First pet project
 
 ## Calculate amount
 <img src="https://i.postimg.cc/CKZykdcT/Screenshot-1.png" width = "250">
+
+## History
+<img src="https://i.postimg.cc/fyjrPL8m/Screenshot-1666694130.png" width = "250">
