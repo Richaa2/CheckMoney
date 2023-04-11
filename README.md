@@ -7,7 +7,7 @@ My First pet project
 #### Dart
 #### Flutter
 #### provider
-#### firebase frestore,
+#### firebase firestore,
 #### firebase authentcaton
 
 
